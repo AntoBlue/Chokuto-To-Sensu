@@ -8,7 +8,7 @@ public class ChangeScene : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Il nome della scena del menu principale.")]
-    private string mainmenuSceneName = "MainMenu"; // Nome di default per la scena del menu principale
+    private string mainmenuSceneName = "MainMenuScene"; // Nome di default per la scena del menu principale
 
     [SerializeField]
     [Tooltip("Il nome della scena di gioco principale.")]
