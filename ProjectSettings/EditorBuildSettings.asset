@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: 14589244617dc3043a423b8a680b2779
+  - enabled: 1
+    path: Assets/Scenes/PauseTestScene.unity
+    guid: 31aaa5ba5add4774292bfcc8423e2f7f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
