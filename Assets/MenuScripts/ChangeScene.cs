@@ -1,3 +1,5 @@
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,21 +8,29 @@ public class ChangeScene : MonoBehaviour
     // --- Campi Serializzati ---
     // Questi campi appariranno nell'Inspector di Unity e potranno essere assegnati lì.
 
-    [SerializeField]
-    [Tooltip("Il nome della scena del menu principale.")]
+    [SerializeField] [Tooltip("Il nome della scena del menu principale.")]
+    private SceneAsset MenuScene;
     private string mainmenuSceneName = "MainMenuScene"; // Nome di default per la scena del menu principale
 
     [SerializeField]
     [Tooltip("Il nome della scena di gioco principale.")]
+    private SceneAsset GameScene;
     private string gameSceneName = "GameScene";   // Nome di default per la scena di gioco
 
     [SerializeField]
     [Tooltip("La Canvas che rappresenta il menu di pausa. Verrà disabilitata/abilitata.")]
     private GameObject pauseCanvas; // Riferimento all'oggetto GameObject della Canvas di Pausa
 
+
+    void Start()
+    {
+        gameSceneName = GameScene.name;
+        mainmenuSceneName = MenuScene.name;
+    }
     // --- Funzioni Pubbliche ---
     // Queste funzioni possono essere richiamate da altri script o da eventi UI (es. pulsanti).
-
+    
+    
     /// <summary>
     /// Carica la scena specificata in 'mainmenuSceneName'.
     /// </summary>

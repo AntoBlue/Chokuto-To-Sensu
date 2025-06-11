@@ -7,6 +7,8 @@ public class FontSizeController : MonoBehaviour
     // We use TMP_Text to be compatible with both TextMeshPro - Text (for 3D)
     // and TextMeshPro - UGUI (for UI).
     private TMP_Text tmpText;
+    [SerializeField] float maxFontSize=86;
+    [SerializeField] float minFontSize=65;
     
     void Start()
     {
@@ -29,7 +31,7 @@ public class FontSizeController : MonoBehaviour
         // Checks if the tmpText reference is valid before using it.
         if (tmpText != null)
         {
-            tmpText.fontSize = 88;
+            tmpText.fontSize = maxFontSize;
             Debug.Log($"Dimensione font impostata a 88 per: {gameObject.name}");
             // Font size set to 88 for: {gameObject.name}
         }
@@ -43,7 +45,7 @@ public class FontSizeController : MonoBehaviour
         // Checks if the tmpText reference is valid before using it.
         if (tmpText != null)
         {
-            tmpText.fontSize = 60;
+            tmpText.fontSize = minFontSize;
             Debug.Log($"Dimensione font impostata a 60 per: {gameObject.name}");
             // Font size set to 60 for: {gameObject.name}
         }

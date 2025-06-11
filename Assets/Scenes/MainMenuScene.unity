@@ -1250,6 +1250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 580090733}
+  - component: {fileID: 580090736}
   - component: {fileID: 580090735}
   - component: {fileID: 580090734}
   m_Layer: 5
@@ -1300,8 +1301,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
-  m_sharedMaterial: {fileID: -5970826620281792137, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
+  m_sharedMaterial: {fileID: 7896481398714490731, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1325,8 +1326,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1377,6 +1378,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580090732}
   m_CullTransparentMesh: 1
+--- !u!114 &580090736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580090732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056f34979dc2c714e97d6acf73a1ad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFontSize: 86
+  minFontSize: 65
 --- !u!1 &762478750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,6 +1631,7 @@ RectTransform:
   - {fileID: 1002660953}
   - {fileID: 1722094335}
   - {fileID: 1207244675}
+  - {fileID: 1470284755}
   - {fileID: 156726456}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1636,8 +1652,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a2c64a30612a345b8ef031734bbf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  referenceObjects: []
-  pointer: {fileID: 0}
+  referenceObjects:
+  - {fileID: 1722094334}
+  - {fileID: 1002660952}
+  - {fileID: 1819262754}
+  pointer: {fileID: 1207244674}
 --- !u!114 &786175495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1650,8 +1669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7063b70a1175fb43845691cd24fa12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainmenuSceneName: MainMenuScene
-  gameSceneName: PauseTestScene
+  MenuScene: {fileID: 102900000, guid: 14589244617dc3043a423b8a680b2779, type: 3}
+  GameScene: {fileID: 102900000, guid: 31aaa5ba5add4774292bfcc8423e2f7f, type: 3}
   pauseCanvas: {fileID: 0}
 --- !u!1 &805648797
 GameObject:
@@ -1662,6 +1681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805648798}
+  - component: {fileID: 805648801}
   - component: {fileID: 805648800}
   - component: {fileID: 805648799}
   m_Layer: 5
@@ -1712,8 +1732,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
-  m_sharedMaterial: {fileID: -5970826620281792137, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
+  m_sharedMaterial: {fileID: 7896481398714490731, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1737,8 +1757,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 86
+  m_fontSizeBase: 86
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1789,6 +1809,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805648797}
   m_CullTransparentMesh: 1
+--- !u!114 &805648801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805648797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056f34979dc2c714e97d6acf73a1ad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFontSize: 86
+  minFontSize: 65
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2095,7 @@ GameObject:
   - component: {fileID: 1002660956}
   - component: {fileID: 1002660955}
   - component: {fileID: 1002660954}
+  - component: {fileID: 1002660957}
   m_Layer: 5
   m_Name: Load Button
   m_TagString: Untagged
@@ -2170,6 +2205,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002660952}
   m_CullTransparentMesh: 1
+--- !u!114 &1002660957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002660952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1415917653}
+          m_TargetAssemblyTypeName: FontSizeController, Assembly-CSharp
+          m_MethodName: SetFontMaxSize
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 786175494}
+          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+          m_MethodName: PositionAtIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1415917653}
+          m_TargetAssemblyTypeName: FontSizeController, Assembly-CSharp
+          m_MethodName: SetFontMinSize
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 786175494}
+          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+          m_MethodName: DisablePointer
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1040785856
 GameObject:
   m_ObjectHideFlags: 0
@@ -2317,6 +2421,8 @@ GameObject:
   - component: {fileID: 1207244675}
   - component: {fileID: 1207244677}
   - component: {fileID: 1207244676}
+  - component: {fileID: 1207244679}
+  - component: {fileID: 1207244678}
   m_Layer: 5
   m_Name: Shuriken
   m_TagString: Untagged
@@ -2340,8 +2446,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -237, y: -50.60002}
-  m_SizeDelta: {x: 54.273, y: 54.273}
+  m_AnchoredPosition: {x: -272.11905, y: -50.000004}
+  m_SizeDelta: {x: 66.035, y: 66.035}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207244676
 MonoBehaviour:
@@ -2381,6 +2487,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207244674}
   m_CullTransparentMesh: 1
+--- !u!114 &1207244678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207244674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4eeadc29f4eb3240a146445560860cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceObjects:
+  - {fileID: 1722094334}
+  - {fileID: 1002660952}
+  - {fileID: 1819262754}
+--- !u!114 &1207244679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207244674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa24569ce2647a74ba8cb7d5d7d93719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: -120
+  rotationAxis: {x: 0, y: 0, z: 1}
 --- !u!1 &1231918210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2665,6 +2801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1415917650}
+  - component: {fileID: 1415917653}
   - component: {fileID: 1415917652}
   - component: {fileID: 1415917651}
   m_Layer: 5
@@ -2715,8 +2852,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Load Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
-  m_sharedMaterial: {fileID: -5970826620281792137, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
+  m_sharedMaterial: {fileID: 7896481398714490731, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2740,8 +2877,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -2791,6 +2928,95 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415917649}
+  m_CullTransparentMesh: 1
+--- !u!114 &1415917653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415917649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056f34979dc2c714e97d6acf73a1ad85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFontSize: 86
+  minFontSize: 65
+--- !u!1 &1470284754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470284755}
+  - component: {fileID: 1470284757}
+  - component: {fileID: 1470284756}
+  m_Layer: 5
+  m_Name: Chokuto
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1470284755
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470284754}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -4.4278593}
+  m_LocalScale: {x: 2.1892817, y: 2.1892817, z: 2.1892817}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 786175493}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -367.33, y: 221.4}
+  m_SizeDelta: {x: 350.3, y: 19.622}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1470284756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470284754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.4792453, g: 0, b: 0, a: 0.58431375}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 91b83e991a63a764385f99ed04df173e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1470284757
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470284754}
   m_CullTransparentMesh: 1
 --- !u!1 &1545279576
 GameObject:
@@ -2910,6 +3136,7 @@ GameObject:
   - component: {fileID: 1722094338}
   - component: {fileID: 1722094337}
   - component: {fileID: 1722094336}
+  - component: {fileID: 1722094339}
   m_Layer: 5
   m_Name: New Game Button
   m_TagString: Untagged
@@ -2980,7 +3207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1722094337}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 786175495}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: GoToGameScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1722094337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3019,6 +3258,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722094334}
   m_CullTransparentMesh: 1
+--- !u!114 &1722094339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722094334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 805648801}
+          m_TargetAssemblyTypeName: FontSizeController, Assembly-CSharp
+          m_MethodName: SetFontMaxSize
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 786175494}
+          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+          m_MethodName: PositionAtIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 805648801}
+          m_TargetAssemblyTypeName: FontSizeController, Assembly-CSharp
+          m_MethodName: SetFontMinSize
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 786175494}
+          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+          m_MethodName: DisablePointer
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1819262754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3031,6 +3339,7 @@ GameObject:
   - component: {fileID: 1819262758}
   - component: {fileID: 1819262757}
   - component: {fileID: 1819262756}
+  - component: {fileID: 1819262759}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -3140,6 +3449,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819262754}
   m_CullTransparentMesh: 1
+--- !u!114 &1819262759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819262754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 580090736}
+          m_TargetAssemblyTypeName: FontSizeController, Assembly-CSharp
+          m_MethodName: SetFontMaxSize
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 786175494}
+          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+          m_MethodName: PositionAtIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 580090736}
+          m_TargetAssemblyTypeName: FontSizeController, Assembly-CSharp
+          m_MethodName: SetFontMinSize
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 786175494}
+          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+          m_MethodName: DisablePointer
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1850860548
 GameObject:
   m_ObjectHideFlags: 0

@@ -1279,8 +1279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7063b70a1175fb43845691cd24fa12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainmenuSceneName: MainMenuScene
-  gameSceneName: PauseTestScene
+  MenuScene: {fileID: 102900000, guid: 14589244617dc3043a423b8a680b2779, type: 3}
+  GameScene: {fileID: 102900000, guid: 31aaa5ba5add4774292bfcc8423e2f7f, type: 3}
   pauseCanvas: {fileID: 476341279}
 --- !u!114 &476341285
 MonoBehaviour:
@@ -1496,8 +1496,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Load Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
-  m_sharedMaterial: {fileID: -5970826620281792137, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
+  m_sharedMaterial: {fileID: 7896481398714490731, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1585,6 +1585,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056f34979dc2c714e97d6acf73a1ad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxFontSize: 86
+  minFontSize: 65
 --- !u!1 &762478750
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,10 +2043,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Back to Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
-  m_sharedMaterial: {fileID: -5970826620281792137, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
+  m_sharedMaterial: {fileID: 7896481398714490731, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2132,6 +2134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056f34979dc2c714e97d6acf73a1ad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxFontSize: 86
+  minFontSize: 65
 --- !u!1 &1231918210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,8 +2826,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225.4, y: -50}
-  m_SizeDelta: {x: 77.772, y: 77.772}
+  m_AnchoredPosition: {x: -335, y: -49.99999}
+  m_SizeDelta: {x: 69.313, y: 69.313}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644697390
 MonoBehaviour:
@@ -3631,8 +3635,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Continue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
-  m_sharedMaterial: {fileID: -5970826620281792137, guid: fbb44cdde95d49543b0c9e143502f8fd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
+  m_sharedMaterial: {fileID: 7896481398714490731, guid: 506d81929d6b92c4ca6e4187247629ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3656,8 +3660,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 86
+  m_fontSizeBase: 86
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -3720,6 +3724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056f34979dc2c714e97d6acf73a1ad85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxFontSize: 86
+  minFontSize: 65
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
