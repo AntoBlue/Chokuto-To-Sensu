@@ -17,9 +17,20 @@ public class ProjectilePowerUp : MonoBehaviour
     {
         //GameObject player = Player.GetComponent<GameObject>();
         //PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
-        PlayerAttack playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
-        playerAttack.HasProjectile = true;
-        Destroy(gameObject);
+        if(gameObject.CompareTag("Projectile_PU"))
+        {
+            PlayerAttack playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+            playerAttack.HasProjectile = true;
+            Destroy(gameObject);
+        }
+
+        if (gameObject.CompareTag("ProjectileUpgrade_PU"))
+        {
+            PlayerAttack playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
+            playerAttack.HasUpgradeProjectile = true;
+            Destroy(gameObject);
+        }
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

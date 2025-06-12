@@ -5,6 +5,7 @@ public class PlayerProjectile : MonoBehaviour
 
     [SerializeField] private float life = 3;
     [SerializeField] public float _speed;
+    [SerializeField] private int damage;
     private Transform Player;
     [SerializeField] Rigidbody rb;
 
@@ -26,8 +27,15 @@ public class PlayerProjectile : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        //Destroy(collision.gameObject);
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            //damage interaction
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -5,14 +5,16 @@ public class PlayerAttack : MonoBehaviour
     //projectile
     [SerializeField] GameObject Projectile;
     [SerializeField] GameObject UpgradeProjectile;
+    [SerializeField] GameObject MeleeAttack;
 
-    [SerializeField] private float ProjectileSpeed;
-    [SerializeField] private float UpgradeProjectileSpeed;
+    private float ProjectileSpeed;
+    private float UpgradeProjectileSpeed;
+
 
     [SerializeField] private Transform projectileSpawnPoint; 
 
     public bool HasProjectile;
-    private bool HasUpgradeProjectile;
+    public bool HasUpgradeProjectile;
 
 
     //private void OnCollisionEnter(Collision other)
@@ -31,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (HasProjectile)
+        if (HasProjectile && HasUpgradeProjectile == false)
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -39,11 +41,21 @@ public class PlayerAttack : MonoBehaviour
                 Projectile.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
             }
         }
+
+        if(HasUpgradeProjectile)
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                var bullet = Instantiate(UpgradeProjectile, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                UpgradeProjectile.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
+            }
+        }
         
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-
+            var melee = Instantiate(MeleeAttack, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+            Destroy(melee, 0.5f);
         }
     }
 }
