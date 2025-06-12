@@ -19,7 +19,7 @@ public class CharacterMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation; // blocca la rotazione
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void Update()
@@ -32,8 +32,8 @@ public class CharacterMovement : MonoBehaviour
 
         // Ground check
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
-        // Flip del personaggio (se desiderato)
+        
+        // Flip personaggio
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         if (horizontalInput != 0)
         {
@@ -59,7 +59,7 @@ public class CharacterMovement : MonoBehaviour
             jumpPressed = false;
         }
 
-        // Gravità extra per caduta più reattiva
+        // Gravità 
         if (!isGrounded && rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
