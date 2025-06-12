@@ -18,6 +18,21 @@ public class ChangeScene : MonoBehaviour
     private string gameSceneName = "GameScene";   // Nome di default per la scena di gioco
 
     [SerializeField]
+    private SceneAsset CombatScene;
+    private string combatSceneName = "CombatScene"; // Nome di default per la scena del menu principale
+    
+    [SerializeField]
+    private SceneAsset StatuePowerScene;
+    private string statuePowerSceneName = "StatuePowerScene"; // Nome di default per la scena del menu principale
+    
+    
+    
+    
+    
+    
+    
+    
+    [SerializeField]
     [Tooltip("La Canvas che rappresenta il menu di pausa. Verrà disabilitata/abilitata.")]
     private GameObject pauseCanvas; // Riferimento all'oggetto GameObject della Canvas di Pausa
 
@@ -26,6 +41,9 @@ public class ChangeScene : MonoBehaviour
     {
         gameSceneName = GameScene.name;
         mainmenuSceneName = MenuScene.name;
+        combatSceneName = CombatScene.name;
+        statuePowerSceneName = StatuePowerScene.name;
+        
     }
     // --- Funzioni Pubbliche ---
     // Queste funzioni possono essere richiamate da altri script o da eventi UI (es. pulsanti).
@@ -64,6 +82,35 @@ public class ChangeScene : MonoBehaviour
             Debug.LogError("Il nome della scena 'GameScene' non è stato impostato! Si prega di configurarlo nell'Inspector.");
         }
     }
+    
+    public void GoToCombatScene()
+    {
+        // Controlla se il nome della scena è valido (non vuoto)
+        if (!string.IsNullOrEmpty(combatSceneName))
+        {
+            Debug.Log($"Caricamento scena: {combatSceneName}");
+            SceneManager.LoadScene(combatSceneName);
+        }
+        else
+        {
+            Debug.LogError("Il nome della scena 'combatScene' non è stato impostato! Si prega di configurarlo nell'Inspector.");
+        }
+    }
+    
+    public void GoToStatueScene()
+    {
+        // Controlla se il nome della scena è valido (non vuoto)
+        if (!string.IsNullOrEmpty(statuePowerSceneName))
+        {
+            Debug.Log($"Caricamento scena: {statuePowerSceneName}");
+            SceneManager.LoadScene(statuePowerSceneName);
+        }
+        else
+        {
+            Debug.LogError("Il nome della scena 'statuePowerScene' non è stato impostato! Si prega di configurarlo nell'Inspector.");
+        }
+    }
+    
 
     /// <summary>
     /// Disabilita la Canvas di pausa.
