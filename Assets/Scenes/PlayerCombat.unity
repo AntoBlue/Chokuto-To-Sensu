@@ -906,6 +906,10 @@ PrefabInstance:
       value: 0.742
       objectReference: {fileID: 0}
     - target: {fileID: 8677755691503715114, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
+      propertyPath: MeleeAttack
+      value: 
+      objectReference: {fileID: 5879519746967399198, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
+    - target: {fileID: 8677755691503715114, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
       propertyPath: _projectileSpeed
       value: 5
       objectReference: {fileID: 0}

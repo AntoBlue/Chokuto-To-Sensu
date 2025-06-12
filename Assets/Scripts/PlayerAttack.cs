@@ -5,8 +5,9 @@ public class PlayerAttack : MonoBehaviour
     //projectile
     [SerializeField] GameObject Projectile;
     [SerializeField] GameObject UpgradeProjectile;
+    [SerializeField] GameObject MeleeAttack;
 
-     private float ProjectileSpeed;
+    private float ProjectileSpeed;
      private float UpgradeProjectileSpeed;
 
     [SerializeField] private Transform projectileSpawnPoint; 
@@ -52,7 +53,8 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-
+            var melee = Instantiate(MeleeAttack, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+            Destroy(melee, 0.5f);
         }
     }
 }
