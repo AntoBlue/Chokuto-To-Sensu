@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
 
     [SerializeField] private Transform projectileSpawnPoint; 
 
-    private bool HasProjectile;
+    public bool HasProjectile;
     private bool HasUpgradeProjectile;
 
 
@@ -31,10 +31,19 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (HasProjectile)
         {
-            var bullet = Instantiate(Projectile, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-            Projectile.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                var bullet = Instantiate(Projectile, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+                Projectile.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
+            }
+        }
+        
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+
         }
     }
 }
