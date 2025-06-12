@@ -1,0 +1,215 @@
+// Script principale: gestisce la pausa e la selezione dei bottoni del menu pausa
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections;
+
+public class PauseManager : MonoBehaviour
+{
+    [Header("UI References")]
+    [SerializeField] private GameObject pauseCanvas;
+    [SerializeField] private Button[] buttons;
+    [SerializeField] private GameObject pointer;
+    private YPositionMover pointerMover;
+    
+    [Header("Input Asset")]
+    [SerializeField] private InputActionAsset inputAsset;
+
+    private EventSystem eventSystem;
+    private int selectedIndex = 0;
+    private bool isPaused = false;
+    // This is the array that will contain the TextMeshPro references of the buttons.
+    private FontSizeController[] buttonTextControllers;
+
+    
+    /// <summary>
+    /// Player input
+    /// </summary>
+    [SerializeField] private string gameplayMapName = "Player";
+    [SerializeField] private string uiMapName = "UI";
+    private InputActionMap gameplayMap;
+    private InputActionMap uiMap;
+    private InputAction navigateAction;
+    private InputAction submitAction;
+    
+    private float navigationCooldown = 0.2f;
+    private float lastNavigationTime = 0f;
+
+    void Start()
+    {
+        eventSystem = EventSystem.current;
+
+        gameplayMap = inputAsset.FindActionMap(gameplayMapName, true);
+        uiMap = inputAsset.FindActionMap(uiMapName, true);
+
+        navigateAction = uiMap.FindAction("Navigate", true);
+        submitAction = uiMap.FindAction("Submit", true);
+
+        pauseCanvas.SetActive(false);
+        pointerMover = pointer.GetComponent<YPositionMover>();
+        loadTmpTexts();//carica i tmpControllers
+    }
+
+    //take input from array
+    void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (isPaused ) ResumeGame();
+            else PauseGame();
+        }
+
+        if (!isPaused) return;
+
+        if (Time.unscaledTime - lastNavigationTime > navigationCooldown)
+        {
+            Vector2 nav = navigateAction.ReadValue<Vector2>();
+
+            if (nav.y > 0.5f)
+            {
+                ChangeSelection(-1);
+                lastNavigationTime = Time.unscaledTime;
+            }
+            else if (nav.y < -0.5f)
+            {
+                ChangeSelection(1);
+                lastNavigationTime = Time.unscaledTime;
+            }
+        }
+
+        if (submitAction.triggered)
+        {
+            buttons[selectedIndex].onClick.Invoke();
+        }
+    }
+
+    void ChangeSelection(int direction)
+    {
+        
+        if (buttons.Length == 0) return;
+
+        // Diminuisci font dell'attuale selezionato
+        buttonTextControllers[selectedIndex].SetFontMinSize();
+
+        // Calcola nuovo indice in modo sicuro
+        selectedIndex += direction;
+
+        if (selectedIndex < 0)
+            selectedIndex = buttons.Length - 1;
+        else if (selectedIndex >= buttons.Length)
+            selectedIndex = 0;
+
+        // Applica effetti grafici e spostamento
+        PositionAtIndex(selectedIndex);
+        buttonTextControllers[selectedIndex].SetFontMaxSize();
+
+        // Imposta il bottone selezionato anche per EventSystem (utile per tastiera)
+        eventSystem.SetSelectedGameObject(buttons[selectedIndex].gameObject);
+    }
+
+    void PauseGame()
+    {
+        Time.timeScale = 0f;
+        gameplayMap.Disable();
+        uiMap.Enable();
+
+        pauseCanvas.SetActive(true);
+        selectedIndex = 0;
+         // oppure EnablePointer();
+        
+        //pointer.transform.position = buttons[selectedIndex].transform.position;
+        buttonTextControllers[selectedIndex].SetFontMaxSize();
+
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        pauseCanvas.SetActive(false);
+        Time.timeScale = 1f;
+        gameplayMap.Enable();
+        uiMap.Disable();
+        pointer.SetActive(true);
+        pointerMover.SetYPositionByIndex(selectedIndex);
+        buttonTextControllers[selectedIndex].SetFontMinSize();
+        isPaused = false;
+    }
+
+    
+    public void EnablePointer() => pointer.SetActive(true);
+    
+    
+    public void PositionAtIndex(int index)
+    {
+        for (int i = 0; i < buttonTextControllers.Length; i++)
+        {
+            if(i!=index)
+                buttonTextControllers[i].SetFontMinSize();
+        }
+        
+        if (index > buttons.Length - 1 || index < 0)
+        {
+            return;
+        }
+        else
+        {
+            selectedIndex = index;
+        }
+
+        pointer.SetActive(true);
+        pointerMover.SetYPositionByIndex(index);
+    }
+
+    public void DisablePointer()
+    {
+        for (int i = 0; i < buttonTextControllers.Length; i++)
+        {
+            buttonTextControllers[i].SetFontMinSize();
+        }
+        pointer.SetActive(false);
+    }
+    
+    void loadTmpTexts()
+    {
+        // Checks if the buttons array has been assigned in the Inspector.
+        if (buttons == null || buttons.Length == 0)
+        {
+            Debug.LogWarning("L'array 'buttons' non è stato impostato o è vuoto! " +
+                             "Impossibile estrarre i riferimenti TextMeshPro. Si prega di riempirlo nell'Inspector.", this);
+            return;
+        }
+
+        // Initializes the buttonTexts array with the same size as the input 'buttons' array.
+        buttonTextControllers = new FontSizeController[buttons.Length];
+
+        // Iterate through each button in the 'buttons' array.
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            GameObject currentButton = buttons[i].gameObject;
+
+            if (currentButton != null)
+            {
+
+                // Find the TextMeshProUGUI component among the children of the current button.
+                // GetComponentInChildren<T>() searches in the current GameObject and all its children.
+                FontSizeController tmpChildController = currentButton.GetComponentInChildren<FontSizeController>();
+
+                if (tmpChildController != null)
+                {
+                    buttonTextControllers[i] = tmpChildController; // Assegna il riferimento TextMeshPro trovato.
+                }
+                else
+                {
+                    Debug.LogWarning($"Nessun componente TextMeshPro (o TMP_Text) trovato come figlio di '{currentButton.name}' all'indice {i}. " +
+                                     "Assicurati che il tuo TextMeshPro sia un figlio del bottone.", currentButton);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Il GameObject del bottone all'indice {i} è nullo nell'array 'buttons'. Saltando questo elemento.", this);
+            }
+        }
+
+    }
+}

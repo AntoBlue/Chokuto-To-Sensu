@@ -119,6 +119,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &23849342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23849343}
+  - component: {fileID: 23849344}
+  m_Layer: 0
+  m_Name: PauseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &23849343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23849342}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.4400005, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &23849344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23849342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4956ba8082599ca43b40bd0bc8ec1c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseCanvas: {fileID: 476341279}
+  buttons:
+  - {fileID: 1788424402}
+  - {fileID: 194671030}
+  - {fileID: 1727641638}
+  pointer: {fileID: 1644697388}
+  inputAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  gameplayMapName: Player
+  uiMapName: UI
 --- !u!1 &42101111
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9924528, g: 0.94684577, b: 0.8070701, a: 0.81960785}
+  m_Color: {r: 0.9924528, g: 0.94684577, b: 0.8070701, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -739,8 +792,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 476341285}
-          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+        - m_Target: {fileID: 23849344}
+          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
           m_MethodName: PositionAtIndex
           m_Mode: 3
           m_Arguments:
@@ -767,8 +820,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 476341285}
-          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+        - m_Target: {fileID: 23849344}
+          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
           m_MethodName: DisablePointer
           m_Mode: 1
           m_Arguments:
@@ -1171,7 +1224,6 @@ GameObject:
   - component: {fileID: 476341281}
   - component: {fileID: 476341280}
   - component: {fileID: 476341284}
-  - component: {fileID: 476341285}
   m_Layer: 5
   m_Name: PauseCanvas
   m_TagString: Untagged
@@ -1282,23 +1334,6 @@ MonoBehaviour:
   MenuScene: {fileID: 102900000, guid: 14589244617dc3043a423b8a680b2779, type: 3}
   GameScene: {fileID: 102900000, guid: 31aaa5ba5add4774292bfcc8423e2f7f, type: 3}
   pauseCanvas: {fileID: 476341279}
---- !u!114 &476341285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 476341279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6a2c64a30612a345b8ef031734bbf84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  referenceObjects:
-  - {fileID: 1788424400}
-  - {fileID: 194671028}
-  - {fileID: 1727641636}
-  pointer: {fileID: 1644697388}
 --- !u!1 &517815205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3060,8 +3095,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 476341285}
-          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+        - m_Target: {fileID: 23849344}
+          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
           m_MethodName: PositionAtIndex
           m_Mode: 3
           m_Arguments:
@@ -3088,8 +3123,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 476341285}
-          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+        - m_Target: {fileID: 23849344}
+          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
           m_MethodName: DisablePointer
           m_Mode: 1
           m_Arguments:
@@ -3184,9 +3219,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 476341284}
-        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: StopPause
+      - m_Target: {fileID: 23849344}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3263,8 +3298,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 476341285}
-          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+        - m_Target: {fileID: 23849344}
+          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
           m_MethodName: PositionAtIndex
           m_Mode: 3
           m_Arguments:
@@ -3291,8 +3326,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 476341285}
-          m_TargetAssemblyTypeName: MenuPositioner, Assembly-CSharp
+        - m_Target: {fileID: 23849344}
+          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
           m_MethodName: DisablePointer
           m_Mode: 1
           m_Arguments:
@@ -3736,3 +3771,4 @@ SceneRoots:
   - {fileID: 1545279580}
   - {fileID: 476341283}
   - {fileID: 1281756747}
+  - {fileID: 23849343}

@@ -7,7 +7,7 @@ public class YPositionMover : MonoBehaviour
     private GameObject[] referenceObjects;
     private float[] yPositions;
 
-    void Start()
+    void Awake()
     {
         
         if (referenceObjects == null || referenceObjects.Length == 0)

@@ -10,6 +10,6 @@ public class Spinning : MonoBehaviour
     
     void Update()
     {
-        transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
+        transform.Rotate(rotationAxis, rotationSpeed * Time.unscaledDeltaTime);
     }
 }
