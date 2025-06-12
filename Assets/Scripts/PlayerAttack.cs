@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject MeleeAttack;
 
     private float ProjectileSpeed;
-     private float UpgradeProjectileSpeed;
+    private float UpgradeProjectileSpeed;
 
     [SerializeField] private Transform projectileSpawnPoint; 
 

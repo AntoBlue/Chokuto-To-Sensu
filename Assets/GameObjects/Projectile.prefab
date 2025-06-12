@@ -151,4 +151,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 3
   _speed: 25
+  damage: 1
   rb: {fileID: 3684483461483578664}
