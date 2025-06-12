@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
 
+
     [SerializeField] private Transform projectileSpawnPoint; 
 
     public bool HasProjectile;
