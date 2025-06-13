@@ -35,7 +35,37 @@ public class PauseManager : MonoBehaviour
     
     private float navigationCooldown = 0.2f;
     private float lastNavigationTime = 0f;
+    
+    [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] private string actionMapName = "Player";
+    [SerializeField] private string pauseActionName = "Pause";
+    private InputAction pauseAction;
 
+    private void OnEnable()
+    {
+        var map = inputActions.FindActionMap(actionMapName, true);
+        pauseAction = map.FindAction(pauseActionName, true);
+        pauseAction.Enable();
+        pauseAction.performed += OnPausePressed;
+    }
+
+    private void OnDisable()
+    {
+        if (pauseAction != null)
+        {
+            pauseAction.performed -= OnPausePressed;
+            pauseAction.Disable();
+        }
+    }
+    
+    private void OnPausePressed(InputAction.CallbackContext ctx)
+    {
+        if (isPaused)
+            ResumeGame();
+        else
+            PauseGame();
+    }
+    
     void Start()
     {
         eventSystem = EventSystem.current;
@@ -54,11 +84,11 @@ public class PauseManager : MonoBehaviour
     //take input from array
     void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        /*if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (isPaused ) ResumeGame();
             else PauseGame();
-        }
+        }*/
 
         if (!isPaused) return;
 
