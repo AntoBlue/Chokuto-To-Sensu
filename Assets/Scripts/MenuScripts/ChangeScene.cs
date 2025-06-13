@@ -19,13 +19,19 @@ public class ChangeScene : MonoBehaviour
 
     [SerializeField]
     private SceneAsset CombatScene;
-    private string combatSceneName = "CombatScene"; // Nome di default per la scena del menu principale
+    private string combatSceneName = "CombatScene"; 
     
     [SerializeField]
     private SceneAsset StatuePowerScene;
-    private string statuePowerSceneName = "StatuePowerScene"; // Nome di default per la scena del menu principale
+    private string statuePowerSceneName = "StatuePowerScene"; 
     
+    [SerializeField]
+    private SceneAsset CameraFollowScene;
+    private string CameraFollowSceneName = "CameraFollowScene";
     
+    [SerializeField]
+    private SceneAsset AIScene;
+    private string AISceneName = "AIScene"; 
     
     
     
@@ -43,6 +49,8 @@ public class ChangeScene : MonoBehaviour
         mainmenuSceneName = MenuScene.name;
         combatSceneName = CombatScene.name;
         statuePowerSceneName = StatuePowerScene.name;
+        CameraFollowSceneName = CameraFollowScene.name;
+        AISceneName = AIScene.name;
         
     }
     // --- Funzioni Pubbliche ---
@@ -97,6 +105,20 @@ public class ChangeScene : MonoBehaviour
         }
     }
     
+    public void GoToCameraFollowScene()
+    {
+        // Controlla se il nome della scena è valido (non vuoto)
+        if (!string.IsNullOrEmpty(CameraFollowSceneName))
+        {
+            Debug.Log($"Caricamento scena: {CameraFollowSceneName}");
+            SceneManager.LoadScene(CameraFollowSceneName);
+        }
+        else
+        {
+            Debug.LogError("Il nome della scena 'GoToCameraFollowScene' non è stato impostato! Si prega di configurarlo nell'Inspector.");
+        }
+    }
+    
     public void GoToStatueScene()
     {
         // Controlla se il nome della scena è valido (non vuoto)
@@ -108,6 +130,20 @@ public class ChangeScene : MonoBehaviour
         else
         {
             Debug.LogError("Il nome della scena 'statuePowerScene' non è stato impostato! Si prega di configurarlo nell'Inspector.");
+        }
+    }
+    
+    public void GoToAIScene()
+    {
+        // Controlla se il nome della scena è valido (non vuoto)
+        if (!string.IsNullOrEmpty(AISceneName))
+        {
+            Debug.Log($"Caricamento scena: {AISceneName}");
+            SceneManager.LoadScene(AISceneName);
+        }
+        else
+        {
+            Debug.LogError("Il nome della scena 'AIScene' non è stato impostato! Si prega di configurarlo nell'Inspector.");
         }
     }
     

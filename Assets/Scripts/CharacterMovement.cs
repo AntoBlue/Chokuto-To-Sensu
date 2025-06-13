@@ -107,9 +107,9 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // Gravità 
-        if (!isGrounded && rb.velocity.y < 0)
+        if (!isGrounded && rb.linearVelocity.y < 0)
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
         }
     }
 
