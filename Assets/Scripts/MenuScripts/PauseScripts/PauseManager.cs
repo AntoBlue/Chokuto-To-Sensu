@@ -39,31 +39,47 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private string actionMapName = "Player";
     [SerializeField] private string pauseActionName = "Pause";
-    private InputAction pauseAction;
+    private InputAction pauseActionGameplay;
+    
 
     private void OnEnable()
     {
-        var map = inputActions.FindActionMap(actionMapName, true);
-        pauseAction = map.FindAction(pauseActionName, true);
-        pauseAction.Enable();
-        pauseAction.performed += OnPausePressed;
+        var playerMap = inputActions.FindActionMap(actionMapName, true);
+        
+
+        pauseActionGameplay = playerMap.FindAction(pauseActionName, true);
+        
+
+        pauseActionGameplay.Enable();
+        
+
+        pauseActionGameplay.performed += OnPausePressed;
+        
     }
 
     private void OnDisable()
     {
-        if (pauseAction != null)
+        if (pauseActionGameplay != null)
         {
-            pauseAction.performed -= OnPausePressed;
-            pauseAction.Disable();
+            pauseActionGameplay.performed -= OnPausePressed;
+            pauseActionGameplay.Disable();
         }
+        
     }
     
     private void OnPausePressed(InputAction.CallbackContext ctx)
     {
         if (isPaused)
+        {
+            Debug.Log("Resume Pressed");
             ResumeGame();
+        }
         else
+        {
+            Debug.Log("Pause Pressed");
             PauseGame();
+        }
+            
     }
     
     void Start()
