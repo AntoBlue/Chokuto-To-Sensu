@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
     public float moveSpeed = 5f;
     private float airMoveSpeed = 7f;
     public float jumpForce = 7f;
-    public float gravityMultiplier = 2f;
+    public float gravityMultiplier = 3f;
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -23,6 +23,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private string actionMapName = "Player"; // o il nome che hai usato
     [SerializeField] private string jumpActionName = "Jump";
     private InputAction jumpAction;
+    [SerializeField] private float ascentGravityMultiplier = 1.5f;  // gravità in salita (rende il salto più secco)
+      
   
     private void OnEnable()
     {
@@ -107,9 +109,26 @@ public class CharacterMovement : MonoBehaviour
         }
 
         // Gravità 
-        if (!isGrounded && rb.linearVelocity.y < 0)
+        /*if (!isGrounded && rb.linearVelocity.y < 0)
         {
             rb.linearVelocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
+        }*/
+        float extraGravity = 0f;
+
+        if (!isGrounded)
+        {
+            if (rb.linearVelocity.y > 0)
+            {
+                // In salita → applica gravità leggera per rendere il salto più secco
+                extraGravity = Physics.gravity.y * (ascentGravityMultiplier - 1);
+            }
+            else if (rb.linearVelocity.y < 0)
+            {
+                // In discesa → applica gravità normale potenziata
+                extraGravity = Physics.gravity.y * (gravityMultiplier - 1);
+            }
+
+            rb.linearVelocity += Vector3.up * extraGravity * Time.fixedDeltaTime;
         }
     }
 
