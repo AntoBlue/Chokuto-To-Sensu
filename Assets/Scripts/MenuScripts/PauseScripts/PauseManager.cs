@@ -40,20 +40,25 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private string actionMapName = "Player";
     [SerializeField] private string pauseActionName = "Pause";
     private InputAction pauseActionGameplay;
+    private InputAction pauseActionUI;
+    private bool pauseHandledThisFrame = false;
     
 
     private void OnEnable()
     {
-        var playerMap = inputActions.FindActionMap(actionMapName, true);
         
+        
+        var playerMap = inputActions.FindActionMap(actionMapName, true);
+        var uiMap = inputActions.FindActionMap("UI", true);
 
         pauseActionGameplay = playerMap.FindAction(pauseActionName, true);
-        
+        pauseActionUI = uiMap.FindAction(pauseActionName, true); // o "PauseUI"
 
         pauseActionGameplay.Enable();
-        
+        pauseActionUI.Enable();
 
         pauseActionGameplay.performed += OnPausePressed;
+        pauseActionUI.performed += OnPausePressed;
         
     }
 
@@ -64,11 +69,18 @@ public class PauseManager : MonoBehaviour
             pauseActionGameplay.performed -= OnPausePressed;
             pauseActionGameplay.Disable();
         }
-        
+        if (pauseActionUI != null)
+        {
+            pauseActionUI.performed -= OnPausePressed;
+            pauseActionUI.Disable();
+        }
     }
-    
+
     private void OnPausePressed(InputAction.CallbackContext ctx)
     {
+        if (pauseHandledThisFrame) return; // blocca doppia chiamata
+        pauseHandledThisFrame = true;
+        
         if (isPaused)
         {
             Debug.Log("Resume Pressed");
@@ -95,6 +107,9 @@ public class PauseManager : MonoBehaviour
         pauseCanvas.SetActive(false);
         pointerMover = pointer.GetComponent<YPositionMover>();
         loadTmpTexts();//carica i tmpControllers
+        
+        
+        bool IgnoreFirstInput = true;
     }
 
     //take input from array
@@ -105,7 +120,9 @@ public class PauseManager : MonoBehaviour
             if (isPaused ) ResumeGame();
             else PauseGame();
         }*/
-
+        //per evitare doppio input in un solo frame
+        pauseHandledThisFrame = false;
+        
         if (!isPaused) return;
 
         if (Time.unscaledTime - lastNavigationTime > navigationCooldown)
@@ -172,6 +189,7 @@ public class PauseManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        
         pauseCanvas.SetActive(false);
         Time.timeScale = 1f;
         gameplayMap.Enable();
