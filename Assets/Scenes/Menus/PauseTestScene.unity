@@ -172,6 +172,9 @@ MonoBehaviour:
   inputAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   gameplayMapName: Player
   uiMapName: UI
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  actionMapName: Player
+  pauseActionName: Pause
 --- !u!1 &34573627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,8 +1507,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuScene: {fileID: 102900000, guid: 14589244617dc3043a423b8a680b2779, type: 3}
   GameScene: {fileID: 102900000, guid: 31aaa5ba5add4774292bfcc8423e2f7f, type: 3}
-  CombatScene: {fileID: 0}
-  StatuePowerScene: {fileID: 0}
+  CombatScene: {fileID: 102900000, guid: 9519952e874aef14389abaf1f4fce35f, type: 3}
+  StatuePowerScene: {fileID: 102900000, guid: 05e3bd145bfa442bab5877f429a17dd7, type: 3}
+  CameraFollowScene: {fileID: 102900000, guid: 8f00e4f45c9152d49af756a22e55e40b, type: 3}
+  AIScene: {fileID: 102900000, guid: 688f86b2f7a1cdf4da8685f4fc18010f, type: 3}
   pauseCanvas: {fileID: 476341279}
 --- !u!1 &517815205
 GameObject:
