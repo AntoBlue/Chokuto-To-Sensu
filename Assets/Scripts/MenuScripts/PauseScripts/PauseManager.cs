@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PauseManager : MonoBehaviour
 {
@@ -167,8 +168,10 @@ public class PauseManager : MonoBehaviour
         PositionAtIndex(selectedIndex);
         buttonTextControllers[selectedIndex].SetFontMaxSize();
 
+        //if(buttons[selectedIndex] == null)
+            //Debug.Log("VUOTO");
         // Imposta il bottone selezionato anche per EventSystem (utile per tastiera)
-        eventSystem.SetSelectedGameObject(buttons[selectedIndex].gameObject);
+       eventSystem.SetSelectedGameObject(buttons[selectedIndex].gameObject);
     }
 
     void PauseGame()

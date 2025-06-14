@@ -1672,6 +1672,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuScene: {fileID: 102900000, guid: 14589244617dc3043a423b8a680b2779, type: 3}
   GameScene: {fileID: 102900000, guid: 31aaa5ba5add4774292bfcc8423e2f7f, type: 3}
+  CombatScene: {fileID: 102900000, guid: 9519952e874aef14389abaf1f4fce35f, type: 3}
+  StatuePowerScene: {fileID: 102900000, guid: 05e3bd145bfa442bab5877f429a17dd7, type: 3}
+  CameraFollowScene: {fileID: 102900000, guid: 8f00e4f45c9152d49af756a22e55e40b, type: 3}
+  AIScene: {fileID: 102900000, guid: 688f86b2f7a1cdf4da8685f4fc18010f, type: 3}
   pauseCanvas: {fileID: 0}
 --- !u!114 &786175496
 MonoBehaviour:
@@ -1786,6 +1790,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a48e721e-fd27-4e50-b376-d0407f44d04a
+    m_ActionName: 'Player/BackSelector[/Keyboard/9]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ad0a590c-5a16-41aa-860d-9af3b130fbca
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7b45904d-31e9-41cb-8ee4-4036e2aa16ec
+    m_ActionName: 'UI/BackSelector[/Keyboard/9]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 33142144-758a-43c6-9755-569a23d5a8b0
+    m_ActionName: 'UI/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
