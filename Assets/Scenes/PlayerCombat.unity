@@ -119,6 +119,29 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &117269637 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6935803791173978440, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
+  m_PrefabInstance: {fileID: 5914274680887154835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &117269645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117269637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce33f20fb22f94d48ab91084000bc272, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects:
+  - {fileID: 0}
+  pooledObjects2: []
+  objectToPool: {fileID: 5425634403186359270, guid: a9ea825bc2f79494eb6314154f8342de, type: 3}
+  objectToPool2: {fileID: 14863829916368958, guid: 84da9b5fea7ac1d4786b550533ce76e6, type: 3}
+  amountToPool: 20
 --- !u!1 &184562503
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +803,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6935803791173978440, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 117269645}
   m_SourcePrefab: {fileID: 100100000, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
 --- !u!1001 &7308979348749753366
 PrefabInstance:

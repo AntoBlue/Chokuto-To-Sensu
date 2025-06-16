@@ -236,6 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 5425634403186359270, guid: a9ea825bc2f79494eb6314154f8342de, type: 3}
   UpgradeProjectile: {fileID: 14863829916368958, guid: 84da9b5fea7ac1d4786b550533ce76e6, type: 3}
-  _projectileSpeed: 0
-  _upgradeProjectileSpeed: 0
+  MeleeAttack: {fileID: 5879519746967399198, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
   projectileSpawnPoint: {fileID: 7950835853099027265}
+  HasProjectile: 0
+  HasUpgradeProjectile: 0

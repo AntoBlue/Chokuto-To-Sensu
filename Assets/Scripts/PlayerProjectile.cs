@@ -12,22 +12,24 @@ public class PlayerProjectile : MonoBehaviour
     public void Configure(float speed)
     {
         _speed = speed;
-
-        Destroy(gameObject, 3);
     }
 
-    void Awake()
+    void Deactivate()
+    {    
+        gameObject.SetActive(false);
+    }
+
+    public void Activate(GameObject Player)
     {
-        Destroy(gameObject, life);
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Vector3 direction = Player.transform.localScale;
         rb.AddForce(new Vector3(direction.x, 0, 0) * (_speed * 10));
-
+        Invoke("Deactivate", 3);
     }
 
     void OnCollisionEnter(Collision other)
     {
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        Deactivate();
     }
 
     private void OnTriggerEnter(Collider other)
