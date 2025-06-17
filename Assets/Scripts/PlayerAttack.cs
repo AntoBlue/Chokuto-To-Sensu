@@ -32,6 +32,11 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // Update is called once per frame
+    void DeactivateMelee()
+    {
+        MeleeAttack.SetActive(false);
+    }
+
     void Update()
     {
 
@@ -57,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
                 if (bullet != null)
                 {
                     bullet.transform.position = projectileSpawnPoint.transform.position;
-                    bullet.transform.rotation = projectileSpawnPoint.transform.rotation;
+                    //bullet.transform.rotation = new Quaternion (0, 180, 0);
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
                     
@@ -80,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
                 if (bullet != null)
                 {
                     bullet.transform.position = projectileSpawnPoint.transform.position;
-                    bullet.transform.rotation = projectileSpawnPoint.transform.rotation;
+                    //bullet.transform.rotation = (projectileSpawnPoint.transform.rotation);
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
 
@@ -97,8 +102,10 @@ public class PlayerAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            var melee = Instantiate(MeleeAttack, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-            Destroy(melee, 0.5f);
+            MeleeAttack.SetActive(true);
+            Invoke("DeactivateMelee", 0.25f);
         }
+
+
     }
 }
