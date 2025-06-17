@@ -6,6 +6,7 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] private float life = 3;
     [SerializeField] public float _speed;
     [SerializeField] private int damage;
+    [SerializeField] private int rotationSpeed;
     private Transform Player;
     [SerializeField] Rigidbody rb;
 
@@ -55,7 +56,9 @@ public class PlayerProjectile : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Vector3 direction = Player.transform.localScale;
 
-        
+        transform.Rotate(rotationSpeed, 0, 0 * Time.deltaTime);
+
+
         //transform.Translate(new Vector3(direction.x, 0, 0) * (Time.deltaTime * _speed), Space.Self);
 
         //if (moveDirection >= 0)
