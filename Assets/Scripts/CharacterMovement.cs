@@ -25,7 +25,10 @@ public class CharacterMovement : MonoBehaviour
     private InputAction jumpAction;
     [SerializeField] private float ascentGravityMultiplier = 1.5f;  // gravità in salita (rende il salto più secco)
       
-  
+    //Jump buffering
+    [SerializeField] private float jumpBufferTime = 0.2f; // massimo tempo in cui il salto rimane "in memoria"
+    private float jumpBufferCounter = 0f;
+    
     private void OnEnable()
     {
         var actionMap = inputActions.FindActionMap(actionMapName, true);
@@ -45,10 +48,8 @@ public class CharacterMovement : MonoBehaviour
     
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
-        if (isGrounded)
-        {
-            jumpPressed = true;
-        }
+        //jumpPressed = true;
+        jumpBufferCounter = jumpBufferTime;
     }
     
     private void Awake()
@@ -88,6 +89,22 @@ public class CharacterMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float currentSpeed = isGrounded ? moveSpeed : airMoveSpeed;
 
+        /*if (jumpPressed && isGrounded)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            jumpPressed = false;
+        }*/
+        // Countdown del buffer
+        if (jumpBufferCounter > 0f)
+            jumpBufferCounter -= Time.fixedDeltaTime;
+
+        // Salto se sei a terra e il buffer è attivo
+        if (jumpBufferCounter > 0f && isGrounded)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            jumpBufferCounter = 0f; // reset dopo il salto
+        }
+        
         // Movimento orizzontale
        /* Vector3 velocity = rb.linearVelocity;
         velocity.x = horizontalInput * moveSpeed;
@@ -99,14 +116,14 @@ public class CharacterMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
         Debug.Log($"isGrounded: {isGrounded}, jumpPressed: {jumpPressed}");
 
-        // Salto
+        /*// Salto
         if (jumpPressed)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
 
             jumpPressed = false;
-        }
+        }*/
 
         // Gravità 
         /*if (!isGrounded && rb.linearVelocity.y < 0)
