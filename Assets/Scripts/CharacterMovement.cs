@@ -1,6 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum JumpMode
+{
+    NoJump = 0,
+    SingleJump = 1,
+    DoubleJump = 2,
+    TripleJump = 3
+}
+
 public class CharacterMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -28,6 +36,14 @@ public class CharacterMovement : MonoBehaviour
     //Jump buffering
     [SerializeField] private float jumpBufferTime = 0.2f; // massimo tempo in cui il salto rimane "in memoria"
     private float jumpBufferCounter = 0f;
+    
+    //Double and triple Jump
+    [SerializeField] private JumpMode jumpMode = JumpMode.SingleJump; // default: 1 salto
+    private int jumpsRemaining;
+    
+    //Coyote time
+    [SerializeField] private float coyoteTime = 0.15f; // tempo utile per saltare dopo aver lasciato il suolo
+    private float coyoteTimer = 0f;
     
     private void OnEnable()
     {
@@ -94,6 +110,8 @@ public class CharacterMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             jumpPressed = false;
         }*/
+        
+        /*
         // Countdown del buffer
         if (jumpBufferCounter > 0f)
             jumpBufferCounter -= Time.fixedDeltaTime;
@@ -103,6 +121,30 @@ public class CharacterMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             jumpBufferCounter = 0f; // reset dopo il salto
+        }*/
+        
+        // Countdown del buffer
+        if (jumpBufferCounter > 0f)
+            jumpBufferCounter -= Time.fixedDeltaTime;
+
+        // Controlla se puoi saltare (a terra o hai salti residui)
+        bool canJump = coyoteTimer > 0f || jumpsRemaining > 0;
+
+        if (jumpBufferCounter > 0f && canJump)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            jumpBufferCounter = 0f;
+
+            if (isGrounded)
+            {
+                // Reset dei salti in aria
+                jumpsRemaining = (int)jumpMode - 1; // es: DoubleJump = 2 → 1 salto in aria
+            }
+            else
+            {
+                // Hai usato un salto a mezz'aria
+                jumpsRemaining--;
+            }
         }
         
         // Movimento orizzontale
@@ -114,6 +156,20 @@ public class CharacterMovement : MonoBehaviour
         rb.linearVelocity = velocity;
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        if (isGrounded)
+        {
+            coyoteTimer = coyoteTime; // reset ogni volta che tocchi terra
+            jumpsRemaining = (int)jumpMode - 1;
+        }
+        else
+        {
+            coyoteTimer -= Time.fixedDeltaTime;
+        }
+        
+        if (isGrounded)
+        {
+            jumpsRemaining = (int)jumpMode - 1; // reset dei salti extra
+        }
         Debug.Log($"isGrounded: {isGrounded}, jumpPressed: {jumpPressed}");
 
         /*// Salto
