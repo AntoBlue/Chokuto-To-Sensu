@@ -13,6 +13,8 @@ public class ProjectilePowerUp : MonoBehaviour
         }
     }
 
+    //gives appropriate power up to player
+    //to do: change tag system to enum
     void Pickup()
     {
         //GameObject player = Player.GetComponent<GameObject>();

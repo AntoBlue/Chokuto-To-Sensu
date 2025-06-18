@@ -154,6 +154,7 @@ MonoBehaviour:
   _speed: 25
   damage: 1
   rotationSpeed: 2
+  Player: {fileID: 6935803791173978440, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
   rb: {fileID: 3684483461483578664}
 --- !u!64 &-2107341255597169429
 MeshCollider:

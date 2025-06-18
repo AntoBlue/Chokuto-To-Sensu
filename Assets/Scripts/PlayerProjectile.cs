@@ -7,7 +7,7 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] public float _speed;
     [SerializeField] private int damage;
     [SerializeField] private int rotationSpeed;
-    private Transform Player;
+    [SerializeField] GameObject Player;
     [SerializeField] Rigidbody rb;
 
     public void Configure(float speed)
@@ -15,11 +15,13 @@ public class PlayerProjectile : MonoBehaviour
         _speed = speed;
     }
 
+    //de-spawn projectile when needed
     void Deactivate()
     {    
         gameObject.SetActive(false);
     }
 
+    //spawn projectile when PlayerAttack calls it
     public void Activate(GameObject Player)
     {
         Vector3 direction = Player.transform.localScale;
@@ -27,35 +29,26 @@ public class PlayerProjectile : MonoBehaviour
         Invoke("Deactivate", 3);
     }
 
-    void OnCollisionEnter(Collision other)
-    {
-        //Destroy(gameObject);
-        Deactivate();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            //damage interaction
-        }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    //damage enemy and set projectile to inactive
+    //void OnCollisionEnter(Collision other)
+    //{
+    //    var health = other.GetComponent<HealthManager>();
+    //    other
+    //    //if (Collider other)
+    //    if (health != null)
+    //    {
+    //        health.TakeDamage(damage);
+    //        Debug.Log("Damage taken");
+    //    }
+    //    Deactivate();
+    //}
 
     // Update is called once per frame
     void Update()
     {
-
+        //move direction
         float moveDirection = Input.GetAxis("Horizontal");
-        
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         Vector3 direction = Player.transform.localScale;
-
         transform.Rotate(rotationSpeed, 0, 0 * Time.deltaTime);
 
 

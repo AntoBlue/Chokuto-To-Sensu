@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject Projectile;
     [SerializeField] GameObject UpgradeProjectile;
     [SerializeField] GameObject MeleeAttack;
+    [SerializeField] GameObject ChargeMeleeAttack;
 
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
@@ -17,6 +18,9 @@ public class PlayerAttack : MonoBehaviour
     public bool HasProjectile;
     public bool HasUpgradeProjectile;
 
+    float chargeTimer;
+    private bool pressingMelee = false;
+    private Color defaultColor;
 
     //private void OnCollisionEnter(Collision other)
     //{
@@ -28,13 +32,14 @@ public class PlayerAttack : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-    }
+        Color defaultColor = gameObject.GetComponent<Renderer>().material.color;
+    }   
 
     // Update is called once per frame
     void DeactivateMelee()
     {
         MeleeAttack.SetActive(false);
+        ChargeMeleeAttack.SetActive(false);
     }
 
     void Update()
@@ -98,12 +103,45 @@ public class PlayerAttack : MonoBehaviour
                 bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
             }
         }
-        
 
-        if (Input.GetKeyDown(KeyCode.L))
+        //Charge Melee Attack
+        if (Input.GetKey(KeyCode.L))
         {
-            MeleeAttack.SetActive(true);
-            Invoke("DeactivateMelee", 0.25f);
+            chargeTimer += 0.01f;
+            //gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
+            pressingMelee = true;
+            //gameObject.GetComponent<Renderer>().material.color = new Color(chargeTimer, 0, 0);
+
+            //Visual cue: turn player red when attack is fully charged
+            if (chargeTimer >= 3)
+            {
+                gameObject.GetComponent<Renderer>().material.color = new Color(chargeTimer, 0, 0);
+            }
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true)
+        {
+
+            //big attack if button is pressed for 3 or more seconds
+            if(chargeTimer >= 3)
+            {
+                ChargeMeleeAttack.SetActive(true);
+                Invoke("DeactivateMelee", 0.35f);
+                pressingMelee = false;
+                chargeTimer = 0;
+                gameObject.GetComponent<Renderer>().material.color = defaultColor;
+            }
+
+            //normal attack otherwise
+            else
+            {
+                MeleeAttack.SetActive(true);
+                Invoke("DeactivateMelee", 0.25f);
+                pressingMelee = false;
+                chargeTimer = 0;
+            }
+
         }
 
 

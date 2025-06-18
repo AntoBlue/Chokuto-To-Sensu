@@ -15,6 +15,7 @@ public class ObjectPool : MonoBehaviour
         SharedInstance = this;
     }
 
+    //spawn inactive objects
     void Start()
     {
         pooledObjects = new List<GameObject>();
@@ -33,6 +34,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    //give object type to scripts that need it
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < amountToPool; i++)
