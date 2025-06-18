@@ -22,6 +22,9 @@ public class PlayerAttack : MonoBehaviour
     private bool pressingMelee = false;
     private Color defaultColor;
 
+    [SerializeField] int MeleeDamage;
+    [SerializeField] int ChargeMeleeDamage;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

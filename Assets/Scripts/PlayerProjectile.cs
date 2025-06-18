@@ -32,15 +32,12 @@ public class PlayerProjectile : MonoBehaviour
     //damage enemy and set projectile to inactive
     void OnCollisionEnter(Collision other)
     {
-    //    var health = other.GetComponent<HealthManager>();
-    //    other
-    //    //if (Collider other)
-    //    if (health != null)
-    //    {
-    //        health.TakeDamage(damage);
-    //        Debug.Log("Damage taken");
-    //    }
-       Deactivate();
+        var health = other.gameObject.GetComponent<HealthManager>();
+        if (health != null)
+        {
+            health.TakeDamage(damage);
+        }
+        Deactivate();
     }
 
     // Update is called once per frame

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 3
   _speed: 40
-  damage: 2
+  damage: 20
   rotationSpeed: 1
   Player: {fileID: 6935803791173978440, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
   rb: {fileID: 8091845638402308844}
