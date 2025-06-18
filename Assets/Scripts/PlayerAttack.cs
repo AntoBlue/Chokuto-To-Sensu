@@ -22,13 +22,6 @@ public class PlayerAttack : MonoBehaviour
     private bool pressingMelee = false;
     private Color defaultColor;
 
-    //private void OnCollisionEnter(Collision other)
-    //{
-    //    //if (other.gameObject.GetComponent<FireBulletsAtTarget>()) return;
-
-    //    Destroy(gameObject);
-    //}
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,37 +37,18 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-
-
-        //GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
-        //if (bullet != null)
-        //{
-        //    bullet.transform.position = projectileSpawnPoint.transform.position;
-        //    bullet.transform.rotation = projectileSpawnPoint.transform.rotation;
-        //    bullet.SetActive(true);
-        //}
-
-
         if (HasProjectile && HasUpgradeProjectile == false)
         {
-
-
             if (Input.GetKeyDown(KeyCode.P))
-            {
-                //var bullet = Instantiate(Projectile, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-                
+            {       
                 GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
                 if (bullet != null)
                 {
                     bullet.transform.position = projectileSpawnPoint.transform.position;
-                    //bullet.transform.rotation = new Quaternion (0, 180, 0);
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
                     
-
-                    //Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
                     Vector3 direction = gameObject.transform.localScale;
-                    //bullet.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0, 0) * (bullet. * 10));
                 }
 
                 bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
@@ -90,14 +64,10 @@ public class PlayerAttack : MonoBehaviour
                 if (bullet != null)
                 {
                     bullet.transform.position = projectileSpawnPoint.transform.position;
-                    //bullet.transform.rotation = (projectileSpawnPoint.transform.rotation);
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
 
-
-                    //Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
                     Vector3 direction = gameObject.transform.localScale;
-                    //bullet.GetComponent<Rigidbody>().AddForce(new Vector3(direction.x, 0, 0) * (bullet. * 10));
                 }
 
                 bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
@@ -107,15 +77,13 @@ public class PlayerAttack : MonoBehaviour
         //Charge Melee Attack
         if (Input.GetKey(KeyCode.L))
         {
-            chargeTimer += 0.01f;
-            //gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0, 0.5f);
+            chargeTimer += Time.deltaTime;
             pressingMelee = true;
-            //gameObject.GetComponent<Renderer>().material.color = new Color(chargeTimer, 0, 0);
 
             //Visual cue: turn player red when attack is fully charged
             if (chargeTimer >= 3)
             {
-                gameObject.GetComponent<Renderer>().material.color = new Color(chargeTimer, 0, 0);
+                gameObject.GetComponent<Renderer>().material.color = Color.red;
             }
 
         }
@@ -141,9 +109,6 @@ public class PlayerAttack : MonoBehaviour
                 pressingMelee = false;
                 chargeTimer = 0;
             }
-
         }
-
-
     }
 }

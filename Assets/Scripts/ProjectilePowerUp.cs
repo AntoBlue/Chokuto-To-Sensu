@@ -17,8 +17,6 @@ public class ProjectilePowerUp : MonoBehaviour
     //to do: change tag system to enum
     void Pickup()
     {
-        //GameObject player = Player.GetComponent<GameObject>();
-        //PlayerAttack playerAttack = player.GetComponent<PlayerAttack>();
         if(gameObject.CompareTag("Projectile_PU"))
         {
             PlayerAttack playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
@@ -32,18 +30,5 @@ public class ProjectilePowerUp : MonoBehaviour
             playerAttack.HasUpgradeProjectile = true;
             Destroy(gameObject);
         }
-
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
