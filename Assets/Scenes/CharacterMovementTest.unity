@@ -2879,6 +2879,8 @@ MonoBehaviour:
   jumpActionName: Jump
   ascentGravityMultiplier: 1.49
   jumpBufferTime: 0.2
+  jumpMode: 2
+  coyoteTime: 0.15
 --- !u!65 &858205153
 BoxCollider:
   m_ObjectHideFlags: 0
