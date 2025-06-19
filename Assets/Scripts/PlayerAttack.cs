@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
                     
-                    Vector3 direction = gameObject.transform.localScale;
+                    //Vector3 direction = gameObject.transform.forward;
                 }
 
                 bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
@@ -70,7 +70,7 @@ public class PlayerAttack : MonoBehaviour
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
 
-                    Vector3 direction = gameObject.transform.localScale;
+                    //Vector3 direction = gameObject.transform.localScale;
                 }
 
                 bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
