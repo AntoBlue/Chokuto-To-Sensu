@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd20cd3-5b7d-4bb6-a9ce-2f1633f24a87" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterMovement.cs" afterDir="false" />
-    </list>
+    <list default="true" id="5fd20cd3-5b7d-4bb6-a9ce-2f1633f24a87" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +14,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock://C:/Users/mschi/Documents/GitHub/Chokuto-To-Sensu/Assets/Scenes/PlayerCombat.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/mschi/Documents/GitHub/Chokuto-To-Sensu/Assets/Scenes/PlayerCombat.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@bd2aa618476e/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
@@ -32,7 +32,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature-jump",
+    "git-widget-placeholder": "Combat-And-Mov-Merge",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -100,7 +100,7 @@
       <option name="presentableId" value="Default" />
       <updated>1749797650753</updated>
       <workItem from="1749797651429" duration="613000" />
-      <workItem from="1750276006740" duration="8414000" />
+      <workItem from="1750276006740" duration="8928000" />
     </task>
     <servers />
   </component>
