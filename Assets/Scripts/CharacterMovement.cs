@@ -12,15 +12,15 @@ public enum JumpMode
 public class CharacterMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;
-    private float airMoveSpeed = 7f;
-    public float jumpForce = 7f;
-    public float gravityMultiplier = 3f;
+    [SerializeField] private  float moveSpeed = 5f;
+    [SerializeField] private  float airMoveSpeed = 9f;
+    [SerializeField] private  float jumpForce = 7f;
+    [SerializeField] private  float gravityMultiplier = 3f;
 
     [Header("Ground Check")]
-    public Transform groundCheck;
-    public float groundCheckRadius = 0.2f;
-    public LayerMask groundLayer;
+    [SerializeField] private  Transform groundCheck;
+    [SerializeField] private  float groundCheckRadius = 0.2f;
+    [SerializeField] private  LayerMask groundLayer;
 
     private Rigidbody rb;
     private bool isGrounded;

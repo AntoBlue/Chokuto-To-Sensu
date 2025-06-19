@@ -2866,9 +2866,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e7eca505b51ff4ea297a4d702848d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
-  jumpForce: 9.96
-  gravityMultiplier: 1.42
+  moveSpeed: 10.2
+  airMoveSpeed: 9.8
+  jumpForce: 14.6
+  gravityMultiplier: 3.65
   groundCheck: {fileID: 1600239510}
   groundCheckRadius: 0.2
   groundLayer:
@@ -2877,7 +2878,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   actionMapName: Player
   jumpActionName: Jump
-  ascentGravityMultiplier: 1.49
+  ascentGravityMultiplier: 2.98
   jumpBufferTime: 0.2
   jumpMode: 2
   coyoteTime: 0.15
