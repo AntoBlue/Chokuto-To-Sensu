@@ -6,11 +6,9 @@ public class RangedState : State
     [SerializeField] private float lostSightTime = 1f;
     [SerializeField] private float fireRate = 1f;
     private GameObject target;
-    private NavMeshAgent agent;
 
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
         base.Awake();
     }
     
@@ -19,8 +17,6 @@ public class RangedState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
-            agent.SetDestination(transform.position);
-            agent.isStopped = true;
             Invoke(nameof(PrevState), lostSightTime);
             InvokeRepeating(nameof(Attack), 0, fireRate);
         }
@@ -31,7 +27,6 @@ public class RangedState : State
     {
         base.OnStateExit();
         CancelInvoke(nameof(Attack));
-        agent.isStopped = false;
     }
 
     private void Attack()
@@ -49,9 +44,7 @@ public class RangedState : State
         {
             if (other.CompareTag("Player"))
             {
-                Physics.Raycast(transform.position, other.transform.position - transform.position, out RaycastHit hit);
-
-                if (hit.collider && hit.collider.CompareTag("Player"))
+                if (Physics.Raycast(transform.position, other.transform.position - transform.position, out RaycastHit hit) && hit.collider && hit.collider.CompareTag("Player"))
                 {
                     base.ReceiveTrigger(triggerName, enter, other);
 

@@ -5,88 +5,50 @@ using UnityEngine.AI;
 
 public class PatrolState : State
 {
-    [SerializeField] private float walkRadius = 3f;
-    [SerializeField] private float walkRepeatRate = 2f;
-    [SerializeField] private float fixedZ = 0f;
-    private NavMeshAgent agent;
-    private NavMeshPath navMeshPath;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        navMeshPath = new NavMeshPath();
-        agent = GetComponent<NavMeshAgent>();
-    }
+    [Header("Patrol Settings")]
+    [SerializeField] private float walkSpeed = 2;
     
-    private void Update()
+    
+    private void FixedUpdate()
     {
-        Vector3 newPosition = transform.position;
-        newPosition.z = fixedZ;
-        transform.position = newPosition;
-    }
 
-    public override void OnStateEnter(bool bypassActivationCheck = false)
-    {
-        base.OnStateEnter(bypassActivationCheck);
-        if (enabled)
+        if (!IsGrounded) return;
+
+        if (!isRotating)
         {
-            InvokeRepeating(nameof(Move), 0, walkRadius);
-        }
-    }
-
-    public override void OnStateExit()
-    {
-        base.OnStateExit();
-        CancelInvoke(nameof(Move));
-    }
-
-    private void Move()
-    {
-        int tryNum = 0;
-        while (tryNum <= 10)
-        {
-            tryNum++;
-            Vector3 destination = RandomNavmeshLocation(walkRadius);
-
-            if (destination != Vector3.zero && Vector3.Distance(destination, transform.position) > 1f &&
-                agent.CalculatePath(destination, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete)
+            if (!CanWalkForward)
             {
-                agent.SetDestination(destination);
-                break;
+                StartCoroutine(Rotate(Quaternion.Euler(0, -90 * transform.forward.x, 0)));
+            }
+            else
+            {
+                rb.MovePosition(direction.normalized * (walkSpeed * Time.fixedDeltaTime) + rb.position);
             }
         }
     }
 
-    private Vector3 RandomNavmeshLocation(float radius)
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * radius;
-        randomDirection += transform.position;
-        randomDirection.z = fixedZ;
-
-        NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
-        {
-            finalPosition = hit.position;
-            finalPosition.z = fixedZ;
-        }
-
-        return finalPosition;
-    }
 
     public override void ReceiveTrigger(string triggerName, bool enter, Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Physics.Raycast(transform.position, other.transform.position - transform.position, out RaycastHit hit);
+            Vector3 RayDirection = (other.transform.position - transform.position).normalized;
 
-            if (hit.collider && hit.collider.CompareTag("Player"))
+            float degresAngle = Vector3.Angle(transform.forward, RayDirection);
+
+            if (degresAngle <= sightDegrees)
             {
-                base.ReceiveTrigger(triggerName, enter, other);
-                if (enter)
+                if (Physics.Raycast(transform.position, RayDirection,
+                        out RaycastHit hit) && hit.collider && hit.collider.CompareTag("Player"))
                 {
-                    NextState();
+                    Debug.DrawRay(transform.position, RayDirection,
+                        Color.red);
+
+                    base.ReceiveTrigger(triggerName, enter, other);
+                    if (enter)
+                    {
+                        NextState();
+                    }
                 }
             }
         }

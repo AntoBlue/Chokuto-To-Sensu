@@ -4,20 +4,15 @@ using UnityEngine.AI;
 
 public class ChaseState : State
 {
-    [SerializeField] private float lostSightTime = 5f;
-    [SerializeField] private float walkRepeatRate = 1f;
-    [SerializeField] private float fixedZ = 0f;
-    private NavMeshAgent agent;
+    [Header("Chase Settings")] [SerializeField]
+    private float lostSightTime = 5f;
+    
+    [SerializeField] private float playerEnemyDistanceTolerance = 1f;
+
+    [SerializeField] private float runSpeed = 4;
     private GameObject target;
-    private NavMeshPath navMeshPath;
+    private Vector3 currentDirection;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        navMeshPath = new NavMeshPath();
-        agent = GetComponent<NavMeshAgent>();
-    }
 
     public override void OnStateEnter(bool bypassActivationCheck = false)
     {
@@ -25,36 +20,27 @@ public class ChaseState : State
         if (enabled)
         {
             Invoke(nameof(PrevState), lostSightTime);
-            InvokeRepeating(nameof(Move), 0, walkRepeatRate);
         }
-        
     }
 
-    public override void OnStateExit()
+    private void FixedUpdate()
     {
-        base.OnStateExit();
-        CancelInvoke(nameof(Move));
-    }
-
-    private void Update()
-    {
-        Vector3 newPosition = transform.position;
-        newPosition.z = fixedZ;
-        transform.position = newPosition;
-    }
-
-    private void Move()
-    {
-        if (!target) return;
-
-        Vector3 destination = target.transform.position;
-
-        if (agent.CalculatePath(destination, navMeshPath) && navMeshPath.status == NavMeshPathStatus.PathComplete)
+        if (target)
         {
-            agent.SetDestination(destination);
+            currentDirection = target.transform.position - transform.position;
+            currentDirection.y = 0;
+
+            if (!IsGrounded) return;
+
+            if (!isRotating)
+            {
+                if (CanWalkForward && currentDirection.magnitude > playerEnemyDistanceTolerance)
+                {
+                    rb.MovePosition(currentDirection.normalized * (runSpeed * Time.fixedDeltaTime) + rb.position);
+                }
+            }
         }
     }
-    
 
     public override void ReceiveTrigger(string triggerName, bool enter, Collider other)
     {
@@ -64,9 +50,19 @@ public class ChaseState : State
         }
         else if (other.CompareTag("Player"))
         {
-            Physics.Raycast(transform.position, other.transform.position - transform.position, out RaycastHit hit);
+            if (target)
+            {
+                float degresAngle = Vector3.Angle(transform.forward, target.transform.position - transform.position);
 
-            if (hit.collider && hit.collider.CompareTag("Player"))
+                if (degresAngle > sightDegrees && !isRotating)
+                {
+                    Debug.Log(degresAngle);
+                    StartCoroutine(Rotate(Quaternion.Euler(0, -90 * transform.forward.x, 0)));
+                }
+            }
+
+            if (Physics.Raycast(transform.position, other.transform.position - transform.position,
+                    out RaycastHit hit) && hit.collider && hit.collider.CompareTag("Player"))
             {
                 base.ReceiveTrigger(triggerName, enter, other);
 
