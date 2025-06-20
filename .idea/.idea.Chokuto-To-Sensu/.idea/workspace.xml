@@ -5,9 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fd20cd3-5b7d-4bb6-a9ce-2f1633f24a87" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/GameObjects/Enemy Melee.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/GameObjects/Player_Ninja Variant.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MeleeStateSettings.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettingsObject.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettingsObject.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Chokuto-To-Sensu/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chokuto-To-Sensu/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/FlowLevelScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/FlowLevelScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SP_Superpowers/SP_SpawnStatue.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SP_Superpowers/SP_SpawnStatue.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameObjects/MeleeAttack.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameObjects/MeleeAttack.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameObjects/Enemy Melee.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/AiEnemy.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface 1.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface 1.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameObjects/Player_Ninja Variant.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/MeleeStateSettings.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/BaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/BaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/ChaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/ChaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/MeleeState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/MeleeState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/PatrolState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/PatrolState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/RangedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/RangedState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HealthManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HealthManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MeleeDamage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MeleeDamage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +56,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ModelAndAnim",
+    "git-widget-placeholder": "Merging feature-level-interaction",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
