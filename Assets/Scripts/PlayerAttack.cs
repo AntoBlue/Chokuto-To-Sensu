@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -25,10 +26,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] int MeleeDamage;
     [SerializeField] int ChargeMeleeDamage;
 
+    private bool facingRight;
+    private bool facingLeft;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Color defaultColor = gameObject.GetComponent<Renderer>().material.color;
+        //Color defaultColor = gameObject.GetComponent<Renderer>().material.color;
     }   
 
     // Update is called once per frame
@@ -40,17 +44,40 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        //determines the direction the player is facing, then gives the same direction to the projectile
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            facingRight = true;
+            facingLeft = false;
+        }
+
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            facingRight= false;
+            facingLeft = true;
+        }
+
+        //shooting
         if (HasProjectile && HasUpgradeProjectile == false)
         {
             if (Input.GetKeyDown(KeyCode.P))
             {       
                 GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
-                if (bullet != null)
+                if (bullet != null && facingRight == true)
                 {
                     bullet.transform.position = projectileSpawnPoint.transform.position;
                     bullet.SetActive(true);
-                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
-                    
+                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, 1);
+
+                    //Vector3 direction = gameObject.transform.forward;
+                }
+
+                if (bullet != null && facingLeft == true)
+                {
+                    bullet.transform.position = projectileSpawnPoint.transform.position;
+                    bullet.SetActive(true);
+                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, -1);
+
                     //Vector3 direction = gameObject.transform.forward;
                 }
 
@@ -68,11 +95,20 @@ public class PlayerAttack : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.P))
             {
                 GameObject bullet = ObjectPool.SharedInstance.GetPooledObject2();
-                if (bullet != null)
+                if (bullet != null && facingRight == true)
                 {
                     bullet.transform.position = projectileSpawnPoint.transform.position;
                     bullet.SetActive(true);
-                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject);
+                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, 1);
+
+                    //Vector3 direction = gameObject.transform.localScale;
+                }
+
+                if (bullet != null && facingLeft == true)
+                {
+                    bullet.transform.position = projectileSpawnPoint.transform.position;
+                    bullet.SetActive(true);
+                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, -1);
 
                     //Vector3 direction = gameObject.transform.localScale;
                 }
@@ -95,7 +131,7 @@ public class PlayerAttack : MonoBehaviour
             //Visual cue: turn player red when attack is fully charged
             if (chargeTimer >= 3)
             {
-                gameObject.GetComponent<Renderer>().material.color = Color.red;
+                //gameObject.GetComponent<Renderer>().material.color = Color.red;
             }
 
         }
@@ -110,7 +146,7 @@ public class PlayerAttack : MonoBehaviour
                 Invoke("DeactivateMelee", 0.35f);
                 pressingMelee = false;
                 chargeTimer = 0;
-                gameObject.GetComponent<Renderer>().material.color = defaultColor;
+                //gameObject.GetComponent<Renderer>().material.color = defaultColor;
             }
 
             //normal attack otherwise
