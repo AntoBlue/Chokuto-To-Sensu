@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd20cd3-5b7d-4bb6-a9ce-2f1633f24a87" name="Changes" comment="" />
+    <list default="true" id="5fd20cd3-5b7d-4bb6-a9ce-2f1633f24a87" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Chokuto-To-Sensu/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chokuto-To-Sensu/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/Layout_BaseMesh_Gen_Grey.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/Layout_BaseMesh_Gen_Grey.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Character_Mat_Black.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Character_Mat_Black.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Character_Mat_Brown.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Character_Mat_Brown.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Character_Matl_White.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Character_Matl_White.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Clouds_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Clouds_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_02.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_02.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_03.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_03.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_04.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Mat_04.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Water_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Materials/PolygonSamurai_Water_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Models/FixedScaleCharacters/Materials/Characters_Texture_01.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Models/FixedScaleCharacters/Materials/Characters_Texture_01.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PolygonSamurai/Scenes/Demo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PolygonSamurai/Scenes/Demo.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/Japanola.ttf SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/Japanola.ttf SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush-Regular SDF 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush-Regular SDF 1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CharacterMovementTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CharacterMovementTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +52,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature-jump-2",
+    "git-widget-placeholder": "Combat-And-Mov-Merge",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
