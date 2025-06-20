@@ -1671,7 +1671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuScene: {fileID: 102900000, guid: 14589244617dc3043a423b8a680b2779, type: 3}
-  GameScene: {fileID: 102900000, guid: 31aaa5ba5add4774292bfcc8423e2f7f, type: 3}
+  GameScene: {fileID: 102900000, guid: 8f00e4f45c9152d49af756a22e55e40b, type: 3}
   CombatScene: {fileID: 102900000, guid: 9519952e874aef14389abaf1f4fce35f, type: 3}
   StatuePowerScene: {fileID: 102900000, guid: 05e3bd145bfa442bab5877f429a17dd7, type: 3}
   CameraFollowScene: {fileID: 102900000, guid: 8f00e4f45c9152d49af756a22e55e40b, type: 3}

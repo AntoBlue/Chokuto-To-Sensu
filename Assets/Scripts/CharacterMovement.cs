@@ -45,6 +45,13 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float coyoteTime = 0.15f; // tempo utile per saltare dopo aver lasciato il suolo
     private float coyoteTimer = 0f;
     
+    //double jump less strong
+    [SerializeField] private float airJumpForceMultiplier = 0.8f;
+    
+    //animator
+    [SerializeField] private Animator animator;
+    private float animationSpeedSmooth = 5f; // per evitare scatti
+    
     private void OnEnable()
     {
         var actionMap = inputActions.FindActionMap(actionMapName, true);
@@ -92,12 +99,19 @@ public class CharacterMovement : MonoBehaviour
             Vector3 scale = transform.localScale;
             scale.x = Mathf.Sign(horizontalInput) * Mathf.Abs(scale.x);
             transform.localScale = scale;
-        }*/
+        }*/ /*
         if (horizontalInput != 0)
         {
             Quaternion targetRotation = Quaternion.Euler(0, horizontalInput > 0 ? 0 : 180, 0);
             transform.rotation = targetRotation;
+        }*/
+        if (horizontalInput != 0)
+        {
+            float baseY = 90f;
+            float flipY = baseY + (horizontalInput > 0 ? 0f : 180f);
+            transform.rotation = Quaternion.Euler(0f, flipY, 0f);
         }
+        animator.SetBool("isJumping", !isGrounded);
     }
 
     private void FixedUpdate()
@@ -132,7 +146,10 @@ public class CharacterMovement : MonoBehaviour
 
         if (jumpBufferCounter > 0f && canJump)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            //rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+            float appliedJumpForce = isGrounded ? jumpForce : jumpForce * airJumpForceMultiplier;
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, appliedJumpForce, rb.linearVelocity.z);
+            animator.SetTrigger("Jump");
             jumpBufferCounter = 0f;
 
             if (isGrounded)
@@ -203,6 +220,15 @@ public class CharacterMovement : MonoBehaviour
 
             rb.linearVelocity += Vector3.up * extraGravity * Time.fixedDeltaTime;
         }
+        
+        // Calcola velocità orizzontale
+        float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
+
+        // Aggiorna blend tree Animator
+        float currentSpeedA = animator.GetFloat("Speed");
+        float smoothSpeed = Mathf.Lerp(currentSpeedA, horizontalSpeed, animationSpeedSmooth * Time.fixedDeltaTime);
+        animator.SetFloat("Speed", Mathf.Clamp01(smoothSpeed));
+        
     }
 
     private void OnDrawGizmosSelected()

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour
@@ -10,9 +11,14 @@ public class PlayerProjectile : MonoBehaviour
     [SerializeField] GameObject Player;
     [SerializeField] Rigidbody rb;
 
+    float lastHorizontal;
+
+    private Quaternion playerDirection;
+    //private int bulletDirection;
     public void Configure(float speed)
     {
         _speed = speed;
+        //Vector3 direction = Player.transform.forward;
     }
 
     //de-spawn projectile when needed
@@ -22,11 +28,29 @@ public class PlayerProjectile : MonoBehaviour
     }
 
     //spawn projectile when PlayerAttack calls it
-    public void Activate(GameObject Player)
+    public void Activate(GameObject projectile)
     {
-        Vector3 direction = Player.transform.localScale;
-        rb.AddForce(new Vector3(direction.x, 0, 0) * (_speed * 10));
-        Invoke("Deactivate", 3);
+        float bulletDirection;
+        //float lastHorizontal = 
+
+        //get movement imput, if idle, get last imput
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            rb.AddForce(new Vector3(1, 0, 0) * (_speed * 10));
+        }
+
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            rb.AddForce(new Vector3(-1, 0, 0) * (_speed * 10));
+        }
+
+        //currently doesn't work
+        else
+        {
+            rb.AddForce(new Vector3(lastHorizontal, 0, 0) * (_speed * 10));
+        }
+
+            Invoke("Deactivate", 3);
     }
 
     //damage enemy and set projectile to inactive
@@ -45,35 +69,37 @@ public class PlayerProjectile : MonoBehaviour
     {
         //move direction
         float moveDirection = Input.GetAxis("Horizontal");
-        Vector3 direction = Player.transform.localScale;
+        //Vector3 direction = Player.transform.forward;
         transform.Rotate(rotationSpeed, 0, 0 * Time.deltaTime);
 
+        Quaternion playerDirection = Player.transform.rotation;
 
-        //transform.Translate(new Vector3(direction.x, 0, 0) * (Time.deltaTime * _speed), Space.Self);
+        float bulletDirection = Input.GetAxis("Horizontal");
 
-        //if (moveDirection >= 0)
-        //{
-        //    direction = 1;
-        //}
-        //else if (moveDirection < 0)
-        //{
-        //    direction = -1;
-        //}
-        //transform.Translate(new Vector3 (1, 0, 0) * (Time.deltaTime * _speed), Space.Self);
-        //if (PlayerDirection.transform.localScale.x > 0)
-        //{
-        //transform.Translate(new Vector3 (direction.x, 0, 0) * (Time.deltaTime * _speed), Space.Self);
-        //}
+        if (Input.GetAxis("Horizontal") >= 0) 
+        {
+            bulletDirection = 1;
+        }
 
-        //else
-        //{
-        //    transform.Translate(new Vector3(1, 0, 0) * (Time.deltaTime * _speed), Space.Self);
-        //}
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            bulletDirection = -1;
+        }
 
-        //if (Player.transform.localScale.x < 0)
-        //{
-        //    transform.Translate(new Vector3(-1, 0, 0) * (Time.deltaTime * _speed), Space.Self);
-        //}
+        // Get current horizontal input
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        // store last horizontal imput, in theory, doesn't actually work 
+        if (horizontalInput > 0 ) 
+        {
+            lastHorizontal = 1;
+        }
+
+        if (horizontalInput < 0)
+        {
+            lastHorizontal = -1;
+        }
+
     }
 
 
