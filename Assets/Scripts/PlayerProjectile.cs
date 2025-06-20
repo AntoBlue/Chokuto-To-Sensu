@@ -37,15 +37,15 @@ public class PlayerProjectile : MonoBehaviour
     void OnCollisionEnter(Collision other)
     {
         //don't do anything if projectile collides with player
-        if (!other.gameObject.CompareTag("Player"))
-        {
+        //if (!other.gameObject.CompareTag("Player"))
+        //{
             var health = other.gameObject.GetComponent<HealthManager>();
             if (health != null)
             {
                 health.TakeDamage(damage);
             }
             Deactivate();
-        }
+        //}
     }
 
     // Update is called once per frame

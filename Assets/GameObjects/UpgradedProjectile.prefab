@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8091845638402308844}
   - component: {fileID: 5289529799180214333}
   - component: {fileID: 6171503113179133981}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UpgradedProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
