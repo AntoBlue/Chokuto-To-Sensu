@@ -36,7 +36,7 @@ public class SP_SpawnStatue : MonoBehaviour
         }
 
         // shooting if cooldown <= 0f
-        if (Input.GetKeyDown(KeyCode.Space) && cooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.K) && cooldownTimer <= 0f)
         {
             Debug.Log("--------- Ready to shoot. ---------");
 

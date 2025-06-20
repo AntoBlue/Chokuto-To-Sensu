@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SuperpowerStatueTest.unity
     guid: 05e3bd145bfa442bab5877f429a17dd7
   - enabled: 1
-    path: Assets/Scenes/CharacterMovementTest.unity
+    path: Assets/Scenes/Levels/FlowLevelScene.unity
     guid: 8f00e4f45c9152d49af756a22e55e40b
   - enabled: 1
     path: Assets/Scenes/AiEnemy.unity
