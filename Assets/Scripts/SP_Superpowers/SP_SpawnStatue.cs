@@ -20,8 +20,9 @@ public class SP_SpawnStatue : MonoBehaviour
         Debug.Log("S H O O O O O O T I N G");
 
         GameObject newStatue = Instantiate(statuePrefab, spawnPosition.position, spawnPosition.rotation);
+        newStatue.layer = LayerMask.NameToLayer("Ground");
         newStatue.SetActive(true);
-        
+        Destroy(newStatue, 3f);
         cooldownTimer = cooldownTime; // reset the cooldown timer
     }
 
