@@ -28,21 +28,21 @@ public class CharacterMovement : MonoBehaviour
         
     //input system
     [SerializeField] private InputActionAsset inputActions;
-    [SerializeField] private string actionMapName = "Player"; // o il nome che hai usato
+    [SerializeField] private string actionMapName = "Player"; 
     [SerializeField] private string jumpActionName = "Jump";
     private InputAction jumpAction;
-    [SerializeField] private float ascentGravityMultiplier = 1.5f;  // gravità in salita (rende il salto più secco)
+    [SerializeField] private float ascentGravityMultiplier = 1.5f;  
       
     //Jump buffering
-    [SerializeField] private float jumpBufferTime = 0.2f; // massimo tempo in cui il salto rimane "in memoria"
+    [SerializeField] private float jumpBufferTime = 0.2f; 
     private float jumpBufferCounter = 0f;
     
     //Double and triple Jump
-    [SerializeField] private JumpMode jumpMode = JumpMode.SingleJump; // default: 1 salto
+    [SerializeField] private JumpMode jumpMode = JumpMode.SingleJump; // default: 1 jump
     private int jumpsRemaining;
     
     //Coyote time
-    [SerializeField] private float coyoteTime = 0.15f; // tempo utile per saltare dopo aver lasciato il suolo
+    [SerializeField] private float coyoteTime = 0.15f; 
     private float coyoteTimer = 0f;
     
     //double jump less strong
@@ -50,7 +50,7 @@ public class CharacterMovement : MonoBehaviour
     
     //animator
     [SerializeField] private Animator animator;
-    private float animationSpeedSmooth = 5f; // per evitare scatti
+    private float animationSpeedSmooth = 5f; 
     
     private void OnEnable()
     {
@@ -141,7 +141,7 @@ public class CharacterMovement : MonoBehaviour
         if (jumpBufferCounter > 0f)
             jumpBufferCounter -= Time.fixedDeltaTime;
 
-        // Controlla se puoi saltare (a terra o hai salti residui)
+        // Chek if jump
         bool canJump = coyoteTimer > 0f || jumpsRemaining > 0;
 
         if (jumpBufferCounter > 0f && canJump)
@@ -154,17 +154,17 @@ public class CharacterMovement : MonoBehaviour
 
             if (isGrounded)
             {
-                // Reset dei salti in aria
-                jumpsRemaining = (int)jumpMode - 1; // es: DoubleJump = 2 → 1 salto in aria
+                // keep in air
+                jumpsRemaining = (int)jumpMode - 1; // es: DoubleJump = 2 → 1 jump in air
             }
             else
             {
-                // Hai usato un salto a mezz'aria
+                //another jump in the air
                 jumpsRemaining--;
             }
         }
         
-        // Movimento orizzontale
+        // horizontal movement
        /* Vector3 velocity = rb.linearVelocity;
         velocity.x = horizontalInput * moveSpeed;
         rb.linearVelocity = velocity;*/
@@ -175,7 +175,7 @@ public class CharacterMovement : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
         if (isGrounded)
         {
-            coyoteTimer = coyoteTime; // reset ogni volta che tocchi terra
+            coyoteTimer = coyoteTime; // reset on gorund
             jumpsRemaining = (int)jumpMode - 1;
         }
         else
@@ -185,7 +185,7 @@ public class CharacterMovement : MonoBehaviour
         
         if (isGrounded)
         {
-            jumpsRemaining = (int)jumpMode - 1; // reset dei salti extra
+            jumpsRemaining = (int)jumpMode - 1; // reset on extra jump
         }
         Debug.Log($"isGrounded: {isGrounded}, jumpPressed: {jumpPressed}");
 
@@ -209,19 +209,19 @@ public class CharacterMovement : MonoBehaviour
         {
             if (rb.linearVelocity.y > 0)
             {
-                // In salita → applica gravità leggera per rendere il salto più secco
+                // up → apply less gravity
                 extraGravity = Physics.gravity.y * (ascentGravityMultiplier - 1);
             }
             else if (rb.linearVelocity.y < 0)
             {
-                // In discesa → applica gravità normale potenziata
+                // down → apply more gravity
                 extraGravity = Physics.gravity.y * (gravityMultiplier - 1);
             }
 
             rb.linearVelocity += Vector3.up * extraGravity * Time.fixedDeltaTime;
         }
         
-        // Calcola velocità orizzontale
+        
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
 
         // Aggiorna blend tree Animator
