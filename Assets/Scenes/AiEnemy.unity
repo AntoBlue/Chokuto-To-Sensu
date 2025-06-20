@@ -452,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3326009551107916741, guid: 9c77c2860878d1546995e7712d126bb2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.75
+      value: 7.03
       objectReference: {fileID: 0}
     - target: {fileID: 3326009551107916741, guid: 9c77c2860878d1546995e7712d126bb2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -881,6 +881,18 @@ PrefabInstance:
       propertyPath: MeleeAttack
       value: 
       objectReference: {fileID: 1072401622}
+    - target: {fileID: 2266010835431080701, guid: e17b2a9aa9d4f774abe371e16fe36fa4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9a2f32ece65a1be42b81d6e21da8da3f, type: 2}
+    - target: {fileID: 2266010835431080701, guid: e17b2a9aa9d4f774abe371e16fe36fa4, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2266010835431080701, guid: e17b2a9aa9d4f774abe371e16fe36fa4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5238957122507458012, guid: e17b2a9aa9d4f774abe371e16fe36fa4, type: 3}
       propertyPath: m_Name
       value: Enemy Melee
