@@ -54,7 +54,11 @@ public class PlayerAttack : MonoBehaviour
                     //Vector3 direction = gameObject.transform.forward;
                 }
 
-                bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
+                //bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
+                Vector3 shootDirection = transform.forward;
+                shootDirection.y = 0; // ignora l'inclinazione in salto
+                shootDirection.Normalize();
+                bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * ProjectileSpeed;
             }
 
         }
@@ -73,7 +77,11 @@ public class PlayerAttack : MonoBehaviour
                     //Vector3 direction = gameObject.transform.localScale;
                 }
 
-                bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
+                //bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
+                Vector3 shootDirection = transform.forward;
+                shootDirection.y = 0;
+                shootDirection.Normalize();
+                bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * UpgradeProjectileSpeed;
             }
         }
 
