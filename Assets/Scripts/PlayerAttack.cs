@@ -32,7 +32,8 @@ public class PlayerAttack : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Color defaultColor = gameObject.GetComponent<Renderer>().material.color;
+        MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
+        ChargeMeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
     }   
 
     // Update is called once per frame

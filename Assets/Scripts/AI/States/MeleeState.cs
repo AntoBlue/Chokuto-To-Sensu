@@ -6,12 +6,13 @@ public class MeleeState : State
 {
     [SerializeField] private float lostSightTime = 1f;
     [SerializeField] private float fireRate = 1f;
-    
+    [SerializeField] private GameObject MeleeAttack;
     private bool isExiting = false;
 
     
     void Awake()
     {
+        MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
         base.Awake();
     }
     
@@ -20,6 +21,8 @@ public class MeleeState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
+            isExiting = true;
+            Invoke(nameof(PrevState), lostSightTime);
             InvokeRepeating(nameof(Attack), 0, fireRate);
         }
         
@@ -53,8 +56,14 @@ public class MeleeState : State
     {
         if (!Target) return;
         
-        Debug.Log(name + " is attacking");
+        MeleeAttack.SetActive(true);
+        Invoke(nameof(DeactivateMelee), 0.25f);
      
+    }
+
+    private void DeactivateMelee()
+    {
+        MeleeAttack.SetActive(false);
     }
     
 }

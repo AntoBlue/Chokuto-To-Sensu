@@ -5,6 +5,7 @@ public class RangedState : State
 {
     [SerializeField] private float lostSightTime = 1f;
     [SerializeField] private float fireRate = 1f;
+    [SerializeField] private GameObject MeleeAttack;
     private bool isExiting = false;
 
     
@@ -51,7 +52,13 @@ public class RangedState : State
     {
         if (!Target) return;
         
-        Debug.Log(name + " is attacking");
+        MeleeAttack.SetActive(true);
+        Invoke(nameof(DeactivateMelee), 0.25f);
      
+    }
+
+    private void DeactivateMelee()
+    {
+        MeleeAttack.SetActive(false);
     }
 }
