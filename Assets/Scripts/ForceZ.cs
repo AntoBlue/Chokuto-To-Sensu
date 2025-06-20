@@ -11,9 +11,6 @@ public class ForceZ : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 tra = transform.position;
-        tra.z = 0;
-        
-        transform.position = tra;
+
     }
 }
