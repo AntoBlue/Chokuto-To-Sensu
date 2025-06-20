@@ -2,16 +2,19 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class ChaseState : State
 {
     [Header("Chase Settings")] [SerializeField]
-    private float lostSightTime = 5f;
-    
+    private float lostSightTime = 2f;
+
     [SerializeField] private float playerEnemyDistanceTolerance = 1f;
 
     [SerializeField] private float runSpeed = 4;
-    private GameObject target;
+
     private Vector3 currentDirection;
+
+    private bool isExiting = false;
 
 
     public override void OnStateEnter(bool bypassActivationCheck = false)
@@ -19,64 +22,55 @@ public class ChaseState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
+            isExiting = true;
             Invoke(nameof(PrevState), lostSightTime);
         }
     }
 
     private void FixedUpdate()
     {
-        if (target)
+        if (Target)
         {
-            currentDirection = target.transform.position - transform.position;
+            currentDirection = Target.transform.position - transform.position;
             currentDirection.y = 0;
 
             if (!IsGrounded) return;
 
-            if (!isRotating)
+            float degresAngle = Vector3.Angle(transform.forward, Target.transform.position - transform.position);
+
+            if (degresAngle > StateSettings.Settings.SightDegrees && !IsRotating)
+            {
+                StartCoroutine(Rotate(Quaternion.Euler(0, -90 * transform.forward.x, 0)));
+            }
+
+            if (!IsRotating)
             {
                 if (CanWalkForward && currentDirection.magnitude > playerEnemyDistanceTolerance)
                 {
-                    rb.MovePosition(currentDirection.normalized * (runSpeed * Time.fixedDeltaTime) + rb.position);
+                    Rb.MovePosition(currentDirection.normalized * (runSpeed * Time.fixedDeltaTime) + Rb.position);
                 }
             }
         }
-    }
 
-    public override void ReceiveTrigger(string triggerName, bool enter, Collider other)
-    {
-        if (triggerName == "AttackZone" && other.CompareTag("Player"))
+        if (CanSeePlayer)
+        {
+            if (isExiting)
+            {
+                isExiting = false;
+                CancelInvoke(nameof(PrevState));
+            }
+        }
+        else if (!isExiting)
+        {
+            isExiting = true;
+            Invoke(nameof(PrevState), lostSightTime);
+        }
+
+        if (CanAttackPlayer)
         {
             NextState();
         }
-        else if (other.CompareTag("Player"))
-        {
-            if (target)
-            {
-                float degresAngle = Vector3.Angle(transform.forward, target.transform.position - transform.position);
-
-                if (degresAngle > sightDegrees && !isRotating)
-                {
-                    Debug.Log(degresAngle);
-                    StartCoroutine(Rotate(Quaternion.Euler(0, -90 * transform.forward.x, 0)));
-                }
-            }
-
-            if (Physics.Raycast(transform.position, other.transform.position - transform.position,
-                    out RaycastHit hit) && hit.collider && hit.collider.CompareTag("Player"))
-            {
-                base.ReceiveTrigger(triggerName, enter, other);
-
-                if (enter)
-                {
-                    target = other.gameObject;
-                    CancelInvoke(nameof(PrevState));
-                }
-                else
-                {
-                    target = null;
-                    Invoke(nameof(PrevState), lostSightTime);
-                }
-            }
-        }
     }
+
+   
 }

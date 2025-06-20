@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5fd20cd3-5b7d-4bb6-a9ce-2f1633f24a87" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerAttack.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettingsObject.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AI/StateSettingsObject.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Chokuto-To-Sensu/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chokuto-To-Sensu/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameObjects/MeleeAttack.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameObjects/MeleeAttack.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/Japanola.ttf SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/Japanola.ttf SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush-Regular SDF 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush-Regular SDF 1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Fonts/KolkerBrush2.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/AiEnemy.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface 1.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface 1.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AiEnemy/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/BaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/BaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/ChaseState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/ChaseState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/MeleeState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/MeleeState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/PatrolState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/PatrolState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AI/States/RangedState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AI/States/RangedState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +35,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Odrowaz&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AntoBlue/Chokuto-To-Sensu.git&quot;,
+    &quot;accountId&quot;: &quot;902599bd-a170-47ae-ba7b-948b523a798a&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock://C:/Users/mschi/Documents/GitHub/Chokuto-To-Sensu/Assets/Scenes/PlayerCombat.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/mschi/Documents/GitHub/Chokuto-To-Sensu/Assets/Scenes/PlayerCombat.unity" root0="SKIP_HIGHLIGHTING" />
@@ -30,21 +62,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ModelAndAnim",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/new-ia&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Standalone Player.Start Unity">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.40f1-x86_64\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.40f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\mschi\Documents\GitHub\Chokuto-To-Sensu -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\mschi\Documents\GitHub\Chokuto-To-Sensu" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -55,7 +87,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.40f1-x86_64\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.40f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\mschi\Documents\GitHub\Chokuto-To-Sensu -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\mschi\Documents\GitHub\Chokuto-To-Sensu" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -103,6 +135,8 @@
       <updated>1749797650753</updated>
       <workItem from="1749797651429" duration="613000" />
       <workItem from="1750276006740" duration="8928000" />
+      <workItem from="1750400765009" duration="5898000" />
+      <workItem from="1750410362797" duration="2468000" />
     </task>
     <servers />
   </component>

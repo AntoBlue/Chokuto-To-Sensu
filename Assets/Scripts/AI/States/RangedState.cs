@@ -5,8 +5,9 @@ public class RangedState : State
 {
     [SerializeField] private float lostSightTime = 1f;
     [SerializeField] private float fireRate = 1f;
-    private GameObject target;
+    private bool isExiting = false;
 
+    
     void Awake()
     {
         base.Awake();
@@ -17,10 +18,27 @@ public class RangedState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
-            Invoke(nameof(PrevState), lostSightTime);
             InvokeRepeating(nameof(Attack), 0, fireRate);
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        
+        if (CanAttackPlayer)
+        {
+            if (isExiting)
+            {
+                isExiting = false;
+                CancelInvoke(nameof(PrevState));
+            }
+        }
+        else if (!isExiting)
+        {
+            isExiting = true;
+            Invoke(nameof(PrevState), lostSightTime);
+        }
     }
 
     public override void OnStateExit()
@@ -31,36 +49,9 @@ public class RangedState : State
 
     private void Attack()
     {
-        if (!target) return;
+        if (!Target) return;
         
         Debug.Log(name + " is attacking");
      
-    }
-    
-
-    public override void ReceiveTrigger(string triggerName, bool enter, Collider other)
-    {
-        if (triggerName == "AttackZone")
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (Physics.Raycast(transform.position, other.transform.position - transform.position, out RaycastHit hit) && hit.collider && hit.collider.CompareTag("Player"))
-                {
-                    base.ReceiveTrigger(triggerName, enter, other);
-
-                    if (enter)
-                    {
-                        target = other.gameObject;
-                        CancelInvoke(nameof(PrevState));
-                    }
-                    else
-                    {
-                        target = null;
-                        Invoke(nameof(PrevState), lostSightTime);
-                    }
-                }
-            }
-        }
-        
     }
 }

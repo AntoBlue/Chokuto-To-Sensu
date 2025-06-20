@@ -1,42 +1,42 @@
 using System.Collections;
+using System.Linq;
+using AI;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(StateSettings))]
 public class State : MonoBehaviour
 {
-    [Header("State Settings")]
-    [SerializeField] protected bool startState;
+    [SerializeField] private bool startState;
     [SerializeField] protected State prevState;
     [SerializeField] protected State nextState;
     
-    [SerializeField] protected float rotationTime = 0.5f;
-    [SerializeField] protected Vector3 direction = new Vector3(-1, 0, 0);
-    [SerializeField] protected float sightDegrees = 90;
 
-    
-    
-    [Header("Depth Check")]
-    [SerializeField] protected float depthTestWall = 0.4f;
-    [SerializeField] protected LayerMask wallLayer;
-    [SerializeField] protected float depthTestFloor = 1.6f;
-    [SerializeField] protected float depthTestGround = 2;
-    [SerializeField] protected LayerMask groundFloorLayer;
-    [SerializeField] protected float floorCheckRotation = -55;
-    
-    
-    protected Rigidbody rb;
-    protected bool isRotating = false;
-    
-    protected YieldInstruction waitFor = new WaitForFixedUpdate();
+    protected GameObject Target;
+    protected StateSettings StateSettings;
+    protected Rigidbody Rb;
+    protected bool IsRotating = false;
 
     protected bool IsGrounded
     {
         get
         {
-            Debug.DrawLine(rb.position, rb.position + Vector3.down * (depthTestGround * 0.6f), Color.green);
-            return Physics.Raycast(rb.position, Vector3.down, out RaycastHit hit, depthTestGround * 0.6f,
-                groundFloorLayer);
+            Debug.DrawLine(Rb.position, Rb.position + Vector3.down * (StateSettings.Settings.DepthTestGround * 0.6f),
+                Color.green);
+            return Physics.Raycast(Rb.position, Vector3.down, out RaycastHit hit,
+                StateSettings.Settings.DepthTestGround * 0.6f,
+                StateSettings.Settings.GroundFloorLayer);
         }
+    }
+
+    protected bool CanSeePlayer
+    {
+        get { return SphereCast(StateSettings.Settings.SightRadius, Color.red); }
+    }
+
+    protected bool CanAttackPlayer
+    {
+        get { return SphereCast(StateSettings.Settings.DamageRadius, Color.yellow); }
     }
 
 
@@ -44,46 +44,80 @@ public class State : MonoBehaviour
     {
         get
         {
-            Debug.DrawLine(rb.position, rb.position + transform.forward * depthTestWall,
+            Debug.DrawLine(Rb.position, Rb.position + transform.forward * StateSettings.Settings.DepthTestWall,
                 Color.green);
-            if (!Physics.Raycast(rb.position, transform.forward, out RaycastHit wall, depthTestWall, wallLayer))
+            if (!Physics.Raycast(Rb.position, transform.forward, out RaycastHit wall,
+                    StateSettings.Settings.DepthTestWall, StateSettings.Settings.WallLayer))
             {
-                Vector3 rot = Quaternion.Euler(0, 0, floorCheckRotation * transform.forward.x) * transform.forward;
-                Debug.DrawLine(rb.position, rb.position +
-                                            (rot) * depthTestFloor,
+                Vector3 rot = Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
+                              transform.forward;
+                Debug.DrawLine(Rb.position, Rb.position +
+                                            (rot) * StateSettings.Settings.DepthTestFloor,
                     Color.green);
-                return Physics.Raycast(rb.position, (rot), out RaycastHit floor, depthTestFloor, groundFloorLayer);
+                return Physics.Raycast(Rb.position, (rot), out RaycastHit floor, StateSettings.Settings.DepthTestFloor,
+                    StateSettings.Settings.GroundFloorLayer);
             }
 
             return false;
         }
     }
-    
+
+    private bool SphereCast(float traceRadius, Color color)
+    {
+        Debug.DrawLine(transform.position - transform.forward * traceRadius, transform.position + transform.forward * traceRadius,
+            color);
+        Collider[] hits = Physics.OverlapSphere(transform.position, traceRadius);
+        Collider hit = hits.FirstOrDefault(hit => hit.gameObject.CompareTag("Player"));
+        
+        if (hit)
+        {
+            Vector3 rayDirection = (hit.transform.position - StateSettings.EyeTransform.position).normalized;
+            
+            float degresAngle = Vector3.Angle(transform.forward, rayDirection);
+
+            if (degresAngle <= StateSettings.Settings.SightDegrees)
+            {
+                Debug.DrawLine(StateSettings.EyeTransform.position, transform.position + rayDirection * traceRadius,
+                    Color.magenta);
+                if (Physics.Raycast(StateSettings.EyeTransform.position, rayDirection, out RaycastHit playerTest,
+                        traceRadius) && playerTest.collider.CompareTag("Player"))
+                {
+                    Target = hit.gameObject;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     protected IEnumerator Rotate(Quaternion desiredRotation)
     {
-        isRotating = true;
+        IsRotating = true;
         Quaternion orgRotation = transform.rotation;
         float time = 0;
-        
-        while (time < rotationTime)
+
+        while (time < StateSettings.Settings.RotationTime)
         {
-            time += Time.fixedDeltaTime;
+            time += Time.deltaTime;
 
             transform.rotation =
                 Quaternion.Slerp(orgRotation, desiredRotation,
-                    time / rotationTime);
-            yield return waitFor;
+                    time / StateSettings.Settings.RotationTime);
+            yield return null;
         }
 
-        direction.x *= -1;
+        StateSettings.direction.x *= -1;
+
         transform.rotation = desiredRotation;
-        isRotating = false;
+        IsRotating = false;
     }
 
 
     protected void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        Rb = GetComponent<Rigidbody>();
+        StateSettings = GetComponent<StateSettings>();
 
         if (!startState)
         {
@@ -117,7 +151,7 @@ public class State : MonoBehaviour
     {
         Debug.Log(GetType().Name + " Has " + (enter ? "Gained " : "Lost ") + triggerName, this);
     }
-    
+
     public void PrevState()
     {
         if (prevState)
@@ -126,7 +160,7 @@ public class State : MonoBehaviour
             prevState.OnStateEnter();
         }
     }
-    
+
     public void NextState()
     {
         if (nextState)
@@ -135,6 +169,4 @@ public class State : MonoBehaviour
             nextState.OnStateEnter();
         }
     }
-    
-    
 }

@@ -14,7 +14,7 @@ public class PatrolState : State
 
         if (!IsGrounded) return;
 
-        if (!isRotating)
+        if (!IsRotating)
         {
             if (!CanWalkForward)
             {
@@ -22,35 +22,14 @@ public class PatrolState : State
             }
             else
             {
-                rb.MovePosition(direction.normalized * (walkSpeed * Time.fixedDeltaTime) + rb.position);
+                Rb.MovePosition(StateSettings.direction.normalized * (walkSpeed * Time.fixedDeltaTime) + Rb.position);
             }
         }
-    }
 
-
-    public override void ReceiveTrigger(string triggerName, bool enter, Collider other)
-    {
-        if (other.CompareTag("Player"))
+        if (CanSeePlayer)
         {
-            Vector3 RayDirection = (other.transform.position - transform.position).normalized;
-
-            float degresAngle = Vector3.Angle(transform.forward, RayDirection);
-
-            if (degresAngle <= sightDegrees)
-            {
-                if (Physics.Raycast(transform.position, RayDirection,
-                        out RaycastHit hit) && hit.collider && hit.collider.CompareTag("Player"))
-                {
-                    Debug.DrawRay(transform.position, RayDirection,
-                        Color.red);
-
-                    base.ReceiveTrigger(triggerName, enter, other);
-                    if (enter)
-                    {
-                        NextState();
-                    }
-                }
-            }
+            NextState();
         }
     }
+    
 }
