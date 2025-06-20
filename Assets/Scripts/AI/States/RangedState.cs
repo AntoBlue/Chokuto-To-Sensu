@@ -5,12 +5,12 @@ public class RangedState : State
 {
     [SerializeField] private float lostSightTime = 1f;
     [SerializeField] private float fireRate = 1f;
-    private GameObject target;
-    private NavMeshAgent agent;
+    [SerializeField] private GameObject MeleeAttack;
+    private bool isExiting = false;
 
+    
     void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
         base.Awake();
     }
     
@@ -19,55 +19,46 @@ public class RangedState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
-            agent.SetDestination(transform.position);
-            agent.isStopped = true;
-            Invoke(nameof(PrevState), lostSightTime);
             InvokeRepeating(nameof(Attack), 0, fireRate);
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        
+        if (CanAttackPlayer)
+        {
+            if (isExiting)
+            {
+                isExiting = false;
+                CancelInvoke(nameof(PrevState));
+            }
+        }
+        else if (!isExiting)
+        {
+            isExiting = true;
+            Invoke(nameof(PrevState), lostSightTime);
+        }
     }
 
     public override void OnStateExit()
     {
         base.OnStateExit();
         CancelInvoke(nameof(Attack));
-        agent.isStopped = false;
     }
 
     private void Attack()
     {
-        if (!target) return;
+        if (!Target) return;
         
-        Debug.Log(name + " is attacking");
+        MeleeAttack.SetActive(true);
+        Invoke(nameof(DeactivateMelee), 0.25f);
      
     }
-    
 
-    public override void ReceiveTrigger(string triggerName, bool enter, Collider other)
+    private void DeactivateMelee()
     {
-        if (triggerName == "AttackZone")
-        {
-            if (other.CompareTag("Player"))
-            {
-                Physics.Raycast(transform.position, other.transform.position - transform.position, out RaycastHit hit);
-
-                if (hit.collider && hit.collider.CompareTag("Player"))
-                {
-                    base.ReceiveTrigger(triggerName, enter, other);
-
-                    if (enter)
-                    {
-                        target = other.gameObject;
-                        CancelInvoke(nameof(PrevState));
-                    }
-                    else
-                    {
-                        target = null;
-                        Invoke(nameof(PrevState), lostSightTime);
-                    }
-                }
-            }
-        }
-        
+        MeleeAttack.SetActive(false);
     }
 }

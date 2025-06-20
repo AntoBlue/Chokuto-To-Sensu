@@ -12,9 +12,6 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private  int maxHealth = 100;
     private  int currentHealth;
     
-    [SerializeField] private  int points = 0;
-    [SerializeField] private  int damage = 10; // this var is for testing only, do not use it in the actual game
-
     private void Start()
     {
         currentHealth = maxHealth;
@@ -23,7 +20,6 @@ public class HealthManager : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        points = points - damage;
         
         if (currentHealth <= 0)
         {

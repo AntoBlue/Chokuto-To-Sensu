@@ -2,14 +2,22 @@ using UnityEngine;
 
 public class MeleeDamage : MonoBehaviour
 {
-    [SerializeField] public int damage;
+    [SerializeField] private int damage;
+    [SerializeField] private GameObject owner;
+    
+    public GameObject Owner {get => owner; set => owner = value; }
 
     private void OnTriggerEnter(Collider other)
     {
-        var health = other.gameObject.GetComponent<HealthManager>();
-        if (health != null)
+        
+        if (other.gameObject != owner)
         {
-            health.TakeDamage(damage);
+            Debug.Log(other.gameObject.name);
+            var health = other.gameObject.GetComponent<HealthManager>();
+            if (health != null)
+            {
+                health.TakeDamage(damage);
+            }
         }
     }
 }
