@@ -655,6 +655,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2034518404}
     m_Modifications:
+    - target: {fileID: 3190757342043964383, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
+      propertyPath: m_Radius
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6376098
@@ -673,11 +677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.349
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.715
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1183,7 +1187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &343203924
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6565,7 +6569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e7eca505b51ff4ea297a4d702848d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10.2
+  moveSpeed: 12.2
   airMoveSpeed: 9.8
   jumpForce: 13.9
   gravityMultiplier: 3.742
