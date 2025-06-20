@@ -18,7 +18,6 @@ public class PlayerProjectile : MonoBehaviour
     public void Configure(float speed)
     {
         _speed = speed;
-        //Vector3 direction = Player.transform.forward;
     }
 
     //de-spawn projectile when needed
@@ -30,27 +29,8 @@ public class PlayerProjectile : MonoBehaviour
     //spawn projectile when PlayerAttack calls it
     public void Activate(GameObject projectile, float bulletDirection)
     {
-        //float bulletDirection;
-        //float lastHorizontal = 
-
-        //get movement imput, if idle, get last imput
-        //if (Input.GetAxis("Horizontal") > 0)
-        //{
             rb.AddForce(new Vector3(bulletDirection, 0, 0) * (_speed * 10));
-        //}
-
-        //if (Input.GetAxis("Horizontal") < 0)
-        //{
-        //    rb.AddForce(new Vector3(-1, 0, 0) * (_speed * 10));
-        //}
-
-        ////currently doesn't work
-        //else
-        //{
-        //    rb.AddForce(new Vector3(lastHorizontal, 0, 0) * (_speed * 10));
-        //}
-
-            Invoke("Deactivate", 3);
+            Invoke("Deactivate", life);
     }
 
     //damage enemy and set projectile to inactive

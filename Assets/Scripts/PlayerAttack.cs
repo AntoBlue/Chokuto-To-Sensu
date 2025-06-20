@@ -68,8 +68,6 @@ public class PlayerAttack : MonoBehaviour
                     bullet.transform.position = projectileSpawnPoint.transform.position;
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject, 1);
-
-                    //Vector3 direction = gameObject.transform.forward;
                 }
 
                 if (bullet != null && facingLeft == true)
@@ -77,8 +75,6 @@ public class PlayerAttack : MonoBehaviour
                     bullet.transform.position = projectileSpawnPoint.transform.position;
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject, -1);
-
-                    //Vector3 direction = gameObject.transform.forward;
                 }
 
                 //bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
@@ -100,8 +96,6 @@ public class PlayerAttack : MonoBehaviour
                     bullet.transform.position = projectileSpawnPoint.transform.position;
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject, 1);
-
-                    //Vector3 direction = gameObject.transform.localScale;
                 }
 
                 if (bullet != null && facingLeft == true)
@@ -109,11 +103,8 @@ public class PlayerAttack : MonoBehaviour
                     bullet.transform.position = projectileSpawnPoint.transform.position;
                     bullet.SetActive(true);
                     bullet.GetComponent<PlayerProjectile>().Activate(gameObject, -1);
-
-                    //Vector3 direction = gameObject.transform.localScale;
                 }
 
-                //bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * UpgradeProjectileSpeed;
                 Vector3 shootDirection = transform.forward;
                 shootDirection.y = 0;
                 shootDirection.Normalize();
