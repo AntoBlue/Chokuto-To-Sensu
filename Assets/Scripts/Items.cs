@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProjectilePowerUp : MonoBehaviour
+public class Items : MonoBehaviour
 {
     //public GameObject pickupEffect;
     private GameObject Player;
