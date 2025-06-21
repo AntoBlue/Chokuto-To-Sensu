@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Projectile_PU
   - ProjectileUpgrade_PU
+  - Key
   layers:
   - Default
   - TransparentFX

@@ -34,18 +34,16 @@ public class PlayerProjectile : MonoBehaviour
     }
 
     //damage enemy and set projectile to inactive
+    //projectiles use a different layer compared to the player,
+    //nothing happens if they collide against it or each other
     void OnCollisionEnter(Collision other)
     {
-        //don't do anything if projectile collides with player
-        //if (!other.gameObject.CompareTag("Player"))
-        //{
             var health = other.gameObject.GetComponent<HealthManager>();
             if (health != null)
             {
                 health.TakeDamage(damage);
             }
             Deactivate();
-        //}
     }
 
     // Update is called once per frame

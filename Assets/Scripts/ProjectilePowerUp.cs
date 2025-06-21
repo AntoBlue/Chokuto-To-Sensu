@@ -9,25 +9,29 @@ public class ProjectilePowerUp : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Pickup();
+            Pickup(other);
         }
     }
 
     //gives appropriate power up to player
     //to do: change tag system to enum
-    void Pickup()
+    void Pickup(Collider player)
     {
         if(gameObject.CompareTag("Projectile_PU"))
         {
-            PlayerAttack playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
-            playerAttack.HasProjectile = true;
+            player.GetComponent<PlayerAttack>().HasProjectile = true;
             Destroy(gameObject);
         }
 
         if (gameObject.CompareTag("ProjectileUpgrade_PU"))
         {
-            PlayerAttack playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>();
-            playerAttack.HasUpgradeProjectile = true;
+            player.GetComponent<PlayerAttack>().HasUpgradeProjectile = true;
+            Destroy(gameObject);
+        }
+
+        if (gameObject.CompareTag("Key"))
+        {
+            player.GetComponent<CharacterMovement>().hasKey = true;
             Destroy(gameObject);
         }
     }
