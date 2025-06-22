@@ -9,15 +9,20 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject UpgradeProjectile;
     [SerializeField] GameObject MeleeAttack;
     [SerializeField] GameObject ChargeMeleeAttack;
+    [SerializeField] GameObject Statue;
 
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
 
 
-    [SerializeField] private Transform projectileSpawnPoint; 
+    [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private Transform statueSpawnPoint;
+
 
     public bool HasProjectile;
     public bool HasUpgradeProjectile;
+    public bool HasStatue;
+
 
     float chargeTimer;
     private bool pressingMelee = false;
@@ -29,11 +34,16 @@ public class PlayerAttack : MonoBehaviour
     private bool facingRight;
     private bool facingLeft;
 
+    [SerializeField] float StatueCooldown;
+    private bool StatueActive;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
         ChargeMeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
+        Instantiate(Statue, statueSpawnPoint, statueSpawnPoint);
+        Statue.SetActive(false);
     }   
 
     // Update is called once per frame
@@ -43,6 +53,11 @@ public class PlayerAttack : MonoBehaviour
         ChargeMeleeAttack.SetActive(false);
     }
 
+    void DeactivateStatue()
+    {
+        Statue.SetActive(false);
+        StatueActive = false;
+    }
     void Update()
     {
         //determines the direction the player is facing, then gives the same direction to the projectile
@@ -149,6 +164,37 @@ public class PlayerAttack : MonoBehaviour
                 pressingMelee = false;
                 chargeTimer = 0;
             }
+        }
+
+        if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true)
+        {
+
+            //big attack if button is pressed for 3 or more seconds
+            if (chargeTimer >= 3)
+            {
+                ChargeMeleeAttack.SetActive(true);
+                Invoke("DeactivateMelee", 0.35f);
+                pressingMelee = false;
+                chargeTimer = 0;
+                //gameObject.GetComponent<Renderer>().material.color = defaultColor;
+            }
+
+            //normal attack otherwise
+            else
+            {
+                MeleeAttack.SetActive(true);
+                Invoke("DeactivateMelee", 0.25f);
+                pressingMelee = false;
+                chargeTimer = 0;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.K) && StatueActive == false && HasStatue == true)
+        {
+            Statue.transform.position = statueSpawnPoint.transform.position;
+            Statue.SetActive(true);
+            StatueActive = true;
+            Invoke("DeactivateStatue", StatueCooldown);
         }
     }
 }

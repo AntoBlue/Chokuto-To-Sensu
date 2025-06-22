@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class Items : MonoBehaviour
 {
-    //public GameObject pickupEffect;
-    private GameObject Player;
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -32,6 +29,12 @@ public class Items : MonoBehaviour
         if (gameObject.CompareTag("Key"))
         {
             player.GetComponent<CharacterMovement>().hasKey = true;
+            Destroy(gameObject);
+        }
+
+        if (gameObject.CompareTag("Statue_PU"))
+        {
+            player.GetComponent<PlayerAttack>().HasStatue = true;
             Destroy(gameObject);
         }
     }
