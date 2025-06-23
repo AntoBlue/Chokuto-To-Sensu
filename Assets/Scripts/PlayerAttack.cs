@@ -195,6 +195,7 @@ public class PlayerAttack : MonoBehaviour
             Statue.SetActive(true);
             StatueActive = true;
             Invoke("DeactivateStatue", StatueCooldown);
+            Statue.GetComponent<StatueAttack>().ResetColor();
         }
     }
 }
