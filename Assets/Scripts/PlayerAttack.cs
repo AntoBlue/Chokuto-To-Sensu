@@ -37,6 +37,10 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float StatueCooldown;
     private bool StatueActive;
 
+    private bool cooldown;
+
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -58,6 +62,12 @@ public class PlayerAttack : MonoBehaviour
         Statue.SetActive(false);
         StatueActive = false;
     }
+
+    void EndCooldown()
+    {
+        cooldown = false;
+    }
+
     void Update()
     {
         //determines the direction the player is facing, then gives the same direction to the projectile
@@ -74,7 +84,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //shooting
-        if (HasProjectile && HasUpgradeProjectile == false)
+        if (HasProjectile && HasUpgradeProjectile == false && cooldown == false)
         {
             if (Input.GetKeyDown(KeyCode.P))
             {       
@@ -98,13 +108,16 @@ public class PlayerAttack : MonoBehaviour
                 shootDirection.y = 0; // ignora l'inclinazione in salto
                 shootDirection.Normalize();
                 bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * ProjectileSpeed;
+
+                cooldown = true;
+                Invoke("EndCooldown", 0.25f);
             }
 
         }
 
         if(HasUpgradeProjectile)
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.P) && cooldown == false)
             {
                 GameObject bullet = ObjectPool.SharedInstance.GetPooledObject2();
                 if (bullet != null && facingRight == true)
@@ -125,12 +138,15 @@ public class PlayerAttack : MonoBehaviour
                 shootDirection.y = 0;
                 shootDirection.Normalize();
                 bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * UpgradeProjectileSpeed;
+
+                cooldown = true;
+                Invoke("EndCooldown", 0.25f);
             }
         }
 
         
         //Charge Melee Attack
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetKey(KeyCode.L) && cooldown == false)
         {
             chargeTimer += Time.deltaTime;
             pressingMelee = true;
@@ -143,37 +159,14 @@ public class PlayerAttack : MonoBehaviour
 
         }
 
-        if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true)
-        {
-
-            //big attack if button is pressed for 3 or more seconds
-            if(chargeTimer >= 3)
-            {
-                ChargeMeleeAttack.SetActive(true);
-                Invoke("DeactivateMelee", 0.35f);
-                pressingMelee = false;
-                chargeTimer = 0;
-                //gameObject.GetComponent<Renderer>().material.color = defaultColor;
-            }
-
-            //normal attack otherwise
-            else
-            {
-                MeleeAttack.SetActive(true);
-                Invoke("DeactivateMelee", 0.25f);
-                pressingMelee = false;
-                chargeTimer = 0;
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true)
+        if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true && cooldown == false)
         {
 
             //big attack if button is pressed for 3 or more seconds
             if (chargeTimer >= 3)
             {
                 ChargeMeleeAttack.SetActive(true);
-                Invoke("DeactivateMelee", 0.35f);
+                Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
                 //gameObject.GetComponent<Renderer>().material.color = defaultColor;
@@ -183,10 +176,13 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 MeleeAttack.SetActive(true);
-                Invoke("DeactivateMelee", 0.25f);
+                Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
             }
+
+            cooldown = true;
+            Invoke("EndCooldown", 0.6f);
         }
 
         if (Input.GetKeyDown(KeyCode.K) && StatueActive == false && HasStatue == true)
