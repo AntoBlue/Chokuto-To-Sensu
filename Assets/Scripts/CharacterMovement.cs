@@ -54,6 +54,33 @@ public class CharacterMovement : MonoBehaviour
 
     public bool hasKey;
     
+    //Raycast isGrounded
+    [Header("Advanced Ground Check")]
+    [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private float raycastOffset = 0.3f;
+    
+    private bool IsGrounded()
+    {
+        Vector3 originCenter = groundCheck.position;
+        Vector3 originLeft = originCenter - transform.forward * raycastOffset;
+        Vector3 originRight = originCenter + transform.forward * raycastOffset;
+
+        bool centerHit = Physics.Raycast(originCenter, Vector3.down, groundCheckDistance, groundLayer);
+        bool leftHit = Physics.Raycast(originLeft, Vector3.down, groundCheckDistance, groundLayer);
+        bool rightHit = Physics.Raycast(originRight, Vector3.down, groundCheckDistance, groundLayer);
+
+        if (centerHit || leftHit || rightHit)
+        {
+            Debug.Log($"isGrounded");
+        }
+        
+        Debug.DrawRay(originCenter, Vector3.down * groundCheckDistance, Color.red);
+        Debug.DrawRay(originLeft, Vector3.down * groundCheckDistance, Color.green);
+        Debug.DrawRay(originRight, Vector3.down * groundCheckDistance, Color.blue);
+        
+        return centerHit || leftHit || rightHit;
+    }
+    
     private void OnEnable()
     {
         var actionMap = inputActions.FindActionMap(actionMapName, true);
@@ -92,7 +119,7 @@ public class CharacterMovement : MonoBehaviour
         //}
 
         // Ground check
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
         
         // Flip personaggio
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -174,7 +201,8 @@ public class CharacterMovement : MonoBehaviour
         velocity.x = horizontalInput * currentSpeed;
         rb.linearVelocity = velocity;
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        isGrounded = IsGrounded();
         if (isGrounded)
         {
             coyoteTimer = coyoteTime; // reset on gorund
@@ -189,7 +217,7 @@ public class CharacterMovement : MonoBehaviour
         {
             jumpsRemaining = (int)jumpMode - 1; // reset on extra jump
         }
-        Debug.Log($"isGrounded: {isGrounded}, jumpPressed: {jumpPressed}");
+       // Debug.Log($"isGrounded: {isGrounded}, jumpPressed: {jumpPressed}");
 
         /*// Salto
         if (jumpPressed)
