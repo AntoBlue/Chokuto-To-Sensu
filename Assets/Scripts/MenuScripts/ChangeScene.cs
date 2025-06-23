@@ -9,28 +9,28 @@ public class ChangeScene : MonoBehaviour
     // Questi campi appariranno nell'Inspector di Unity e potranno essere assegnati lì.
 
     [SerializeField] [Tooltip("Il nome della scena del menu principale.")]
-    private SceneAsset MenuScene;
+    //private SceneAsset MenuScene;
     private string mainmenuSceneName = "MainMenuScene"; // Nome di default per la scena del menu principale
 
     [SerializeField]
     [Tooltip("Il nome della scena di gioco principale.")]
-    private SceneAsset GameScene;
+    //private SceneAsset GameScene;
     private string gameSceneName = "GameScene";   // Nome di default per la scena di gioco
 
     [SerializeField]
-    private SceneAsset CombatScene;
+    //private SceneAsset CombatScene;
     private string combatSceneName = "CombatScene"; 
     
     [SerializeField]
-    private SceneAsset StatuePowerScene;
+    //private SceneAsset StatuePowerScene;
     private string statuePowerSceneName = "StatuePowerScene"; 
     
     [SerializeField]
-    private SceneAsset CameraFollowScene;
+    //private SceneAsset CameraFollowScene;
     private string CameraFollowSceneName = "CameraFollowScene";
     
     [SerializeField]
-    private SceneAsset AIScene;
+    //private SceneAsset AIScene;
     private string AISceneName = "AIScene"; 
     
     
@@ -45,13 +45,12 @@ public class ChangeScene : MonoBehaviour
 
     void Start()
     {
-        gameSceneName = GameScene.name;
-        mainmenuSceneName = MenuScene.name;
-        combatSceneName = CombatScene.name;
-        statuePowerSceneName = StatuePowerScene.name;
-        CameraFollowSceneName = CameraFollowScene.name;
-        AISceneName = AIScene.name;
-        
+        gameSceneName = gameSceneName;
+        mainmenuSceneName = mainmenuSceneName;
+        combatSceneName = combatSceneName;
+        statuePowerSceneName = statuePowerSceneName;
+        CameraFollowSceneName = CameraFollowSceneName;
+        AISceneName = AISceneName;
     }
     // --- Funzioni Pubbliche ---
     // Queste funzioni possono essere richiamate da altri script o da eventi UI (es. pulsanti).
@@ -83,6 +82,7 @@ public class ChangeScene : MonoBehaviour
         if (!string.IsNullOrEmpty(gameSceneName))
         {
             Debug.Log($"Caricamento scena: {gameSceneName}");
+            Time.timeScale = 1f;
             SceneManager.LoadScene(gameSceneName);
         }
         else
