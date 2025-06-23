@@ -13511,7 +13511,7 @@ MonoBehaviour:
   animator: {fileID: 2034518403}
   hasKey: 0
   groundCheckDistance: 0.2
-  raycastOffset: 0.6
+  raycastOffset: 0.45
 --- !u!95 &2034518403 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 95374206053248552, guid: f7988944762557542877880bd717822e, type: 3}
