@@ -89,15 +89,19 @@ public class PlayerAttack : MonoBehaviour
         {
             bullet.transform.position = projectileSpawnPoint.position;
             bullet.SetActive(true);
-            bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
-
+            //bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
+            //Vector3 shootDirection = facingRight ? Vector3.right : Vector3.left;
+            
             //Vector3 shootDirection = transform.forward;
             //shootDirection.y = 0;
             //shootDirection.Normalize();
             //float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
             //bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * speed;
 
-            Vector3 shootDirection = facingRight ? Vector3.right : Vector3.left;
+            
+            bool isFacingRight = transform.rotation.eulerAngles.y < 180f;
+            bullet.GetComponent<PlayerProjectile>().Activate(gameObject, isFacingRight ? 1 : -1);
+            Vector3 shootDirection = isFacingRight ? Vector3.right : Vector3.left;
             float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
 
             // Calculate final velocity without factors
@@ -174,18 +178,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        //determines the direction the player is facing, then gives the same direction to the projectile
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            facingRight = true;
-            facingLeft = false;
-        }
-
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            facingRight= false;
-            facingLeft = true;
-        }
+        
         
         if (pressingMelee)
         {
@@ -306,6 +299,22 @@ public class PlayerAttack : MonoBehaviour
             StatueActive = true;
             Invoke("DeactivateStatue", StatueCooldown);
             Statue.GetComponent<StatueAttack>().ResetColor();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        //determines the direction the player is facing, then gives the same direction to the projectile
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            facingRight = true;
+            facingLeft = false;
+        }
+
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            facingRight= false;
+            facingLeft = true;
         }
     }
     private void LateUpdate()
