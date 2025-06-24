@@ -54,10 +54,11 @@ public class CharacterMovement : MonoBehaviour
 
     public bool hasKey;
     
-    //flip deceleration
+    //flip & deceleration
     private float previousHorizontalInput = 0f;
     [SerializeField] private float decelerationFactor = 0.85f;
     private float lastNonZeroHorizontalInput = 1f; // default facing right
+    public bool IsFacingRight { get; private set; }
     
     //Raycast isGrounded
     [Header("Advanced Ground Check")]
@@ -153,7 +154,11 @@ public class CharacterMovement : MonoBehaviour
 
         // Salva l'ultima direzione non-zero
         if (Mathf.Abs(horizontalInput) > 0.1f)
+        {
             lastNonZeroHorizontalInput = horizontalInput;
+            IsFacingRight = horizontalInput > 0;
+        }
+            
 
         // Applica il flip in base all'ultima direzione
         float baseY = 90f;

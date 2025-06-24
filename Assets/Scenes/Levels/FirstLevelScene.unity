@@ -13186,6 +13186,7 @@ MonoBehaviour:
   chargeTime: 0.3
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   actionMapName: Player
+  characterMovement: {fileID: 2034518402}
 --- !u!114 &2034518406
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -53,7 +53,8 @@ public class PlayerAttack : MonoBehaviour
     private InputAction statueSpawnAction;
     private bool spawnStatueNextFrame = false;
     
-
+    [SerializeField] private CharacterMovement characterMovement;
+    
     private void OnEnable()
     {
         var actionMap = inputActions.FindActionMap(actionMapName);
@@ -99,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
             //bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * speed;
 
             
-            bool isFacingRight = transform.rotation.eulerAngles.y < 180f;
+            bool isFacingRight = characterMovement.IsFacingRight;
             bullet.GetComponent<PlayerProjectile>().Activate(gameObject, isFacingRight ? 1 : -1);
             Vector3 shootDirection = isFacingRight ? Vector3.right : Vector3.left;
             float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
@@ -152,6 +153,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        characterMovement = GetComponent<CharacterMovement>();
         MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
         ChargeMeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
         Instantiate(Statue, statueSpawnPoint, statueSpawnPoint);
