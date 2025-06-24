@@ -152,7 +152,7 @@ public class CharacterMovement : MonoBehaviour
         */
 
         // Salva l'ultima direzione non-zero
-        if (horizontalInput != 0)
+        if (Mathf.Abs(horizontalInput) > 0.1f)
             lastNonZeroHorizontalInput = horizontalInput;
 
         // Applica il flip in base all'ultima direzione
