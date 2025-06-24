@@ -9559,15 +9559,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.07027955
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.349
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.715
+      value: 0.87
       objectReference: {fileID: 0}
     - target: {fileID: 5212323926553371686, guid: c43f539d508b55c40b98ce8eaeb972e5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13151,7 +13151,7 @@ MonoBehaviour:
   airJumpForceMultiplier: 0.8
   animator: {fileID: 95374205307886292}
   hasKey: 0
-  decelerationFactor: 0.65
+  decelerationFactor: 0.75
   groundCheckDistance: 0.2
   raycastOffset: 0.45
   pauseManager: {fileID: 450641199}
@@ -13172,6 +13172,7 @@ MonoBehaviour:
   MeleeAttack: {fileID: 187784869}
   ChargeMeleeAttack: {fileID: 1395220516}
   Statue: {fileID: 1455208790}
+  verticalInertiaFactor: 0.093
   projectileSpawnPoint: {fileID: 1279282618}
   statueSpawnPoint: {fileID: 28526191}
   HasProjectile: 0
@@ -13180,6 +13181,11 @@ MonoBehaviour:
   MeleeDamage: 15
   ChargeMeleeDamage: 40
   StatueCooldown: 3.5
+  meleeCooldown: 0.4
+  distanceAttackCooldown: 0.25
+  chargeTime: 0.3
+  inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  actionMapName: Player
 --- !u!114 &2034518406
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
 
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
+    [SerializeField] [Range(0f, 1f)] private float verticalInertiaFactor = 0.4f;
 
 
     [SerializeField] private Transform projectileSpawnPoint;
@@ -36,6 +37,9 @@ public class PlayerAttack : MonoBehaviour
     private bool facingLeft;
 
     [SerializeField] float StatueCooldown;
+    [SerializeField] private float meleeCooldown = 0.4f;
+    [SerializeField] private float distanceAttackCooldown = 0.25f;
+    [SerializeField] private float chargeTime = 0.3f;
     private bool StatueActive;
 
     private bool cooldown;
@@ -87,15 +91,26 @@ public class PlayerAttack : MonoBehaviour
             bullet.SetActive(true);
             bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
 
-            Vector3 shootDirection = transform.forward;
-            shootDirection.y = 0;
-            shootDirection.Normalize();
+            //Vector3 shootDirection = transform.forward;
+            //shootDirection.y = 0;
+            //shootDirection.Normalize();
+            //float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
+            //bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * speed;
 
+            Vector3 shootDirection = facingRight ? Vector3.right : Vector3.left;
             float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
-            bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * speed;
 
+            // Calculate final velocity without factors
+            Vector3 finalVelocity = shootDirection * speed;
+
+            // Add the factor to the player velocity to apply it on bullet 
+            Vector3 playerVelocity = GetComponent<Rigidbody>().linearVelocity;
+            finalVelocity.y += playerVelocity.y * verticalInertiaFactor;
+
+            //velocity on bullet
+            bullet.GetComponent<Rigidbody>().linearVelocity = finalVelocity;
             cooldown = true;
-            Invoke(nameof(EndCooldown), 0.25f);
+            Invoke(nameof(EndCooldown), distanceAttackCooldown);
         }
     }
 
@@ -111,7 +126,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!pressingMelee || cooldown) return;
 
-        GameObject attackObject = (chargeTimer >= 3f) ? ChargeMeleeAttack : MeleeAttack;
+        GameObject attackObject = (chargeTimer >= chargeTime) ? ChargeMeleeAttack : MeleeAttack;
 
         attackObject.SetActive(true);
         Invoke(nameof(DeactivateMelee), 0.3f);
@@ -120,7 +135,7 @@ public class PlayerAttack : MonoBehaviour
         chargeTimer = 0f;
 
         cooldown = true;
-        Invoke(nameof(EndCooldown), 0.6f);
+        Invoke(nameof(EndCooldown), meleeCooldown);
     }
 
     private void HandleStatueSpawn()
