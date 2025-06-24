@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject MeleeAttack;
     [SerializeField] GameObject ChargeMeleeAttack;
     [SerializeField] GameObject Statue;
+    [SerializeField] private Animator animator;
 
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
@@ -109,6 +110,8 @@ public class PlayerAttack : MonoBehaviour
                 shootDirection.Normalize();
                 bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * ProjectileSpeed;
 
+                animator.SetTrigger("Range");
+
                 cooldown = true;
                 Invoke("EndCooldown", 0.25f);
             }
@@ -139,6 +142,8 @@ public class PlayerAttack : MonoBehaviour
                 shootDirection.Normalize();
                 bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * UpgradeProjectileSpeed;
 
+                animator.SetTrigger("Range");
+
                 cooldown = true;
                 Invoke("EndCooldown", 0.25f);
             }
@@ -166,6 +171,7 @@ public class PlayerAttack : MonoBehaviour
             if (chargeTimer >= 3)
             {
                 ChargeMeleeAttack.SetActive(true);
+                animator.SetTrigger("Heavy");
                 Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
@@ -176,6 +182,7 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 MeleeAttack.SetActive(true);
+                animator.SetTrigger("Melee");
                 Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
@@ -190,6 +197,7 @@ public class PlayerAttack : MonoBehaviour
             Statue.transform.position = statueSpawnPoint.transform.position;
             Statue.SetActive(true);
             StatueActive = true;
+            animator.SetTrigger("Cast");
             Invoke("DeactivateStatue", StatueCooldown);
             Statue.GetComponent<StatueAttack>().ResetColor();
         }

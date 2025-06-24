@@ -148,12 +148,19 @@ public class CharacterMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float currentSpeed = isGrounded ? moveSpeed : airMoveSpeed;
 
+        float normalizedX = rb.linearVelocity.x / moveSpeed;
+        float normalizedY = rb.linearVelocity.y / jumpForce;
+
+        // Blend tree parameters
+        animator.SetFloat("VelocityX", normalizedX);
+        animator.SetFloat("VelocityY", normalizedY);
+
         /*if (jumpPressed && isGrounded)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             jumpPressed = false;
         }*/
-        
+
         /*
         // Countdown del buffer
         if (jumpBufferCounter > 0f)
@@ -165,7 +172,7 @@ public class CharacterMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             jumpBufferCounter = 0f; // reset dopo il salto
         }*/
-        
+
         // Countdown del buffer
         if (jumpBufferCounter > 0f)
             jumpBufferCounter -= Time.fixedDeltaTime;
