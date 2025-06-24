@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerAttack : MonoBehaviour
@@ -38,7 +39,95 @@ public class PlayerAttack : MonoBehaviour
     private bool StatueActive;
 
     private bool cooldown;
+    
+    //input mapping
+    [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] private string actionMapName = "Player";
 
+    private InputAction attackAction;
+    private InputAction attackDistanceAction;
+    private InputAction statueSpawnAction;
+    private bool spawnStatueNextFrame = false;
+    
+
+    private void OnEnable()
+    {
+        var actionMap = inputActions.FindActionMap(actionMapName);
+
+        attackAction = actionMap.FindAction("Attack");
+        attackDistanceAction = actionMap.FindAction("AttackDistance");
+        statueSpawnAction = actionMap.FindAction("StatueSpawn");
+
+        attackAction.Enable();
+        attackDistanceAction.Enable();
+        statueSpawnAction.Enable();
+
+        attackAction.started += ctx => HandleMeleeStart();
+        attackAction.canceled += ctx => HandleMeleeRelease();
+
+        attackDistanceAction.performed += ctx => HandleProjectileAttack();
+
+        statueSpawnAction.performed += ctx => HandleStatueSpawn();
+    }
+    
+    private void HandleProjectileAttack()
+    {
+        if (cooldown) return;
+
+        GameObject bullet = null;
+
+        if (HasUpgradeProjectile)
+            bullet = ObjectPool.SharedInstance.GetPooledObject2();
+        else if (HasProjectile)
+            bullet = ObjectPool.SharedInstance.GetPooledObject();
+
+        if (bullet != null)
+        {
+            bullet.transform.position = projectileSpawnPoint.position;
+            bullet.SetActive(true);
+            bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
+
+            Vector3 shootDirection = transform.forward;
+            shootDirection.y = 0;
+            shootDirection.Normalize();
+
+            float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
+            bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * speed;
+
+            cooldown = true;
+            Invoke(nameof(EndCooldown), 0.25f);
+        }
+    }
+
+    private void HandleMeleeStart()
+    {
+        if (cooldown) return;
+
+        chargeTimer = 0f;
+        pressingMelee = true;
+    }
+
+    private void HandleMeleeRelease()
+    {
+        if (!pressingMelee || cooldown) return;
+
+        GameObject attackObject = (chargeTimer >= 3f) ? ChargeMeleeAttack : MeleeAttack;
+
+        attackObject.SetActive(true);
+        Invoke(nameof(DeactivateMelee), 0.3f);
+
+        pressingMelee = false;
+        chargeTimer = 0f;
+
+        cooldown = true;
+        Invoke(nameof(EndCooldown), 0.6f);
+    }
+
+    private void HandleStatueSpawn()
+    {
+        if (StatueActive || !HasStatue) return;
+        spawnStatueNextFrame = true;
+    }
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -82,11 +171,21 @@ public class PlayerAttack : MonoBehaviour
             facingRight= false;
             facingLeft = true;
         }
+        
+        if (pressingMelee)
+        {
+            chargeTimer += Time.deltaTime;
+            if (chargeTimer >= 3f)
+            {
+                // Visual feedback, se vuoi
+                // gameObject.GetComponent<Renderer>().material.color = Color.red;
+            }
+        }
 
         //shooting
         if (HasProjectile && HasUpgradeProjectile == false && cooldown == false)
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (false)
             {       
                 GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
                 if (bullet != null && facingRight == true)
@@ -117,7 +216,7 @@ public class PlayerAttack : MonoBehaviour
 
         if(HasUpgradeProjectile)
         {
-            if (Input.GetKeyDown(KeyCode.P) && cooldown == false)
+            /*if (Input.GetKeyDown(KeyCode.P) && cooldown == false)
             {
                 GameObject bullet = ObjectPool.SharedInstance.GetPooledObject2();
                 if (bullet != null && facingRight == true)
@@ -141,10 +240,10 @@ public class PlayerAttack : MonoBehaviour
 
                 cooldown = true;
                 Invoke("EndCooldown", 0.25f);
-            }
+            }*/
         }
 
-        
+        /*
         //Charge Melee Attack
         if (Input.GetKey(KeyCode.L) && cooldown == false)
         {
@@ -157,8 +256,8 @@ public class PlayerAttack : MonoBehaviour
                 //gameObject.GetComponent<Renderer>().material.color = Color.red;
             }
 
-        }
-
+        }*/
+        /*
         if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true && cooldown == false)
         {
 
@@ -183,7 +282,7 @@ public class PlayerAttack : MonoBehaviour
 
             cooldown = true;
             Invoke("EndCooldown", 0.6f);
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.K) && StatueActive == false && HasStatue == true)
         {
@@ -192,6 +291,18 @@ public class PlayerAttack : MonoBehaviour
             StatueActive = true;
             Invoke("DeactivateStatue", StatueCooldown);
             Statue.GetComponent<StatueAttack>().ResetColor();
+        }
+    }
+    private void LateUpdate()
+    {
+        if (spawnStatueNextFrame)
+        {
+            Statue.transform.position = statueSpawnPoint.position;
+            Statue.SetActive(true);
+            StatueActive = true;
+            Invoke(nameof(DeactivateStatue), StatueCooldown);
+            Statue.GetComponent<StatueAttack>().ResetColor();
+            spawnStatueNextFrame = false;
         }
     }
 }
