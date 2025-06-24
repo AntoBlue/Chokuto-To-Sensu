@@ -6591,8 +6591,10 @@ MonoBehaviour:
   airJumpForceMultiplier: 0.8
   animator: {fileID: 0}
   hasKey: 0
+  decelerationFactor: 0.85
   groundCheckDistance: 0.1
   raycastOffset: 0.3
+  pauseManager: {fileID: 0}
 --- !u!65 &858205153
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13145,12 +13147,14 @@ MonoBehaviour:
   ascentGravityMultiplier: 2.97
   jumpBufferTime: 0.2
   jumpMode: 2
-  coyoteTime: 0.15
+  coyoteTime: 0.38
   airJumpForceMultiplier: 0.8
   animator: {fileID: 95374205307886292}
   hasKey: 0
+  decelerationFactor: 0.65
   groundCheckDistance: 0.2
   raycastOffset: 0.45
+  pauseManager: {fileID: 450641199}
 --- !u!114 &2034518405
 MonoBehaviour:
   m_ObjectHideFlags: 0

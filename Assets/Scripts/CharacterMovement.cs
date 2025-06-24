@@ -54,10 +54,17 @@ public class CharacterMovement : MonoBehaviour
 
     public bool hasKey;
     
+    //flip deceleration
+    private float previousHorizontalInput = 0f;
+    [SerializeField] private float decelerationFactor = 0.85f;
+    private float lastNonZeroHorizontalInput = 1f; // default facing right
+    
     //Raycast isGrounded
     [Header("Advanced Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
     [SerializeField] private float raycastOffset = 0.3f;
+
+    [SerializeField] private PauseManager pauseManager;
     
     private bool IsGrounded()
     {
@@ -117,6 +124,8 @@ public class CharacterMovement : MonoBehaviour
         //{
             //jumpPressed = true;
         //}
+        if (pauseManager)
+            if (pauseManager.IsPaused) return;
 
         // Ground check
         //isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
@@ -134,12 +143,22 @@ public class CharacterMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0, horizontalInput > 0 ? 0 : 180, 0);
             transform.rotation = targetRotation;
         }*/
-        if (horizontalInput != 0)
+        /*if (horizontalInput != 0)
         {
             float baseY = 90f;
             float flipY = baseY + (horizontalInput > 0 ? 0f : 180f);
             transform.rotation = Quaternion.Euler(0f, flipY, 0f);
         }
+        */
+
+        // Salva l'ultima direzione non-zero
+        if (horizontalInput != 0)
+            lastNonZeroHorizontalInput = horizontalInput;
+
+        // Applica il flip in base all'ultima direzione
+        float baseY = 90f;
+        float flipY = baseY + (lastNonZeroHorizontalInput > 0 ? 0f : 180f);
+        transform.rotation = Quaternion.Euler(0f, flipY, 0f);
         animator.SetBool("isJumping", !isGrounded);
     }
 
@@ -198,7 +217,23 @@ public class CharacterMovement : MonoBehaviour
         velocity.x = horizontalInput * moveSpeed;
         rb.linearVelocity = velocity;*/
         Vector3 velocity = rb.linearVelocity;
-        velocity.x = horizontalInput * currentSpeed;
+        //velocity.x = horizontalInput * currentSpeed;
+        //flip deceleration
+        bool isChangingDirection = Mathf.Sign(horizontalInput) != Mathf.Sign(previousHorizontalInput) && horizontalInput != 0f && previousHorizontalInput != 0f;
+
+        if (isChangingDirection)
+        {
+            // Applica rallentamento durante cambio direzione
+            // tra 0 e 1, più basso = più lento
+            velocity.x = Mathf.Lerp(rb.linearVelocity.x, horizontalInput * currentSpeed, decelerationFactor);
+        }
+        else
+        {
+            // Movimento normale
+            velocity.x = horizontalInput * currentSpeed;
+        }
+        previousHorizontalInput = horizontalInput;
+
         rb.linearVelocity = velocity;
 
         //isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);

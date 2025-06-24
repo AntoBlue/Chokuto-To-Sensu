@@ -20,6 +20,7 @@ public class PauseManager : MonoBehaviour
     private EventSystem eventSystem;
     private int selectedIndex = 0;
     private bool isPaused = false;
+    public bool IsPaused => isPaused;
     // This is the array that will contain the TextMeshPro references of the buttons.
     private FontSizeController[] buttonTextControllers;
 
