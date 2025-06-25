@@ -16,7 +16,7 @@ public class UnlockableDoor : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         //translate door upwards for X seconds, where X is openingTimer
         if(triggered && timer < openingTimer)
