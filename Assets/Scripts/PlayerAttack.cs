@@ -40,7 +40,8 @@ public class PlayerAttack : MonoBehaviour
 
     private bool cooldown;
 
-    
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -159,7 +160,7 @@ public class PlayerAttack : MonoBehaviour
             //Visual cue: turn player red when attack is fully charged
             if (chargeTimer >= 3)
             {
-                //gameObject.GetComponent<Renderer>().material.color = Color.red;
+                animator.SetBool("FullCharged", true);
             }
 
         }
@@ -175,7 +176,8 @@ public class PlayerAttack : MonoBehaviour
                 Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
-                //gameObject.GetComponent<Renderer>().material.color = defaultColor;
+                animator.SetBool("FullCharged", false);
+
             }
 
             //normal attack otherwise
