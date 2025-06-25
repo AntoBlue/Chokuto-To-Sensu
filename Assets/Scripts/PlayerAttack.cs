@@ -91,6 +91,7 @@ public class PlayerAttack : MonoBehaviour
         {
             //ranged attack!
             animator.SetTrigger("Range");
+            bullet.GetComponent<PlayerProjectile>().Owner = gameObject;
             bullet.transform.position = projectileSpawnPoint.position;
             bullet.SetActive(true);
             //bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);

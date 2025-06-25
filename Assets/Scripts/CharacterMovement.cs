@@ -1,3 +1,4 @@
+using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -79,7 +80,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (centerHit || leftHit || rightHit)
         {
-            Debug.Log($"isGrounded");
+            //Debug.Log($"isGrounded");
         }
         
         Debug.DrawRay(originCenter, Vector3.down * groundCheckDistance, Color.red);
@@ -316,4 +317,5 @@ public class CharacterMovement : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
     }
+    
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,12 +6,17 @@ public class RangedState : State
 {
     [SerializeField] private float lostSightTime = 1f;
     [SerializeField] private float fireRate = 1f;
-    [SerializeField] private GameObject MeleeAttack;
+    [SerializeField] private Transform projectileSpawnPoint;
+    
+    private ObjectPool _objectPool;
     private bool isExiting = false;
+    private Animator _animator;
 
     
     void Awake()
     {
+        _animator = gameObject.GetComponentInChildren<Animator>();
+        _objectPool = gameObject.GetComponent<ObjectPool>();
         base.Awake();
     }
     
@@ -19,7 +25,8 @@ public class RangedState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
-            InvokeRepeating(nameof(Attack), 0, fireRate);
+            _animator.SetBool("IsAttacking", true);
+            InvokeRepeating(nameof(Attack), fireRate, fireRate);
         }
         
     }
@@ -45,20 +52,25 @@ public class RangedState : State
     public override void OnStateExit()
     {
         base.OnStateExit();
+        _animator.SetBool("IsAttacking", false);
         CancelInvoke(nameof(Attack));
     }
 
     private void Attack()
     {
         if (!Target) return;
-        
-        MeleeAttack.SetActive(true);
-        Invoke(nameof(DeactivateMelee), 0.25f);
+   
+        GameObject bullet = _objectPool.GetPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = projectileSpawnPoint.transform.position;
+            bullet.SetActive(true);
+            PlayerProjectile player = bullet.GetComponent<PlayerProjectile>();
+            player.Owner = gameObject;
+            player.Activate(gameObject, transform.forward.x);
+        }
      
     }
 
-    private void DeactivateMelee()
-    {
-        MeleeAttack.SetActive(false);
-    }
+
 }
