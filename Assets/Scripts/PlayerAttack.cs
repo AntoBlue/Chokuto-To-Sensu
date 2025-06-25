@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject MeleeAttack;
     [SerializeField] GameObject ChargeMeleeAttack;
     [SerializeField] GameObject Statue;
+    [SerializeField] private Animator animator;
 
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
@@ -88,6 +89,8 @@ public class PlayerAttack : MonoBehaviour
 
         if (bullet != null)
         {
+            //ranged attack!
+            animator.SetTrigger("Range");
             bullet.transform.position = projectileSpawnPoint.position;
             bullet.SetActive(true);
             //bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
@@ -130,9 +133,12 @@ public class PlayerAttack : MonoBehaviour
     private void HandleMeleeRelease()
     {
         if (!pressingMelee || cooldown) return;
-
+        
+        animator.SetBool("FullCharged", false);
         GameObject attackObject = (chargeTimer >= chargeTime) ? ChargeMeleeAttack : MeleeAttack;
-
+        animator.SetTrigger("Melee");
+        //animator.SetTrigger("Heavy");
+        
         attackObject.SetActive(true);
         Invoke(nameof(DeactivateMelee), 0.3f);
 
@@ -147,8 +153,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (StatueActive || !HasStatue) return;
         spawnStatueNextFrame = true;
+        animator.SetTrigger("Cast");
     }
     
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -189,6 +197,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 // Visual feedback, se vuoi
                 // gameObject.GetComponent<Renderer>().material.color = Color.red;
+                animator.SetBool("FullCharged", true);
             }
         }
 
@@ -217,6 +226,8 @@ public class PlayerAttack : MonoBehaviour
                 shootDirection.y = 0; // ignora l'inclinazione in salto
                 shootDirection.Normalize();
                 bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * ProjectileSpeed;
+
+                animator.SetTrigger("Range");
 
                 cooldown = true;
                 Invoke("EndCooldown", 0.25f);
@@ -248,6 +259,8 @@ public class PlayerAttack : MonoBehaviour
                 shootDirection.Normalize();
                 bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * UpgradeProjectileSpeed;
 
+                animator.SetTrigger("Range");
+
                 cooldown = true;
                 Invoke("EndCooldown", 0.25f);
             }*/
@@ -263,7 +276,7 @@ public class PlayerAttack : MonoBehaviour
             //Visual cue: turn player red when attack is fully charged
             if (chargeTimer >= 3)
             {
-                //gameObject.GetComponent<Renderer>().material.color = Color.red;
+                animator.SetBool("FullCharged", true);
             }
 
         }*/
@@ -275,16 +288,19 @@ public class PlayerAttack : MonoBehaviour
             if (chargeTimer >= 3)
             {
                 ChargeMeleeAttack.SetActive(true);
+                animator.SetTrigger("Heavy");
                 Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
-                //gameObject.GetComponent<Renderer>().material.color = defaultColor;
+                animator.SetBool("FullCharged", false);
+
             }
 
             //normal attack otherwise
             else
             {
                 MeleeAttack.SetActive(true);
+                animator.SetTrigger("Melee");
                 Invoke("DeactivateMelee", 0.3f);
                 pressingMelee = false;
                 chargeTimer = 0;
@@ -299,6 +315,7 @@ public class PlayerAttack : MonoBehaviour
             Statue.transform.position = statueSpawnPoint.transform.position;
             Statue.SetActive(true);
             StatueActive = true;
+            animator.SetTrigger("Cast");
             Invoke("DeactivateStatue", StatueCooldown);
             Statue.GetComponent<StatueAttack>().ResetColor();
         }
