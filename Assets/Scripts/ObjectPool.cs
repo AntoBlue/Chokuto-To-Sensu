@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
+    [SerializeField] private bool sharedInstance = true;
+
     public static ObjectPool SharedInstance;
     public List<GameObject> pooledObjects;
     public List<GameObject> pooledObjects2;
@@ -12,7 +14,10 @@ public class ObjectPool : MonoBehaviour
 
     void Awake()
     {
-        SharedInstance = this;
+        if (sharedInstance)
+        {
+            SharedInstance = this;
+        }
     }
 
     //spawn inactive objects
@@ -25,12 +30,14 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < amountToPool; i++)
         {
             tmp = Instantiate(objectToPool);
-            tmp2 = Instantiate(objectToPool2);
             tmp.SetActive(false);
-            tmp2.SetActive(false);
             pooledObjects.Add(tmp);
-            pooledObjects2.Add(tmp2);
-
+            if (objectToPool2)
+            {
+                tmp2 = Instantiate(objectToPool2);
+                tmp2.SetActive(false);
+                pooledObjects2.Add(tmp2);
+            }
         }
     }
 
@@ -44,6 +51,7 @@ public class ObjectPool : MonoBehaviour
                 return pooledObjects[i];
             }
         }
+
         return null;
     }
 
@@ -56,6 +64,7 @@ public class ObjectPool : MonoBehaviour
                 return pooledObjects2[i];
             }
         }
+
         return null;
     }
 }

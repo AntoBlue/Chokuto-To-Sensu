@@ -4,6 +4,9 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
 
+    [SerializeField] private GameObject owner;
+    public GameObject Owner {get => owner; set => owner = value; }
+    
     [SerializeField] private float life = 3;
     [SerializeField] public float _speed;
     [SerializeField] private int damage;
@@ -38,12 +41,16 @@ public class PlayerProjectile : MonoBehaviour
     //nothing happens if they collide against it or each other
     void OnCollisionEnter(Collision other)
     {
+        if (Owner != other.gameObject)
+        {
             var health = other.gameObject.GetComponent<HealthManager>();
             if (health != null)
             {
                 health.TakeDamage(damage);
             }
+
             Deactivate();
+        }
     }
 
     // Update is called once per frame
