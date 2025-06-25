@@ -8,6 +8,7 @@ TagManager:
   - ProjectileUpgrade_PU
   - Key
   - Statue_PU
+  - Projectile
   layers:
   - Default
   - TransparentFX
