@@ -164,7 +164,7 @@ public class CharacterMovement : MonoBehaviour
         float baseY = 90f;
         float flipY = baseY + (lastNonZeroHorizontalInput > 0 ? 0f : 180f);
         transform.rotation = Quaternion.Euler(0f, flipY, 0f);
-        animator.SetBool("isJumping", !isGrounded);
+        //animator.SetBool("isJumping", !isGrounded);
     }
 
     private void FixedUpdate()
@@ -209,7 +209,7 @@ public class CharacterMovement : MonoBehaviour
             //rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             float appliedJumpForce = isGrounded ? jumpForce : jumpForce * airJumpForceMultiplier;
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, appliedJumpForce, rb.linearVelocity.z);
-            animator.SetTrigger("Jump");
+            //animator.SetTrigger("Jump");
             jumpBufferCounter = 0f;
 
             if (isGrounded)
@@ -302,9 +302,9 @@ public class CharacterMovement : MonoBehaviour
         float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
 
         // Aggiorna blend tree Animator
-        float currentSpeedA = animator.GetFloat("Speed");
-        float smoothSpeed = Mathf.Lerp(currentSpeedA, horizontalSpeed, animationSpeedSmooth * Time.fixedDeltaTime);
-        animator.SetFloat("Speed", Mathf.Clamp01(smoothSpeed));
+        //float currentSpeedA = animator.GetFloat("Speed");
+        //float smoothSpeed = Mathf.Lerp(currentSpeedA, horizontalSpeed, animationSpeedSmooth * Time.fixedDeltaTime);
+        //animator.SetFloat("Speed", Mathf.Clamp01(smoothSpeed));
         
     }
 
