@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float StatueCooldown;
     [SerializeField] private float meleeCooldown = 0.4f;
     [SerializeField] private float distanceAttackCooldown = 0.25f;
-    [SerializeField] private float chargeTime = 0.3f;
+    [SerializeField] private float chargeTime = 2f;
     private bool StatueActive;
 
     private bool cooldown;
@@ -134,10 +134,19 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!pressingMelee || cooldown) return;
         
-        animator.SetBool("FullCharged", false);
-        GameObject attackObject = (chargeTimer >= chargeTime) ? ChargeMeleeAttack : MeleeAttack;
-        animator.SetTrigger("Melee");
-        //animator.SetTrigger("Heavy");
+        
+        GameObject attackObject;
+        if (chargeTimer >= chargeTime)
+        {
+           attackObject = ChargeMeleeAttack;
+           animator.SetTrigger("Heavy"); // animazione attacco pesante
+           animator.SetBool("FullCharged", false);
+        }
+        else
+        {
+           attackObject = MeleeAttack;
+           animator.SetTrigger("Melee"); // animazione attacco normale
+        }
         
         attackObject.SetActive(true);
         Invoke(nameof(DeactivateMelee), 0.3f);
@@ -193,7 +202,7 @@ public class PlayerAttack : MonoBehaviour
         if (pressingMelee)
         {
             chargeTimer += Time.deltaTime;
-            if (chargeTimer >= 3f)
+            if (chargeTimer >= chargeTime)
             {
                 // Visual feedback, se vuoi
                 // gameObject.GetComponent<Renderer>().material.color = Color.red;

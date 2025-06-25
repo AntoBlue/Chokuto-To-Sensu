@@ -51,6 +51,7 @@ public class CharacterMovement : MonoBehaviour
     //animator
     [SerializeField] private Animator animator;
     private float animationSpeedSmooth = 5f;
+    private int totalBodyLayerIndex;
 
     public bool hasKey;
     
@@ -118,6 +119,11 @@ public class CharacterMovement : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
+    private void Start()
+    {
+        totalBodyLayerIndex = animator.GetLayerIndex("TotalBody");
+        animator.SetLayerWeight(totalBodyLayerIndex, 1f);
+    }
     private void Update()
     {
         // Input salto
@@ -178,7 +184,13 @@ public class CharacterMovement : MonoBehaviour
         // Blend tree parameters
         animator.SetFloat("VelocityX", normalizedX);
         animator.SetFloat("VelocityY", normalizedY);
-
+        
+        
+        if (Mathf.Abs(normalizedX) > 0.0001f || Mathf.Abs(normalizedY) > 0.0001f )
+            animator.SetLayerWeight(totalBodyLayerIndex, 0f);
+        else
+            animator.SetLayerWeight(totalBodyLayerIndex, 1f);
+        
         /*if (jumpPressed && isGrounded)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
