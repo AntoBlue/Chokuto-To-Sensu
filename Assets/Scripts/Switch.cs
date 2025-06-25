@@ -6,15 +6,22 @@ public class Switch : MonoBehaviour
     [SerializeField] GameObject doorTransform;
     [SerializeField] GameObject door;
     [SerializeField] float openingSpeed;
-
+    [SerializeField] GameObject doorCollider;
 
     private bool doorOpening;
     private float currentOpening;
 
+    private void Start()
+    {
+        gameObject.GetComponent<Renderer>().material.color = Color.red;
+        
+    }
+
+
     private void OpenDoor()
     {
         doorOpening = true;
-        door.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Renderer>().material.color = Color.green;
     }
 
 
@@ -24,6 +31,7 @@ public class Switch : MonoBehaviour
         if (other.gameObject.CompareTag("Projectile"))
         {
             OpenDoor();
+            
         }
     }
 
@@ -34,6 +42,8 @@ public class Switch : MonoBehaviour
             doorTransform.transform.Rotate(openingSpeed, 0, 0);
 
             currentOpening += openingSpeed;
+
+            doorCollider.SetActive(false);
         }
     }
 }
