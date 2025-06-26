@@ -1,16 +1,12 @@
+using DefaultNamespace;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(HasOwner))]
 public class PlayerProjectile : MonoBehaviour
 {
-    [SerializeField] private GameObject owner;
-
-    public GameObject Owner
-    {
-        get => owner;
-        set => owner = value;
-    }
-
+    
     [SerializeField] private float life = 3;
     [SerializeField] private float _speed;
     [SerializeField] private int damage;
@@ -22,6 +18,12 @@ public class PlayerProjectile : MonoBehaviour
     float lastHorizontal;
 
     private Quaternion playerDirection;
+
+    private HasOwner hasOwner;
+    void Awake()
+    {
+        hasOwner = GetComponent<HasOwner>();
+    }
 
     //private int bulletDirection;
     public void Configure(float speed)
@@ -47,7 +49,7 @@ public class PlayerProjectile : MonoBehaviour
     //nothing happens if they collide against it or each other
     void OnCollisionEnter(Collision other)
     {
-        if (Owner != other.gameObject)
+        if (hasOwner.Owner != other.gameObject)
         {
             var health = other.gameObject.GetComponent<HealthManager>();
             if (health != null)
