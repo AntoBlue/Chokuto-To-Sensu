@@ -9416,7 +9416,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   actionMapName: Player
   actionName: BackSelector
-  backScene: {fileID: 102900000, guid: b349028e71149894eb1230abbc5b7934, type: 3}
+  backSceneName: 
 --- !u!4 &1381818540
 Transform:
   m_ObjectHideFlags: 0
@@ -10081,18 +10081,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 187966722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1455208790 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7198687777555990298, guid: 2b6688a6e4d9be94e915bd684df24908, type: 3}
-  m_PrefabInstance: {fileID: 1240704946664424067}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1455208797
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455208790}
+  m_GameObject: {fileID: 8273463224912512409}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f42bf1022891b4409b5d8fd5192a2b0, type: 3}
@@ -12686,7 +12681,7 @@ MonoBehaviour:
   UpgradeProjectile: {fileID: 14863829916368958, guid: 84da9b5fea7ac1d4786b550533ce76e6, type: 3}
   MeleeAttack: {fileID: 187784869}
   ChargeMeleeAttack: {fileID: 1395220516}
-  Statue: {fileID: 1455208790}
+  Statue: {fileID: 8273463224912512409}
   animator: {fileID: 95374205307886292}
   verticalInertiaFactor: 0.093
   projectileSpawnPoint: {fileID: 1279282618}
@@ -16320,6 +16315,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8530069719106154225, guid: 2b6688a6e4d9be94e915bd684df24908, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16572,6 +16571,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1562f3825b93c44449ef98ddf419ad56, type: 3}
+--- !u!1 &8273463224912512409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7198687777555990298, guid: 2b6688a6e4d9be94e915bd684df24908, type: 3}
+  m_PrefabInstance: {fileID: 1240704946664424067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8379757779535659494
 PrefabInstance:
   m_ObjectHideFlags: 0
