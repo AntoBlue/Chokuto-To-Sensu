@@ -10,8 +10,7 @@ public class MeleeDamage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //hurt anything with health except the player
-        //tag player is there for statue (it does not have the player as its owner)
-        if (other.gameObject != owner && !CompareTag("Player"))
+        if (other.gameObject != owner)
         {
             Debug.Log(other.gameObject.name);
             var health = other.gameObject.GetComponent<HealthManager>();

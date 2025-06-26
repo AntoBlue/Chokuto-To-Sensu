@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  currentHealth: 0
 --- !u!136 &3622759585410425456
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -188,7 +189,7 @@ MonoBehaviour:
   sharedInstance: 0
   pooledObjects: []
   pooledObjects2: []
-  objectToPool: {fileID: 14863829916368958, guid: 84da9b5fea7ac1d4786b550533ce76e6, type: 3}
+  objectToPool: {fileID: 14863829916368958, guid: f54c145a487c14049a4e244bcb188d27, type: 3}
   objectToPool2: {fileID: 0}
   amountToPool: 10
 --- !u!1 &2290073106926078285
