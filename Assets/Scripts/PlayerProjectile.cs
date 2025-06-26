@@ -3,20 +3,26 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour
 {
-
     [SerializeField] private GameObject owner;
-    public GameObject Owner {get => owner; set => owner = value; }
-    
+
+    public GameObject Owner
+    {
+        get => owner;
+        set => owner = value;
+    }
+
     [SerializeField] private float life = 3;
-    [SerializeField] public float _speed;
+    [SerializeField] private float _speed;
     [SerializeField] private int damage;
     [SerializeField] private int rotationSpeed;
     [SerializeField] GameObject Player;
     [SerializeField] Rigidbody rb;
 
+    private Vector3 direction;
     float lastHorizontal;
 
     private Quaternion playerDirection;
+
     //private int bulletDirection;
     public void Configure(float speed)
     {
@@ -25,15 +31,15 @@ public class PlayerProjectile : MonoBehaviour
 
     //de-spawn projectile when needed
     void Deactivate()
-    {    
+    {
         gameObject.SetActive(false);
     }
 
     //spawn projectile when PlayerAttack calls it
-    public void Activate(GameObject projectile, float bulletDirection)
+    public void Activate(float bulletDirection)
     {
-            rb.AddForce(new Vector3(bulletDirection, 0, 0) * (_speed * 10));
-            Invoke("Deactivate", life);
+        direction = new Vector3(bulletDirection, 0, 0);
+        Invoke("Deactivate", life);
     }
 
     //damage enemy and set projectile to inactive
@@ -57,8 +63,7 @@ public class PlayerProjectile : MonoBehaviour
     void Update()
     {
         //rotation animation
+        rb.MovePosition(transform.position + direction * (_speed * Time.deltaTime));
         transform.Rotate(rotationSpeed, 0, 0 * Time.deltaTime);
     }
-
-
 }
