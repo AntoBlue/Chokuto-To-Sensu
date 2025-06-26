@@ -1,3 +1,4 @@
+using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -99,7 +100,7 @@ public class PlayerAttack : MonoBehaviour
             //ranged attack!
             animator.SetTrigger("Range");
             audioSource.PlayOneShot(throwClip, 3f);
-            bullet.GetComponent<PlayerProjectile>().Owner = gameObject;
+            bullet.GetComponent<HasOwner>().Owner = gameObject;
             bullet.transform.position = projectileSpawnPoint.position;
             bullet.SetActive(true);
             //bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
@@ -185,8 +186,8 @@ public class PlayerAttack : MonoBehaviour
         audioSource.volume = audioVolume / 100f;
 
         characterMovement = GetComponent<CharacterMovement>();
-        MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
-        ChargeMeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
+        MeleeAttack.GetComponent<HasOwner>().Owner = gameObject;
+        ChargeMeleeAttack.GetComponent<HasOwner>().Owner = gameObject;
         Instantiate(Statue, statueSpawnPoint, statueSpawnPoint);
         Statue.SetActive(false);
     }   

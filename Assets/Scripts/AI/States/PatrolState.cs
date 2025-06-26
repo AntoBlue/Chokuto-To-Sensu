@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,6 +31,26 @@ public class PatrolState : State
         {
             NextState();
         }
+    }
+    
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Projectile") && other.gameObject.GetComponent<HasOwner>() is { } owner)
+        {
+            Target = owner.gameObject;
+            NextState();
+        }
+        
+    }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Projectile") && other.gameObject.GetComponent<HasOwner>() is { } owner)
+        {
+            Target = owner.gameObject;
+            NextState();
+        }
+        
     }
     
 }

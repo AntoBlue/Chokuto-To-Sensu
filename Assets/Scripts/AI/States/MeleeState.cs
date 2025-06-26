@@ -1,4 +1,5 @@
 using System;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +14,7 @@ public class MeleeState : State
     void Awake()
     {
         _animator = gameObject.GetComponentInChildren<Animator>();
-        MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
+        MeleeAttack.GetComponent<HasOwner>().Owner = gameObject;
         base.Awake();
     }
     

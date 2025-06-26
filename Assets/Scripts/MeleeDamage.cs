@@ -1,16 +1,21 @@
+using DefaultNamespace;
 using UnityEngine;
 
+[RequireComponent(typeof(HasOwner))]
 public class MeleeDamage : MonoBehaviour
 {
     [SerializeField] private int damage;
-    [SerializeField] private GameObject owner;
     
-    public GameObject Owner {get => owner; set => owner = value; }
+    private HasOwner hasOwner;
+    void Awake()
+    {
+        hasOwner = GetComponent<HasOwner>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject != owner)
+        if (other.gameObject != hasOwner.Owner)
         {
             Debug.Log(other.gameObject.name);
             var health = other.gameObject.GetComponent<HealthManager>();

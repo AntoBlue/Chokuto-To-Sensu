@@ -1,4 +1,5 @@
 using System;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -67,12 +68,12 @@ public class RangedState : State
             bullet.transform.position = projectileSpawnPoint.transform.position;
             bullet.SetActive(true);
             PlayerProjectile player = bullet.GetComponent<PlayerProjectile>();
+            HasOwner owner = bullet.GetComponent<HasOwner>();
             Debug.Log(Target.transform.position.x - transform.position.x);
-            player.Owner = gameObject;
+            owner.Owner = gameObject;
             player.Activate(Mathf.Sign(Target.transform.position.x - transform.position.x));
         }
      
     }
-
-
+    
 }
