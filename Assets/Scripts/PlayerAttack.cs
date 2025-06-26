@@ -52,7 +52,17 @@ public class PlayerAttack : MonoBehaviour
     private bool spawnStatueNextFrame = false;
     
     [SerializeField] private CharacterMovement characterMovement;
-    
+
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip meleeClip;
+    [SerializeField] private AudioClip chargeClip;
+    [SerializeField] private AudioClip throwClip;
+    [SerializeField] private AudioClip castClip;
+    [Range(0f, 100f)]
+    [SerializeField] private float audioVolume = 100f;
+
     private void OnEnable()
     {
         var actionMap = inputActions.FindActionMap(actionMapName);
@@ -88,6 +98,7 @@ public class PlayerAttack : MonoBehaviour
         {
             //ranged attack!
             animator.SetTrigger("Range");
+            audioSource.PlayOneShot(throwClip, 3f);
             bullet.GetComponent<PlayerProjectile>().Owner = gameObject;
             bullet.transform.position = projectileSpawnPoint.position;
             bullet.SetActive(true);
@@ -138,12 +149,14 @@ public class PlayerAttack : MonoBehaviour
         {
            attackObject = ChargeMeleeAttack;
            animator.SetTrigger("Heavy"); // animazione attacco pesante
+           audioSource.PlayOneShot(chargeClip, 1f);
            animator.SetBool("FullCharged", false);
         }
         else
         {
            attackObject = MeleeAttack;
            animator.SetTrigger("Melee"); // animazione attacco normale
+           audioSource.PlayOneShot(meleeClip, 1f);
         }
         
         attackObject.SetActive(true);
@@ -161,6 +174,7 @@ public class PlayerAttack : MonoBehaviour
         if (StatueActive || !HasStatue) return;
         spawnStatueNextFrame = true;
         animator.SetTrigger("Cast");
+        audioSource.PlayOneShot(castClip, 1f);
     }
     
 
@@ -168,6 +182,8 @@ public class PlayerAttack : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource.volume = audioVolume / 100f;
+
         characterMovement = GetComponent<CharacterMovement>();
         MeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
         ChargeMeleeAttack.GetComponent<MeleeDamage>().Owner = gameObject;
@@ -195,6 +211,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        audioSource.volume = audioVolume / 100f;
+
         if (pressingMelee)
         {
             chargeTimer += Time.deltaTime;
