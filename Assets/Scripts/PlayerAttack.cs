@@ -34,9 +34,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] int MeleeDamage;
     [SerializeField] int ChargeMeleeDamage;
 
-    private bool facingRight;
-    private bool facingLeft;
-
     [SerializeField] float StatueCooldown;
     [SerializeField] private float meleeCooldown = 0.4f;
     [SerializeField] private float distanceAttackCooldown = 0.25f;
@@ -198,8 +195,6 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        
-        
         if (pressingMelee)
         {
             chargeTimer += Time.deltaTime;
@@ -210,128 +205,10 @@ public class PlayerAttack : MonoBehaviour
                 animator.SetBool("FullCharged", true);
             }
         }
-
-        //shooting
-        if (HasProjectile && HasUpgradeProjectile == false && cooldown == false)
-        {
-            if (false)
-            {       
-                GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
-                if (bullet != null && facingRight == true)
-                {
-                    bullet.transform.position = projectileSpawnPoint.transform.position;
-                    bullet.SetActive(true);
-                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, 1);
-                }
-
-                if (bullet != null && facingLeft == true)
-                {
-                    bullet.transform.position = projectileSpawnPoint.transform.position;
-                    bullet.SetActive(true);
-                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, -1);
-                }
-
-                //bullet.GetComponent<Rigidbody>().linearVelocity = projectileSpawnPoint.up * ProjectileSpeed;
-                Vector3 shootDirection = transform.forward;
-                shootDirection.y = 0; // ignora l'inclinazione in salto
-                shootDirection.Normalize();
-                bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * ProjectileSpeed;
-
-                animator.SetTrigger("Range");
-
-                cooldown = true;
-                Invoke("EndCooldown", 0.25f);
-            }
-
-        }
-
-        if(HasUpgradeProjectile)
-        {
-            /*if (Input.GetKeyDown(KeyCode.P) && cooldown == false)
-            {
-                GameObject bullet = ObjectPool.SharedInstance.GetPooledObject2();
-                if (bullet != null && facingRight == true)
-                {
-                    bullet.transform.position = projectileSpawnPoint.transform.position;
-                    bullet.SetActive(true);
-                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, 1);
-                }
-
-                if (bullet != null && facingLeft == true)
-                {
-                    bullet.transform.position = projectileSpawnPoint.transform.position;
-                    bullet.SetActive(true);
-                    bullet.GetComponent<PlayerProjectile>().Activate(gameObject, -1);
-                }
-
-                Vector3 shootDirection = transform.forward;
-                shootDirection.y = 0;
-                shootDirection.Normalize();
-                bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * UpgradeProjectileSpeed;
-
-                animator.SetTrigger("Range");
-
-                cooldown = true;
-                Invoke("EndCooldown", 0.25f);
-            }*/
-        }
-
-        /*
-        //Charge Melee Attack
-        if (Input.GetKey(KeyCode.L) && cooldown == false)
-        {
-            chargeTimer += Time.deltaTime;
-            pressingMelee = true;
-
-            //Visual cue: turn player red when attack is fully charged
-            if (chargeTimer >= 3)
-            {
-                animator.SetBool("FullCharged", true);
-            }
-
-        }*/
-        /*
-        if (Input.GetKeyUp(KeyCode.L) && pressingMelee == true && cooldown == false)
-        {
-
-            //big attack if button is pressed for 3 or more seconds
-            if (chargeTimer >= 3)
-            {
-                ChargeMeleeAttack.SetActive(true);
-                animator.SetTrigger("Heavy");
-                Invoke("DeactivateMelee", 0.3f);
-                pressingMelee = false;
-                chargeTimer = 0;
-                animator.SetBool("FullCharged", false);
-
-            }
-
-            //normal attack otherwise
-            else
-            {
-                MeleeAttack.SetActive(true);
-                animator.SetTrigger("Melee");
-                Invoke("DeactivateMelee", 0.3f);
-                pressingMelee = false;
-                chargeTimer = 0;
-            }
-
-            cooldown = true;
-            Invoke("EndCooldown", 0.6f);
-        }*/
-
-        if (Input.GetKeyDown(KeyCode.K) && StatueActive == false && HasStatue == true)
-        {
-            Statue.transform.position = statueSpawnPoint.transform.position;
-            Statue.SetActive(true);
-            StatueActive = true;
-            animator.SetTrigger("Cast");
-            Invoke("DeactivateStatue", StatueCooldown);
-            Statue.GetComponent<StatueAttack>().ResetColor();
-        }
+        
     }
 
-    private void FixedUpdate()
+  /*  private void FixedUpdate()
     {
         //determines the direction the player is facing, then gives the same direction to the projectile
         if (Input.GetAxis("Horizontal") > 0)
@@ -345,7 +222,7 @@ public class PlayerAttack : MonoBehaviour
             facingRight= false;
             facingLeft = true;
         }
-    }
+    }*/
     private void LateUpdate()
     {
         if (spawnStatueNextFrame)

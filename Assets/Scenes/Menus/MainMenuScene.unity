@@ -1672,11 +1672,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainmenuSceneName: MainMenuScene
-  gameSceneName: FirstLevelScene
-  combatSceneName: CombatScene
-  statuePowerSceneName: StatuePowerScene
-  CameraFollowSceneName: CameraFollowScene
-  AISceneName: AIScene
+  gameSceneName: Level1Scene
+  combatSceneName: AIEnemy
+  statuePowerSceneName: AIEnemy
+  CameraFollowSceneName: AIEnemy
+  AISceneName: AIEnemy
   pauseCanvas: {fileID: 0}
 --- !u!114 &786175496
 MonoBehaviour:
@@ -1807,6 +1807,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 33142144-758a-43c6-9755-569a23d5a8b0
     m_ActionName: 'UI/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9eaa43f0-db3c-4f1c-b621-3cde0c2e7768
+    m_ActionName: 'Player/AttackDistance[/Mouse/rightButton,/Keyboard/p]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b72f022-b784-4881-b91c-fdd7af48a0d6
+    m_ActionName: 'Player/StatueSpawn[/Mouse/middleButton,/Keyboard/k]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

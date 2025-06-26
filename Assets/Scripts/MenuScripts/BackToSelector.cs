@@ -9,7 +9,7 @@ public class BackToSelector : MonoBehaviour
     [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private string actionMapName = "Player"; // o il nome corretto del tuo action map
     [SerializeField] private string actionName = "BackSelector"; // il nome esatto della tua InputAction
-    [SerializeField] private SceneAsset backScene;
+    [SerializeField] private string backSceneName;
     private string sceneToLoad;
 
     private InputAction backAction;
@@ -17,7 +17,7 @@ public class BackToSelector : MonoBehaviour
 
     private void Start()
     {
-        sceneToLoad = backScene.name;
+        sceneToLoad = backSceneName;
     }
  
     private void OnEnable()

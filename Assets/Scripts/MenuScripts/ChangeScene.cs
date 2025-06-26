@@ -45,12 +45,7 @@ public class ChangeScene : MonoBehaviour
 
     void Start()
     {
-        gameSceneName = gameSceneName;
-        mainmenuSceneName = mainmenuSceneName;
-        combatSceneName = combatSceneName;
-        statuePowerSceneName = statuePowerSceneName;
-        CameraFollowSceneName = CameraFollowSceneName;
-        AISceneName = AISceneName;
+        
     }
     // --- Funzioni Pubbliche ---
     // Queste funzioni possono essere richiamate da altri script o da eventi UI (es. pulsanti).
