@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class RangedState : State
 {
@@ -66,8 +67,9 @@ public class RangedState : State
             bullet.transform.position = projectileSpawnPoint.transform.position;
             bullet.SetActive(true);
             PlayerProjectile player = bullet.GetComponent<PlayerProjectile>();
+            Debug.Log(Target.transform.position.x - transform.position.x);
             player.Owner = gameObject;
-            player.Activate(gameObject, transform.forward.x);
+            player.Activate(Mathf.Sign(Target.transform.position.x - transform.position.x));
         }
      
     }

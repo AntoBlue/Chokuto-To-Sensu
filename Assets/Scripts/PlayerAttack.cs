@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
 
             
             bool isFacingRight = characterMovement.IsFacingRight;
-            bullet.GetComponent<PlayerProjectile>().Activate(gameObject, isFacingRight ? 1 : -1);
+            bullet.GetComponent<PlayerProjectile>().Activate(isFacingRight ? 1 : -1);
             Vector3 shootDirection = isFacingRight ? Vector3.right : Vector3.left;
             float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
 
