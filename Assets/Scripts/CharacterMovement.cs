@@ -1,6 +1,7 @@
 using Interfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum JumpMode
 {
@@ -320,7 +321,9 @@ public class CharacterMovement : MonoBehaviour
                 
                 if (fallingTimer > dieFromFallingTime)
                 {
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
+                    SceneManager.LoadScene("GameOverScene");
+
                     //Debug.Log("Gameobject destroyed");
                 }
             }
