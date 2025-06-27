@@ -18,6 +18,7 @@ namespace AI
         
         [Header("Depth Check")]
         [SerializeField] private float depthTestWall = 0.4f;
+        [SerializeField] private float wallCheckRotation = 0;
         [SerializeField] private LayerMask wallLayer;
         [SerializeField] private float depthTestFloor = 1.6f;
         [SerializeField] private float depthTestGround = 2;
@@ -30,6 +31,7 @@ namespace AI
         public float DepthTestGround { get { return depthTestGround; } }
         public LayerMask GroundFloorLayer { get { return groundFloorLayer; } }
         public float FloorCheckRotation { get { return floorCheckRotation; } }
+        public float WallCheckRotation { get { return wallCheckRotation; } }
         
     }
 }

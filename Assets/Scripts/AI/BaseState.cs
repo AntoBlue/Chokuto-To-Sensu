@@ -44,17 +44,19 @@ public class State : MonoBehaviour
     {
         get
         {
-            Debug.DrawLine(Rb.position, Rb.position + transform.forward * StateSettings.Settings.DepthTestWall,
+            Vector3 wallRotation = Quaternion.Euler(0, 0, StateSettings.Settings.WallCheckRotation * transform.forward.x) *
+                                    transform.forward;
+            Debug.DrawLine(Rb.position, Rb.position + wallRotation * StateSettings.Settings.DepthTestWall,
                 Color.green);
-            if (!Physics.Raycast(Rb.position, transform.forward, out RaycastHit wall,
+            if (!Physics.Raycast(Rb.position, wallRotation, out RaycastHit wall,
                     StateSettings.Settings.DepthTestWall, StateSettings.Settings.WallLayer))
             {
-                Vector3 rot = Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
+                Vector3 floorRotation = Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
                               transform.forward;
                 Debug.DrawLine(Rb.position, Rb.position +
-                                            (rot) * StateSettings.Settings.DepthTestFloor,
+                                            (floorRotation) * StateSettings.Settings.DepthTestFloor,
                     Color.green);
-                return Physics.Raycast(Rb.position, (rot), out RaycastHit floor, StateSettings.Settings.DepthTestFloor,
+                return Physics.Raycast(Rb.position, (floorRotation), out RaycastHit floor, StateSettings.Settings.DepthTestFloor,
                     StateSettings.Settings.GroundFloorLayer);
             }
 
@@ -64,8 +66,8 @@ public class State : MonoBehaviour
 
     private bool SphereCast(float traceRadius, Color color)
     {
-        Debug.DrawLine(transform.position - transform.forward * traceRadius, transform.position + transform.forward * traceRadius,
-            color);
+        // Debug.DrawLine(transform.position - transform.forward * traceRadius, transform.position + transform.forward * traceRadius,
+        //     color);
         Collider[] hits = Physics.OverlapSphere(transform.position, traceRadius);
         Collider hit = hits.FirstOrDefault(hit => hit.gameObject.CompareTag("Player"));
         

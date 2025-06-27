@@ -16,7 +16,8 @@ MonoBehaviour:
   sightDegrees: 90
   sightRadius: 4
   damageRadius: 1
-  depthTestWall: 0.4
+  depthTestWall: 1
+  wallCheckRotation: -30
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
