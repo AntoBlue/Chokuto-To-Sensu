@@ -23,6 +23,7 @@ public class HealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Gestire controllo oppure disattivare e mettere animation
         currentHealth = Player.GetComponent<HealthManager>().currentHealth;
 
         Debug.Log(currentHealth / maxHealth);
