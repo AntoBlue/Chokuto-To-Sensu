@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8091845638402308844}
   - component: {fileID: 5289529799180214333}
   - component: {fileID: 6171503113179133981}
-  m_Layer: 11
-  m_Name: UpgradedProjectile
+  m_Layer: 6
+  m_Name: EnemyProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecc76c87717b8d4bbbc6ef030e6f246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
   life: 3
   _speed: 80
   damage: 20

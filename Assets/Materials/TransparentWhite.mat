@@ -23,13 +23,13 @@ Material:
   m_Name: TransparentWhite
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: 6d0613f500c022f48ae1dde75d4fc3c2, type: 2}
-  m_ModifiedSerializedProperties: 16
+  m_ModifiedSerializedProperties: 18
   m_ValidKeywords:
-  - _ALPHAPREMULTIPLY_ON
   - _EMISSION
+  - _SPECULAR_SETUP
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -53,9 +53,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 0
     - _DstBlend: 10
     - _DstBlendAlpha: 10
+    - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
     - _Surface: 1
+    - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors: []
   m_BuildTextureStacks: []

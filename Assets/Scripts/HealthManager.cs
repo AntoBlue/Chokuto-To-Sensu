@@ -9,8 +9,8 @@ public class HealthManager : MonoBehaviour
                          // this class is designed to manage every living entity ( player / enemies in this case )
                          
     
-    [SerializeField] private  int maxHealth = 100;
-    private  int currentHealth;
+    [SerializeField] public float maxHealth = 100;
+    public float currentHealth;
     
     private void Start()
     {
