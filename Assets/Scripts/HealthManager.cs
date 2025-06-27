@@ -27,7 +27,7 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    private void Die()
+    public void Die()
     {
         Destroy(gameObject); // died lol
         //gameObject.SetActive(false);
