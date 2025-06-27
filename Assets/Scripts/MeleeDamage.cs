@@ -15,7 +15,7 @@ public class MeleeDamage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.gameObject != hasOwner.Owner)
+        if (other.gameObject != hasOwner.Owner && !hasOwner.Owner.CompareTag(other.gameObject.tag))
         {
             Debug.Log(other.gameObject.name);
             var health = other.gameObject.GetComponent<HealthManager>();

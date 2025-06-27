@@ -18,7 +18,7 @@ public class ChaseState : State
 
     private bool isExiting = false;
 
-    private void Awake()
+    private new void Awake()
     {
         animator = gameObject.GetComponentInChildren<Animator>();
         base.Awake();
