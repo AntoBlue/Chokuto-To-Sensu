@@ -76,7 +76,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void setDoubleJump()
     {
-        JumpMode jumpMode = JumpMode.DoubleJump;
+        jumpMode = JumpMode.DoubleJump;
     }
     
     private bool IsGrounded()
@@ -108,7 +108,7 @@ public class CharacterMovement : MonoBehaviour
         jumpAction.Enable();
         jumpAction.performed += OnJumpPerformed;
     }
-
+ 
     private void OnDisable()
     {
         if (jumpAction != null)
