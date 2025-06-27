@@ -260,6 +260,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (spawnStatueNextFrame)
         {
+            Statue.GetComponent<HasOwner>().Owner = gameObject;
             Statue.transform.position = statueSpawnPoint.position;
             Statue.SetActive(true);
             StatueActive = true;
