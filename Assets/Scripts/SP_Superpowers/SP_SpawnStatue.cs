@@ -17,7 +17,7 @@ public class SP_SpawnStatue : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("S H O O O O O O T I N G");
+       // Debug.Log("S H O O O O O O T I N G");
 
         GameObject newStatue = Instantiate(statuePrefab, spawnPosition.position, spawnPosition.rotation);
         newStatue.layer = LayerMask.NameToLayer("Ground");
@@ -39,7 +39,7 @@ public class SP_SpawnStatue : MonoBehaviour
         // shooting if cooldown <= 0f
         if (Input.GetKeyDown(KeyCode.K) && cooldownTimer <= 0f)
         {
-            Debug.Log("--------- Ready to shoot. ---------");
+            //Debug.Log("--------- Ready to shoot. ---------");
 
             Shoot();
         }
