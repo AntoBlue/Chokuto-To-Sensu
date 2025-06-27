@@ -38,6 +38,14 @@ public class Items : MonoBehaviour
             player.GetComponent<PlayerAttack>().HasStatue = true;
             Destroy(gameObject);
         }
+        
+        if (gameObject.CompareTag("Statue_PU"))
+        {
+            player.GetComponent<CharacterMovement>().setDoubleJump();
+            Destroy(gameObject);
+        }
+        
+        
     }
     
   

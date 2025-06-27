@@ -68,7 +68,12 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float raycastOffset = 0.3f;
 
     [SerializeField] private PauseManager pauseManager;
-    
+
+    public void setDoubleJump()
+    {
+        JumpMode jumpMode = JumpMode.DoubleJump;
+    }
+        
     private bool IsGrounded()
     {
         Vector3 originCenter = groundCheck.position;
