@@ -1,8 +1,7 @@
 using DefaultNamespace;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -39,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float meleeCooldown = 0.4f;
     [SerializeField] private float distanceAttackCooldown = 0.25f;
     [SerializeField] private float chargeTime = 2f;
+    private float statueCooldownRemaining = 0f;
     private bool StatueActive;
 
     private bool cooldown;
@@ -63,6 +63,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private AudioClip castClip;
     [Range(0f, 100f)]
     [SerializeField] private float audioVolume = 100f;
+
+    [Header("UI")]
+    [SerializeField] private Image statueCooldownImage;
 
     private void OnEnable()
     {
@@ -224,7 +227,18 @@ public class PlayerAttack : MonoBehaviour
                 animator.SetBool("FullCharged", true);
             }
         }
-        
+
+        //Statue UI
+        if (statueCooldownRemaining > 0f)
+        {
+            statueCooldownRemaining -= Time.deltaTime;
+            statueCooldownImage.fillAmount = statueCooldownRemaining / StatueCooldown;
+        }
+        else
+        {
+            statueCooldownImage.fillAmount = 0f;
+        }
+
     }
 
   /*  private void FixedUpdate()
@@ -249,6 +263,7 @@ public class PlayerAttack : MonoBehaviour
             Statue.transform.position = statueSpawnPoint.position;
             Statue.SetActive(true);
             StatueActive = true;
+            statueCooldownRemaining = StatueCooldown;
             Invoke(nameof(DeactivateStatue), StatueCooldown);
             Statue.GetComponent<StatueAttack>().ResetColor();
             spawnStatueNextFrame = false;
