@@ -52,7 +52,6 @@ public class CharacterMovement : MonoBehaviour
     
     //animator
     [SerializeField] private Animator animator;
-    private float animationSpeedSmooth = 5f;
     private int totalBodyLayerIndex;
 
     public bool hasKey;

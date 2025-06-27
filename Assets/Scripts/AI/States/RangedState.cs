@@ -15,7 +15,7 @@ public class RangedState : State
     private Animator _animator;
 
     
-    void Awake()
+    new void Awake()
     {
         _animator = gameObject.GetComponentInChildren<Animator>();
         _objectPool = gameObject.GetComponent<ObjectPool>();
