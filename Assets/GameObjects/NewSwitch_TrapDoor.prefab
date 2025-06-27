@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 585100783972384201}
   - component: {fileID: 4190194991688046839}
   m_Layer: 0
-  m_Name: Switch_TrapDoor
+  m_Name: NewSwitch_TrapDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
