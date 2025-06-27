@@ -22,11 +22,12 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private  Transform groundCheck;
     [SerializeField] private  float groundCheckRadius = 0.2f;
     [SerializeField] private  LayerMask groundLayer;
+    [SerializeField] private float dieFromFallingTime = 1f;
 
     private Rigidbody rb;
     private bool isGrounded;
     private bool jumpPressed;
-        
+    
     //input system
     [SerializeField] private InputActionAsset inputActions;
     [SerializeField] private string actionMapName = "Player"; 
@@ -51,7 +52,6 @@ public class CharacterMovement : MonoBehaviour
     
     //animator
     [SerializeField] private Animator animator;
-    private float animationSpeedSmooth = 5f;
     private int totalBodyLayerIndex;
 
     public bool hasKey;
@@ -68,12 +68,17 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float raycastOffset = 0.3f;
 
     [SerializeField] private PauseManager pauseManager;
+    
+    // Falling timer ( die from falling timer ) 
+    private float fallingTimer;
+    private bool isFalling = false;
+
 
     public void setDoubleJump()
     {
         JumpMode jumpMode = JumpMode.DoubleJump;
     }
-        
+    
     private bool IsGrounded()
     {
         Vector3 originCenter = groundCheck.position;
@@ -302,6 +307,30 @@ public class CharacterMovement : MonoBehaviour
 
         if (!isGrounded)
         {
+            // player will die for falling 4 more than N seconds ( check dieFromFallingTime ) -----------------------------------------------------------------------------------------
+            if (rb.linearVelocity.y < -0.1f)
+            {
+                if (!isFalling)
+                {
+                    isFalling = true;
+                    fallingTimer = 0f;
+                }
+                
+                fallingTimer += Time.fixedDeltaTime;
+                
+                if (fallingTimer > dieFromFallingTime)
+                {
+                    Destroy(gameObject);
+                    //Debug.Log("Gameobject destroyed");
+                }
+            }
+            else
+            {
+                isFalling = false;
+                fallingTimer = 0f;
+            }
+            
+            
             if (rb.linearVelocity.y > 0)
             {
                 // up → apply less gravity
@@ -315,10 +344,10 @@ public class CharacterMovement : MonoBehaviour
 
             rb.linearVelocity += Vector3.up * extraGravity * Time.fixedDeltaTime;
         }
+      
         
+        //float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
         
-        float horizontalSpeed = Mathf.Abs(rb.linearVelocity.x);
-
         // Aggiorna blend tree Animator
         //float currentSpeedA = animator.GetFloat("Speed");
         //float smoothSpeed = Mathf.Lerp(currentSpeedA, horizontalSpeed, animationSpeedSmooth * Time.fixedDeltaTime);

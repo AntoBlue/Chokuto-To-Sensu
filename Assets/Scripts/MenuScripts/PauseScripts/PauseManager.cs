@@ -109,9 +109,7 @@ public class PauseManager : MonoBehaviour
         pauseCanvas.SetActive(false);
         pointerMover = pointer.GetComponent<YPositionMover>();
         loadTmpTexts();//carica i tmpControllers
-        
-        
-        bool IgnoreFirstInput = true;
+
     }
 
     //take input from array

@@ -49,15 +49,14 @@ public class State : MonoBehaviour
             Debug.DrawLine(Rb.position, Rb.position + wallRotation * StateSettings.Settings.DepthTestWall,
                 Color.green);
             if (!Physics.Raycast(Rb.position, wallRotation, out RaycastHit wall,
-                    StateSettings.Settings.DepthTestWall, StateSettings.Settings.WallLayer))
+                    StateSettings.Settings.DepthTestWall))
             {
                 Vector3 floorRotation = Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
                               transform.forward;
                 Debug.DrawLine(Rb.position, Rb.position +
                                             (floorRotation) * StateSettings.Settings.DepthTestFloor,
                     Color.green);
-                return Physics.Raycast(Rb.position, (floorRotation), out RaycastHit floor, StateSettings.Settings.DepthTestFloor,
-                    StateSettings.Settings.GroundFloorLayer);
+                return Physics.Raycast(Rb.position, (floorRotation), out RaycastHit floor, StateSettings.Settings.DepthTestFloor);
             }
 
             return false;

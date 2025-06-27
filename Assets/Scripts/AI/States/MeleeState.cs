@@ -11,7 +11,7 @@ public class MeleeState : State
     private bool isExiting = false;
     private Animator _animator;
     
-    void Awake()
+    new void Awake()
     {
         _animator = gameObject.GetComponentInChildren<Animator>();
         MeleeAttack.GetComponent<HasOwner>().Owner = gameObject;

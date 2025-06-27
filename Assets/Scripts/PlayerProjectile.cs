@@ -49,7 +49,7 @@ public class PlayerProjectile : MonoBehaviour
     //nothing happens if they collide against it or each other
     void OnCollisionEnter(Collision other)
     {
-        if (hasOwner.Owner != other.gameObject)
+        if (hasOwner.Owner != other.gameObject && !hasOwner.Owner.CompareTag(other.gameObject.tag))
         {
             var health = other.gameObject.GetComponent<HealthManager>();
             if (health != null)
