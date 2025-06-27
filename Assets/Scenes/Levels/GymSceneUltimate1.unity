@@ -6922,6 +6922,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  dieFromFallingTime: 1
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   actionMapName: Player
   jumpActionName: Jump
@@ -13387,12 +13388,13 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  dieFromFallingTime: 1
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   actionMapName: Player
   jumpActionName: Jump
   ascentGravityMultiplier: 2.97
   jumpBufferTime: 0.2
-  jumpMode: 2
+  jumpMode: 1
   coyoteTime: 0.38
   airJumpForceMultiplier: 0.8
   animator: {fileID: 95374205307886292}

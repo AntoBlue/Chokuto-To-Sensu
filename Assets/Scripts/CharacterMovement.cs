@@ -192,6 +192,8 @@ public class CharacterMovement : MonoBehaviour
 
         float normalizedX = rb.linearVelocity.x / moveSpeed;
         float normalizedY = rb.linearVelocity.y / jumpForce;
+        
+        bool wasGrounded = isGrounded;
 
         // Blend tree parameters
         animator.SetFloat("VelocityX", normalizedX);
@@ -225,26 +227,22 @@ public class CharacterMovement : MonoBehaviour
         if (jumpBufferCounter > 0f)
             jumpBufferCounter -= Time.fixedDeltaTime;
 
+
         // Chek if jump
-        bool canJump = coyoteTimer > 0f || jumpsRemaining > 0;
+        //bool canJump = coyoteTimer > 0f || jumpsRemaining > 0;
+        //bool canJump = (isGrounded || coyoteTimer > 0f) && (int)jumpMode > 0 || jumpsRemaining > 0;
+        bool canJump = isGrounded || jumpsRemaining > 0 || (coyoteTimer > 0f && (int)jumpMode > 1);
 
         if (jumpBufferCounter > 0f && canJump)
         {
-            //rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             float appliedJumpForce = isGrounded ? jumpForce : jumpForce * airJumpForceMultiplier;
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, appliedJumpForce, rb.linearVelocity.z);
-            //animator.SetTrigger("Jump");
             jumpBufferCounter = 0f;
 
-            if (isGrounded)
+            if (!isGrounded)
             {
-                // keep in air
-                jumpsRemaining = (int)jumpMode - 1; // es: DoubleJump = 2 → 1 jump in air
-            }
-            else
-            {
-                //another jump in the air
                 jumpsRemaining--;
+                jumpsRemaining = Mathf.Max(0, jumpsRemaining);
             }
         }
         
@@ -273,37 +271,18 @@ public class CharacterMovement : MonoBehaviour
         rb.linearVelocity = velocity;
 
         //isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
+        
         isGrounded = IsGrounded();
-        if (isGrounded)
+
+        if (isGrounded && !wasGrounded)
         {
-            coyoteTimer = coyoteTime; // reset on gorund
+            coyoteTimer = coyoteTime;
             jumpsRemaining = (int)jumpMode - 1;
         }
-        else
+        else if (!isGrounded)
         {
             coyoteTimer -= Time.fixedDeltaTime;
         }
-        
-        if (isGrounded)
-        {
-            jumpsRemaining = (int)jumpMode - 1; // reset on extra jump
-        }
-       // Debug.Log($"isGrounded: {isGrounded}, jumpPressed: {jumpPressed}");
-
-        /*// Salto
-        if (jumpPressed)
-        {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
-            //rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-
-            jumpPressed = false;
-        }*/
-
-        // Gravità 
-        /*if (!isGrounded && rb.linearVelocity.y < 0)
-        {
-            rb.linearVelocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
-        }*/
         float extraGravity = 0f;
 
         if (!isGrounded)

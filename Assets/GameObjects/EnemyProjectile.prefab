@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8091845638402308844}
   - component: {fileID: 5289529799180214333}
   - component: {fileID: 6171503113179133981}
+  - component: {fileID: 7898522833664864438}
   m_Layer: 6
   m_Name: EnemyProjectile
   m_TagString: Projectile
@@ -68,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 54ac03592f0d743c084c836c906216b7, type: 2}
+  - {fileID: 2100000, guid: e8518aa55b7f2614fbde388102cfdb26, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 3
   _speed: 80
-  damage: 20
+  damage: 7
   rotationSpeed: 1
   Player: {fileID: 6935803791173978440, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
   rb: {fileID: 8091845638402308844}
@@ -178,3 +179,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 5590c4383aa072f45a366ea9f2b838d6, type: 3}
+--- !u!114 &7898522833664864438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14863829916368958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50d185ae5a54054914642ab2aa66a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}
