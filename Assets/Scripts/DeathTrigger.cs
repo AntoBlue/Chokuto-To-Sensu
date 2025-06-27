@@ -9,6 +9,7 @@ public class DeathTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<HealthManager>().Die();
+            other.GetComponent <HealthManager>().currentHealth = 0;
         }
     }
 

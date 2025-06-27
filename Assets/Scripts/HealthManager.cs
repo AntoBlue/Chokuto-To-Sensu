@@ -29,7 +29,7 @@ public class HealthManager : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject); // died lol
-        //gameObject.SetActive(false);
+        //Destroy(gameObject); // died lol
+        gameObject.SetActive(false);
     }
 }
