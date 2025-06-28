@@ -39,7 +39,7 @@ public class Items : MonoBehaviour
             Destroy(gameObject);
         }
         
-        if (gameObject.CompareTag("Statue_PU"))
+        if (gameObject.CompareTag("Jump_PU"))
         {
             player.GetComponent<CharacterMovement>().setDoubleJump();
             Destroy(gameObject);
