@@ -2336,6 +2336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1471862204}
   - component: {fileID: 1471862203}
+  - component: {fileID: 1471862205}
   m_Layer: 0
   m_Name: PauseManager
   m_TagString: Untagged
@@ -2350,12 +2351,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1471862202}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4956ba8082599ca43b40bd0bc8ec1c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseCanvas: {fileID: 1545279576}
+  pauseCanvas: {fileID: 476341279}
   buttons:
   - {fileID: 1788424402}
   pointer: {fileID: 1644697388}
@@ -2380,6 +2381,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1471862205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471862202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d8c0f084aaba14684511ddb84d9bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverCanvas: {fileID: 476341279}
+  buttons:
+  - {fileID: 1788424402}
+  pointer: {fileID: 1644697388}
+  inputAsset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &1545279576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2891,8 +2909,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1471862203}
-          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        - m_Target: {fileID: 1471862205}
+          m_TargetAssemblyTypeName: GameOverManagerEnd, Assembly-CSharp
           m_MethodName: PositionAtIndex
           m_Mode: 3
           m_Arguments:
@@ -2919,8 +2937,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1471862203}
-          m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        - m_Target: {fileID: 1471862205}
+          m_TargetAssemblyTypeName: GameOverManagerEnd, Assembly-CSharp
           m_MethodName: DisablePointer
           m_Mode: 1
           m_Arguments:
