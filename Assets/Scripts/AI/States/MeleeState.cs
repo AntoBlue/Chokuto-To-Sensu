@@ -1,19 +1,17 @@
 using System;
+using AI;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeState : State
+public class MeleeState : State, I_Attack
 {
     [SerializeField] private float lostSightTime = 1f;
-    [SerializeField] private float fireRate = 1f;
     [SerializeField] private GameObject MeleeAttack;
     private bool isExiting = false;
-    private Animator _animator;
     
     new void Awake()
     {
-        _animator = gameObject.GetComponentInChildren<Animator>();
         MeleeAttack.GetComponent<HasOwner>().Owner = gameObject;
         base.Awake();
     }
@@ -26,7 +24,6 @@ public class MeleeState : State
             _animator.SetBool("IsAttacking", true);
             isExiting = true;
             Invoke(nameof(PrevState), lostSightTime);
-            InvokeRepeating(nameof(Attack), fireRate, fireRate);
         }
         
     }
@@ -53,10 +50,9 @@ public class MeleeState : State
     {
         _animator.SetBool("IsAttacking", false);
         base.OnStateExit();
-        CancelInvoke(nameof(Attack));
     }
 
-    private void Attack()
+    public void Attack()
     {
         if (!Target) return;
         

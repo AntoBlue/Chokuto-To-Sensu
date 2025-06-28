@@ -6,13 +6,21 @@ using UnityEngine.AI;
 
 public class PatrolState : State
 {
-    [Header("Patrol Settings")]
-    [SerializeField] private float walkSpeed = 2;
-    
-    
+    [Header("Patrol Settings")] [SerializeField]
+    private float walkSpeed = 2;
+
+    public override void OnStateEnter(bool bypassActivationCheck = false)
+    {
+        base.OnStateEnter(bypassActivationCheck);
+        if (enabled)
+        {
+            StopCoroutine(nameof(InterpSpeedTo));
+            StartCoroutine(InterpSpeedTo(0.5f));
+        }
+    }
+
     private void FixedUpdate()
     {
-
         if (!IsGrounded) return;
 
         if (!IsRotating)
@@ -23,7 +31,7 @@ public class PatrolState : State
             }
             else
             {
-                Rb.MovePosition(StateSettings.direction.normalized * (walkSpeed * Time.fixedDeltaTime) + Rb.position);
+                Rb.MovePosition(StateSettings.direction.normalized * (walkSpeed * Time.fixedDeltaTime * _animator.GetFloat("Blend")) + Rb.position);
             }
         }
 
@@ -32,7 +40,7 @@ public class PatrolState : State
             NextState();
         }
     }
-    
+
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Projectile") && other.gameObject.GetComponent<HasOwner>() is { } owner)
@@ -40,9 +48,8 @@ public class PatrolState : State
             Target = owner.gameObject;
             NextState();
         }
-        
     }
-    
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Projectile") && other.gameObject.GetComponent<HasOwner>() is { } owner)
@@ -50,7 +57,6 @@ public class PatrolState : State
             Target = owner.gameObject;
             NextState();
         }
-        
     }
     
 }

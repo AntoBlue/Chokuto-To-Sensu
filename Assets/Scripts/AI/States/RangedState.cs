@@ -1,23 +1,21 @@
 using System;
+using AI;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class RangedState : State
+public class RangedState : State, I_Attack
 {
     [SerializeField] private float lostSightTime = 1f;
-    [SerializeField] private float fireRate = 1f;
     [SerializeField] private Transform projectileSpawnPoint;
     
     private ObjectPool _objectPool;
     private bool isExiting = false;
-    private Animator _animator;
 
     
     new void Awake()
     {
-        _animator = gameObject.GetComponentInChildren<Animator>();
         _objectPool = gameObject.GetComponent<ObjectPool>();
         base.Awake();
     }
@@ -28,7 +26,6 @@ public class RangedState : State
         if (enabled)
         {
             _animator.SetBool("IsAttacking", true);
-            InvokeRepeating(nameof(Attack), fireRate, fireRate);
         }
         
     }
@@ -55,10 +52,9 @@ public class RangedState : State
     {
         base.OnStateExit();
         _animator.SetBool("IsAttacking", false);
-        CancelInvoke(nameof(Attack));
     }
 
-    private void Attack()
+    public void Attack()
     {
         if (!Target) return;
    

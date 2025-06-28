@@ -9,7 +9,7 @@ public class HealthManager : MonoBehaviour
 
     // this class is designed to manage every living entity ( player / enemies in this case )
 
-
+    [SerializeField] ParticleSystem ps;
     [SerializeField] public float maxHealth = 100;
     public float currentHealth;
 
@@ -33,14 +33,27 @@ public class HealthManager : MonoBehaviour
 
     public void Die()
     {
-        //Destroy(gameObject); // died lol
         if (gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene("GameOverScene");
         }
         else
         {
-            gameObject.SetActive(false);
+            if (ps)
+            {
+                ps.Play();
+                Invoke(nameof(Disable), ps.main.duration);
+                Debug.Log(ps.main.duration);
+            }
+            else
+            {
+                Disable();
+            }
         }
+    }
+
+    void Disable()
+    {
+        gameObject.SetActive(false);
     }
 }

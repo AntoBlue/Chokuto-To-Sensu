@@ -11,7 +11,7 @@ public class ChaseState : State
     [SerializeField] private float playerEnemyDistanceTolerance = 1f;
 
     [SerializeField] private float runSpeed = 4;
-    
+
     private Animator animator;
 
     private Vector3 currentDirection;
@@ -29,16 +29,9 @@ public class ChaseState : State
         base.OnStateEnter(bypassActivationCheck);
         if (enabled)
         {
-            animator.SetBool("IsRunning", true);
             isExiting = true;
             Invoke(nameof(PrevState), lostSightTime);
         }
-    }
-
-    public override void OnStateExit()
-    {
-        animator.SetBool("IsRunning", false);
-        base.OnStateExit();
     }
 
     private void FixedUpdate()
@@ -61,7 +54,24 @@ public class ChaseState : State
             {
                 if (CanWalkForward && currentDirection.magnitude > playerEnemyDistanceTolerance)
                 {
-                    Rb.MovePosition(currentDirection.normalized * (runSpeed * Time.fixedDeltaTime) + Rb.position);
+                    if (targetSpeed != 1f)
+                    {
+                        targetSpeed = 1f;
+                        StopCoroutine(nameof(InterpSpeedTo));
+                        StartCoroutine(InterpSpeedTo(targetSpeed));
+                    }
+
+                    Rb.MovePosition(currentDirection.normalized *
+                        (runSpeed * Time.fixedDeltaTime * _animator.GetFloat("Blend")) + Rb.position);
+                }
+                else
+                {
+                    if (targetSpeed != 0f)
+                    {
+                        targetSpeed = 0f;
+                        StopCoroutine(nameof(InterpSpeedTo));
+                        StartCoroutine(InterpSpeedTo(targetSpeed));
+                    }
                 }
             }
         }
@@ -85,6 +95,4 @@ public class ChaseState : State
             NextState();
         }
     }
-
-   
 }

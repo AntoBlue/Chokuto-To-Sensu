@@ -10,12 +10,19 @@ public class State : MonoBehaviour
     [SerializeField] private bool startState;
     [SerializeField] protected State prevState;
     [SerializeField] protected State nextState;
-    
 
-    protected GameObject Target;
+    protected Animator _animator;
+
+    protected GameObject Target
+    {
+        get => StateSettings.Target;
+        set => StateSettings.Target = value;
+    }
+
     protected StateSettings StateSettings;
     protected Rigidbody Rb;
     protected bool IsRotating = false;
+    protected float targetSpeed = 0f;
 
     protected bool IsGrounded
     {
@@ -25,7 +32,7 @@ public class State : MonoBehaviour
                 Color.green);
             return Physics.Raycast(Rb.position, Vector3.down, out RaycastHit hit,
                 StateSettings.Settings.DepthTestGround * 0.6f,
-                StateSettings.Settings.GroundFloorLayer);
+                (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy")));
         }
     }
 
@@ -44,19 +51,22 @@ public class State : MonoBehaviour
     {
         get
         {
-            Vector3 wallRotation = Quaternion.Euler(0, 0, StateSettings.Settings.WallCheckRotation * transform.forward.x) *
-                                    transform.forward;
+            Vector3 wallRotation =
+                Quaternion.Euler(0, 0, StateSettings.Settings.WallCheckRotation * transform.forward.x) *
+                transform.forward;
             Debug.DrawLine(Rb.position, Rb.position + wallRotation * StateSettings.Settings.DepthTestWall,
                 Color.green);
             if (!Physics.Raycast(Rb.position, wallRotation, out RaycastHit wall,
-                    StateSettings.Settings.DepthTestWall))
+                    StateSettings.Settings.DepthTestWall, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy"))))
             {
-                Vector3 floorRotation = Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
-                              transform.forward;
+                Vector3 floorRotation =
+                    Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
+                    transform.forward;
                 Debug.DrawLine(Rb.position, Rb.position +
                                             (floorRotation) * StateSettings.Settings.DepthTestFloor,
                     Color.green);
-                return Physics.Raycast(Rb.position, (floorRotation), out RaycastHit floor, StateSettings.Settings.DepthTestFloor);
+                return Physics.Raycast(Rb.position, (floorRotation), out RaycastHit floor,
+                    StateSettings.Settings.DepthTestFloor, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy")));
             }
 
             return false;
@@ -65,15 +75,16 @@ public class State : MonoBehaviour
 
     private bool SphereCast(float traceRadius, Color color)
     {
-        // Debug.DrawLine(transform.position - transform.forward * traceRadius, transform.position + transform.forward * traceRadius,
-        //     color);
+        Debug.DrawLine(transform.position - transform.forward * traceRadius,
+            transform.position + transform.forward * traceRadius,
+            color);
         Collider[] hits = Physics.OverlapSphere(transform.position, traceRadius);
         Collider hit = hits.FirstOrDefault(hit => hit.gameObject.CompareTag("Player"));
-        
+
         if (hit)
         {
             Vector3 rayDirection = (hit.transform.position - StateSettings.EyeTransform.position).normalized;
-            
+
             float degresAngle = Vector3.Angle(transform.forward, rayDirection);
 
             if (degresAngle <= StateSettings.Settings.SightDegrees)
@@ -114,24 +125,40 @@ public class State : MonoBehaviour
         IsRotating = false;
     }
 
+    protected IEnumerator InterpSpeedTo(float targetSpeed)
+    {
+        float startSpeed = _animator.GetFloat("Blend");
+        float time = 0;
+        float maxTime = 0.3f;
+        while (time < maxTime)
+        {
+            time += Time.deltaTime;
+
+            _animator.SetFloat("Blend", Mathf.Lerp(startSpeed, targetSpeed, time / maxTime));
+            yield return null;
+        }
+    }
+
 
     protected void Awake()
     {
+        _animator = gameObject.GetComponentInChildren<Animator>();
         Rb = GetComponent<Rigidbody>();
         StateSettings = GetComponent<StateSettings>();
 
-        if (!startState)
+        if (startState)
+        {
+            OnStateEnter(true);
+        }
+        else
         {
             OnStateExit();
-            return;
         }
-
-        OnStateEnter(true);
     }
 
     public virtual void OnStateExit()
     {
-        Debug.Log("StateExit: " + GetType().Name, this);
+        //Debug.Log("StateExit: " + GetType().Name, this);
         enabled = false;
     }
 
@@ -139,19 +166,15 @@ public class State : MonoBehaviour
     {
         if (!enabled || bypassActivationCheck)
         {
-            Debug.Log("StateEnter: " + GetType().Name, this);
+            //Debug.Log("StateEnter: " + GetType().Name, this);
             enabled = true;
         }
         else
         {
-            Debug.Log("State " + GetType().Name + " Already Enabled", this);
+            //Debug.Log("State " + GetType().Name + " Already Enabled", this);
         }
     }
 
-    public virtual void ReceiveTrigger(string triggerName, bool enter, Collider other)
-    {
-        Debug.Log(GetType().Name + " Has " + (enter ? "Gained " : "Lost ") + triggerName, this);
-    }
 
     public void PrevState()
     {

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b773d6203716486380476fb0997654d3, type: 3}
   m_Name: MeleeStateSettings
   m_EditorClassIdentifier: 
-  rotationTime: 0.5
+  rotationTime: 0.2
   sightDegrees: 90
-  sightRadius: 4
-  damageRadius: 1
+  sightRadius: 10
+  damageRadius: 1.2
   depthTestWall: 1
-  wallCheckRotation: -30
+  wallCheckRotation: -25
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
