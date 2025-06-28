@@ -9,6 +9,7 @@ TagManager:
   - Key
   - Statue_PU
   - Projectile
+  - Jump_PU
   layers:
   - Default
   - TransparentFX
