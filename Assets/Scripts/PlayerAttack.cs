@@ -1,3 +1,4 @@
+using System;
 using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -67,6 +68,11 @@ public class PlayerAttack : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Image statueCooldownImage;
 
+    private Action<InputAction.CallbackContext> onAttackStarted;
+    private Action<InputAction.CallbackContext> onAttackCanceled;
+    private Action<InputAction.CallbackContext> onAttackDistancePerformed;
+    private Action<InputAction.CallbackContext> onStatueSpawnPerformed;
+    
     private void OnEnable()
     {
         var actionMap = inputActions.FindActionMap(actionMapName);
@@ -79,12 +85,23 @@ public class PlayerAttack : MonoBehaviour
         attackDistanceAction.Enable();
         statueSpawnAction.Enable();
 
-        attackAction.started += ctx => HandleMeleeStart();
-        attackAction.canceled += ctx => HandleMeleeRelease();
+        onAttackStarted = ctx => HandleMeleeStart();
+        onAttackCanceled = ctx => HandleMeleeRelease();
+        onAttackDistancePerformed = ctx => HandleProjectileAttack();
+        onStatueSpawnPerformed = ctx => HandleStatueSpawn();
 
-        attackDistanceAction.performed += ctx => HandleProjectileAttack();
+        attackAction.started += onAttackStarted;
+        attackAction.canceled += onAttackCanceled;
+        attackDistanceAction.performed += onAttackDistancePerformed;
+        statueSpawnAction.performed += onStatueSpawnPerformed;
+    }
 
-        statueSpawnAction.performed += ctx => HandleStatueSpawn();
+    private void OnDisable()
+    {
+        attackAction.started -= onAttackStarted;
+        attackAction.canceled -= onAttackCanceled;
+        attackDistanceAction.performed -= onAttackDistancePerformed;
+        statueSpawnAction.performed -= onStatueSpawnPerformed;
     }
     
     private void HandleProjectileAttack()
