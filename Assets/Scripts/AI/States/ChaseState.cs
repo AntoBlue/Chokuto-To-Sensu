@@ -11,8 +11,7 @@ public class ChaseState : State
     [SerializeField] private float playerEnemyDistanceTolerance = 1f;
 
     [SerializeField] private float runSpeed = 4;
-
-    private Animator animator;
+    
 
     private Vector3 currentDirection;
 
@@ -20,14 +19,13 @@ public class ChaseState : State
 
     private new void Awake()
     {
-        animator = gameObject.GetComponentInChildren<Animator>();
         base.Awake();
     }
 
     public override void OnStateEnter(bool bypassActivationCheck = false)
     {
         base.OnStateEnter(bypassActivationCheck);
-        if (enabled)
+        if (isActiveAndEnabled)
         {
             isExiting = true;
             Invoke(nameof(PrevState), lostSightTime);
@@ -41,42 +39,32 @@ public class ChaseState : State
             currentDirection = Target.transform.position - transform.position;
             currentDirection.y = 0;
 
-            if (!IsGrounded) return;
+            if (!StateController.IsGrounded) return;
 
             float degresAngle = Vector3.Angle(transform.forward, Target.transform.position - transform.position);
 
-            if (degresAngle > StateSettings.Settings.SightDegrees && !IsRotating)
+            if (degresAngle > StateController.Settings.SightDegrees && !IsRotating)
             {
-                StartCoroutine(Rotate(Quaternion.Euler(0, -90 * transform.forward.x, 0)));
+                StateController.StartRotation(Quaternion.Euler(0, -90 * transform.forward.x, 0));
             }
 
             if (!IsRotating)
             {
-                if (CanWalkForward && currentDirection.magnitude > playerEnemyDistanceTolerance)
+                if (StateController.CanWalkForward && currentDirection.magnitude > playerEnemyDistanceTolerance)
                 {
-                    if (targetSpeed != 1f)
-                    {
-                        targetSpeed = 1f;
-                        StopCoroutine(nameof(InterpSpeedTo));
-                        StartCoroutine(InterpSpeedTo(targetSpeed));
-                    }
+                    StateController.InterpSpeedTo(1f);
 
-                    Rb.MovePosition(currentDirection.normalized *
-                        (runSpeed * Time.fixedDeltaTime * _animator.GetFloat("Blend")) + Rb.position);
+                    StateController.Rb.MovePosition(currentDirection.normalized *
+                        (runSpeed * Time.fixedDeltaTime * StateController.Animator.GetFloat("Blend")) + StateController.Rb.position);
                 }
                 else
                 {
-                    if (targetSpeed != 0f)
-                    {
-                        targetSpeed = 0f;
-                        StopCoroutine(nameof(InterpSpeedTo));
-                        StartCoroutine(InterpSpeedTo(targetSpeed));
-                    }
+                    StateController.InterpSpeedTo(0f);
                 }
             }
         }
 
-        if (CanSeePlayer)
+        if (StateController.CanSeePlayer)
         {
             if (isExiting)
             {
@@ -90,7 +78,7 @@ public class ChaseState : State
             Invoke(nameof(PrevState), lostSightTime);
         }
 
-        if (CanAttackPlayer)
+        if (StateController.CanAttackPlayer)
         {
             NextState();
         }

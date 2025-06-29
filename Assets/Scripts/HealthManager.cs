@@ -43,7 +43,6 @@ public class HealthManager : MonoBehaviour
             {
                 ps.Play();
                 Invoke(nameof(Disable), ps.main.duration);
-                Debug.Log(ps.main.duration);
             }
             else
             {

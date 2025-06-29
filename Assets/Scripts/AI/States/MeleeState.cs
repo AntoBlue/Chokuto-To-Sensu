@@ -19,9 +19,9 @@ public class MeleeState : State, I_Attack
     public override void OnStateEnter(bool bypassActivationCheck = false)
     {
         base.OnStateEnter(bypassActivationCheck);
-        if (enabled)
+        if (isActiveAndEnabled)
         {
-            _animator.SetBool("IsAttacking", true);
+            StateController.Animator.SetBool("IsAttacking", true);
             isExiting = true;
             Invoke(nameof(PrevState), lostSightTime);
         }
@@ -31,7 +31,7 @@ public class MeleeState : State, I_Attack
     private void FixedUpdate()
     {
         
-        if (CanAttackPlayer)
+        if (StateController.CanAttackPlayer)
         {
             if (isExiting)
             {
@@ -48,7 +48,7 @@ public class MeleeState : State, I_Attack
 
     public override void OnStateExit()
     {
-        _animator.SetBool("IsAttacking", false);
+        StateController.Animator.SetBool("IsAttacking", false);
         base.OnStateExit();
     }
 

@@ -12,30 +12,29 @@ public class PatrolState : State
     public override void OnStateEnter(bool bypassActivationCheck = false)
     {
         base.OnStateEnter(bypassActivationCheck);
-        if (enabled)
+        if (isActiveAndEnabled)
         {
-            StopCoroutine(nameof(InterpSpeedTo));
-            StartCoroutine(InterpSpeedTo(0.5f));
+            StateController.InterpSpeedTo(0.5f);
         }
     }
 
     private void FixedUpdate()
     {
-        if (!IsGrounded) return;
+        if (!StateController.IsGrounded) return;
 
         if (!IsRotating)
         {
-            if (!CanWalkForward)
+            if (!StateController.CanWalkForward)
             {
-                StartCoroutine(Rotate(Quaternion.Euler(0, -90 * transform.forward.x, 0)));
+                StateController.StartRotation(Quaternion.Euler(0, -90 * transform.forward.x, 0));
             }
             else
             {
-                Rb.MovePosition(StateSettings.direction.normalized * (walkSpeed * Time.fixedDeltaTime * _animator.GetFloat("Blend")) + Rb.position);
+                StateController.Rb.MovePosition(StateController.direction.normalized * (walkSpeed * Time.fixedDeltaTime * StateController.Animator.GetFloat("Blend")) + StateController.Rb.position);
             }
         }
 
-        if (CanSeePlayer)
+        if (StateController.CanSeePlayer)
         {
             NextState();
         }

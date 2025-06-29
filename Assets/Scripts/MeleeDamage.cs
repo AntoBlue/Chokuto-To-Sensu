@@ -17,7 +17,6 @@ public class MeleeDamage : MonoBehaviour
         
         if (other.gameObject != hasOwner.Owner && !hasOwner.Owner.CompareTag(other.gameObject.tag))
         {
-            Debug.Log(other.gameObject.name);
             var health = other.gameObject.GetComponent<HealthManager>();
             if (health != null)
             {

@@ -4,147 +4,26 @@ using AI;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(StateSettings))]
+[RequireComponent(typeof(StateController))]
 public class State : MonoBehaviour
 {
     [SerializeField] private bool startState;
     [SerializeField] protected State prevState;
     [SerializeField] protected State nextState;
 
-    protected Animator _animator;
 
     protected GameObject Target
     {
-        get => StateSettings.Target;
-        set => StateSettings.Target = value;
+        get => StateController.Target;
+        set => StateController.Target = value;
     }
 
-    protected StateSettings StateSettings;
-    protected Rigidbody Rb;
+    protected StateController StateController;
     protected bool IsRotating = false;
-    protected float targetSpeed = 0f;
-
-    protected bool IsGrounded
-    {
-        get
-        {
-            Debug.DrawLine(Rb.position, Rb.position + Vector3.down * (StateSettings.Settings.DepthTestGround * 0.6f),
-                Color.green);
-            return Physics.Raycast(Rb.position, Vector3.down, out RaycastHit hit,
-                StateSettings.Settings.DepthTestGround * 0.6f,
-                (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy")));
-        }
-    }
-
-    protected bool CanSeePlayer
-    {
-        get { return SphereCast(StateSettings.Settings.SightRadius, Color.red); }
-    }
-
-    protected bool CanAttackPlayer
-    {
-        get { return SphereCast(StateSettings.Settings.DamageRadius, Color.yellow); }
-    }
-
-
-    protected bool CanWalkForward
-    {
-        get
-        {
-            Vector3 wallRotation =
-                Quaternion.Euler(0, 0, StateSettings.Settings.WallCheckRotation * transform.forward.x) *
-                transform.forward;
-            Debug.DrawLine(Rb.position, Rb.position + wallRotation * StateSettings.Settings.DepthTestWall,
-                Color.green);
-            if (!Physics.Raycast(Rb.position, wallRotation, out RaycastHit wall,
-                    StateSettings.Settings.DepthTestWall, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy"))))
-            {
-                Vector3 floorRotation =
-                    Quaternion.Euler(0, 0, StateSettings.Settings.FloorCheckRotation * transform.forward.x) *
-                    transform.forward;
-                Debug.DrawLine(Rb.position, Rb.position +
-                                            (floorRotation) * StateSettings.Settings.DepthTestFloor,
-                    Color.green);
-                return Physics.Raycast(Rb.position, (floorRotation), out RaycastHit floor,
-                    StateSettings.Settings.DepthTestFloor, (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Enemy")));
-            }
-
-            return false;
-        }
-    }
-
-    private bool SphereCast(float traceRadius, Color color)
-    {
-        Debug.DrawLine(transform.position - transform.forward * traceRadius,
-            transform.position + transform.forward * traceRadius,
-            color);
-        Collider[] hits = Physics.OverlapSphere(transform.position, traceRadius);
-        Collider hit = hits.FirstOrDefault(hit => hit.gameObject.CompareTag("Player"));
-
-        if (hit)
-        {
-            Vector3 rayDirection = (hit.transform.position - StateSettings.EyeTransform.position).normalized;
-
-            float degresAngle = Vector3.Angle(transform.forward, rayDirection);
-
-            if (degresAngle <= StateSettings.Settings.SightDegrees)
-            {
-                Debug.DrawLine(StateSettings.EyeTransform.position, transform.position + rayDirection * traceRadius,
-                    Color.magenta);
-                if (Physics.Raycast(StateSettings.EyeTransform.position, rayDirection, out RaycastHit playerTest,
-                        traceRadius) && playerTest.collider.CompareTag("Player"))
-                {
-                    Target = hit.gameObject;
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    protected IEnumerator Rotate(Quaternion desiredRotation)
-    {
-        IsRotating = true;
-        Quaternion orgRotation = transform.rotation;
-        float time = 0;
-
-        while (time < StateSettings.Settings.RotationTime)
-        {
-            time += Time.deltaTime;
-
-            transform.rotation =
-                Quaternion.Slerp(orgRotation, desiredRotation,
-                    time / StateSettings.Settings.RotationTime);
-            yield return null;
-        }
-
-        StateSettings.direction.x *= -1;
-
-        transform.rotation = desiredRotation;
-        IsRotating = false;
-    }
-
-    protected IEnumerator InterpSpeedTo(float targetSpeed)
-    {
-        float startSpeed = _animator.GetFloat("Blend");
-        float time = 0;
-        float maxTime = 0.3f;
-        while (time < maxTime)
-        {
-            time += Time.deltaTime;
-
-            _animator.SetFloat("Blend", Mathf.Lerp(startSpeed, targetSpeed, time / maxTime));
-            yield return null;
-        }
-    }
-
-
+    
     protected void Awake()
     {
-        _animator = gameObject.GetComponentInChildren<Animator>();
-        Rb = GetComponent<Rigidbody>();
-        StateSettings = GetComponent<StateSettings>();
+        StateController = GetComponent<StateController>();
 
         if (startState)
         {
