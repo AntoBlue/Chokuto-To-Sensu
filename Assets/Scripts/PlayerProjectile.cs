@@ -53,12 +53,15 @@ public class PlayerProjectile : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        if (hasOwner.Owner != other.gameObject && !hasOwner.Owner.CompareTag(other.gameObject.tag))
+        if (hasOwner.Owner != other.gameObject)
         {
-            var health = other.gameObject.GetComponent<HealthManager>();
-            if (health != null)
+            if(!hasOwner.Owner.CompareTag(other.gameObject.tag))
             {
-                health.TakeDamage(damage);
+                var health = other.gameObject.GetComponent<HealthManager>();
+                if (health != null)
+                {
+                    health.TakeDamage(damage);
+                }
             }
 
             Deactivate();

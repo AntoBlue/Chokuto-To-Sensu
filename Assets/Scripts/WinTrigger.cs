@@ -7,7 +7,13 @@ public class WinTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("WinScene");
+            Invoke(nameof(LoadWinScreen), 1f);
+           
         }
+    }
+
+    private void LoadWinScreen()
+    {
+        SceneManager.LoadScene("WinScene");
     }
 }

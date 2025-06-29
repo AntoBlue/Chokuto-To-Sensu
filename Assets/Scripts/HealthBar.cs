@@ -11,12 +11,13 @@ public class HealthBar : MonoBehaviour
     private float maxHealth;
     private float currentHealth;
 
-    
+    private HealthManager playerHealth;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        maxHealth = Player.GetComponent<HealthManager>().maxHealth;
+        playerHealth = Player.GetComponent<HealthManager>();
+        maxHealth = playerHealth.MaxHealth;
         bar = GetComponent<Image>();
     }
 
@@ -24,7 +25,7 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         //Gestire controllo oppure disattivare e mettere animation
-        currentHealth = Player.GetComponent<HealthManager>().currentHealth;
+        currentHealth = playerHealth.CurrentHealth;
         
         bar.fillAmount = (currentHealth / maxHealth);
     }

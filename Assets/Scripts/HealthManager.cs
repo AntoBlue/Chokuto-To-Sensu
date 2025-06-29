@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,12 +16,17 @@ public class HealthManager : MonoBehaviour
 
     [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
     [SerializeField] ParticleSystem ps;
-    [SerializeField] public float maxHealth = 100;
+    [SerializeField] private float maxHealth = 100;
     private int maxBlinks = 2;
-    public float currentHealth;
+    private float currentHealth;
+
+    public static Action<string> OnDeath;
 
     public float CurrentHealth =>
-        currentHealth; // <-- just added, got some errors on character movement, i don't remember if i broke something lol
+        currentHealth;
+
+    public float MaxHealth =>
+        maxHealth;
 
     private void Start()
     {
@@ -38,13 +44,14 @@ public class HealthManager : MonoBehaviour
             if (flip)
             {
                 blinks += 1;
-               
+
                 skinnedMeshRenderer.material = startMaterial;
             }
             else
             {
                 skinnedMeshRenderer.material = blinkMaterial;
             }
+
             flip = !flip;
 
             yield return new WaitForSeconds(0.1f);
@@ -62,6 +69,7 @@ public class HealthManager : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            OnDeath?.Invoke(gameObject.name);
         }
     }
 
