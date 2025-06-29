@@ -145,29 +145,33 @@ public class PlayerAttack : MonoBehaviour
         if (!pressingMelee || cooldown) return;
         
         
-        GameObject attackObject;
         if (chargeTimer >= chargeTime)
         {
-           attackObject = ChargeMeleeAttack;
            animator.SetTrigger("Heavy"); // animazione attacco pesante
            audioSource.PlayOneShot(chargeClip, 1f);
            animator.SetBool("FullCharged", false);
         }
         else
         {
-           attackObject = MeleeAttack;
            animator.SetTrigger("Melee"); // animazione attacco normale
            audioSource.PlayOneShot(meleeClip, 1f);
+           MeleeAttack.SetActive(true);
+           Invoke(nameof(DeactivateMelee), 0.3f);
         }
         
-        attackObject.SetActive(true);
-        Invoke(nameof(DeactivateMelee), 0.3f);
 
         pressingMelee = false;
         chargeTimer = 0f;
 
         cooldown = true;
         Invoke(nameof(EndCooldown), meleeCooldown);
+    }
+
+    //Called by Animator Event
+    private void HeavyAttackEvent()
+    {
+        ChargeMeleeAttack.SetActive(true);
+        Invoke(nameof(DeactivateMelee), 0.2f);
     }
 
     private void HandleStatueSpawn()

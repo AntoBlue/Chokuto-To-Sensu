@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +10,13 @@ public class HealthManager : MonoBehaviour
 
     // this class is designed to manage every living entity ( player / enemies in this case )
 
+    private Material startMaterial;
+    [SerializeField] private Material blinkMaterial;
+
+    [SerializeField] SkinnedMeshRenderer skinnedMeshRenderer;
     [SerializeField] ParticleSystem ps;
     [SerializeField] public float maxHealth = 100;
+    private int maxBlinks = 2;
     public float currentHealth;
 
     public float CurrentHealth =>
@@ -18,13 +24,41 @@ public class HealthManager : MonoBehaviour
 
     private void Start()
     {
+        startMaterial = skinnedMeshRenderer.material;
         currentHealth = maxHealth;
+    }
+
+    IEnumerator Blink()
+    {
+        float blinks = 0;
+        bool flip = false;
+
+        while (blinks < maxBlinks)
+        {
+            if (flip)
+            {
+                blinks += 1;
+               
+                skinnedMeshRenderer.material = startMaterial;
+            }
+            else
+            {
+                skinnedMeshRenderer.material = blinkMaterial;
+            }
+            flip = !flip;
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        skinnedMeshRenderer.material = startMaterial;
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
 
+        StopCoroutine(Blink());
+        StartCoroutine(Blink());
         if (currentHealth <= 0)
         {
             Die();

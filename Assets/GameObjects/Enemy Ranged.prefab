@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eyeTransform: {fileID: 266974860698506483}
   settings: {fileID: 11400000, guid: 9f9baefebb9454d4a886255b9a5be01a, type: 2}
+  target: {fileID: 0}
   direction: {x: -1, y: 0, z: 0}
 --- !u!114 &4657399346280381037
 MonoBehaviour:
@@ -149,8 +150,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5f43eabefee46539bd8c0fceeb996f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blinkMaterial: {fileID: 2100000, guid: e99a057d1a523094aaa2537fa8be8c7a, type: 2}
+  skinnedMeshRenderer: {fileID: 79872046666433011}
   ps: {fileID: 2658969329999325940}
   maxHealth: 100
+  blinkMaxTime: 2
+  blinkSeconds: 1
   currentHealth: 0
 --- !u!136 &3622759585410425456
 CapsuleCollider:
@@ -611,6 +616,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 525403466905852423}
   m_SourcePrefab: {fileID: 100100000, guid: 278fbc8682262ca4fa2ece1a816e7f66, type: 3}
+--- !u!137 &79872046666433011 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13744328, guid: 278fbc8682262ca4fa2ece1a816e7f66, type: 3}
+  m_PrefabInstance: {fileID: 79872046680045883}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &79872046680121895 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 187164, guid: 278fbc8682262ca4fa2ece1a816e7f66, type: 3}
