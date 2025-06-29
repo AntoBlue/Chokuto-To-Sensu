@@ -65,7 +65,6 @@ public class RangedState : State, I_Attack
             bullet.SetActive(true);
             PlayerProjectile player = bullet.GetComponent<PlayerProjectile>();
             HasOwner owner = bullet.GetComponent<HasOwner>();
-            Debug.Log(Target.transform.position.x - transform.position.x);
             owner.Owner = gameObject;
             player.Activate(Mathf.Sign(Target.transform.position.x - transform.position.x));
         }

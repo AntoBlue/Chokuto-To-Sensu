@@ -7,30 +7,20 @@ using UnityEngine.AI;
 public class PlayerProjectile : MonoBehaviour
 {
     
-    [SerializeField] private float life = 3;
+    private float life = 2;
     [SerializeField] private float _speed;
     [SerializeField] private int damage;
     [SerializeField] private int rotationSpeed;
-    [SerializeField] GameObject Player;
     [SerializeField] Rigidbody rb;
 
     private Vector3 direction;
-    float lastHorizontal;
-
-    private Quaternion playerDirection;
-
+    
     private HasOwner hasOwner;
     void Awake()
     {
         hasOwner = GetComponent<HasOwner>();
     }
-
-    //private int bulletDirection;
-    public void Configure(float speed)
-    {
-        _speed = speed;
-    }
-
+    
     //de-spawn projectile when needed
     void Deactivate()
     {
@@ -60,12 +50,26 @@ public class PlayerProjectile : MonoBehaviour
             Deactivate();
         }
     }
+    
+    void OnTriggerEnter(Collider other)
+    {
+        if (hasOwner.Owner != other.gameObject && !hasOwner.Owner.CompareTag(other.gameObject.tag))
+        {
+            var health = other.gameObject.GetComponent<HealthManager>();
+            if (health != null)
+            {
+                health.TakeDamage(damage);
+            }
+
+            Deactivate();
+        }
+    }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //rotation animation
-        rb.MovePosition(transform.position + direction * (_speed * Time.deltaTime));
-        transform.Rotate(rotationSpeed, 0, 0 * Time.deltaTime);
+        rb.MovePosition(transform.position + direction * (_speed * Time.fixedDeltaTime));
+        transform.Rotate(rotationSpeed, 0, 0 * Time.fixedDeltaTime);
     }
 }
