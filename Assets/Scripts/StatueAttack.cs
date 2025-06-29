@@ -40,7 +40,7 @@ public class StatueAttack : MonoBehaviour
         {
             Color fade = transparency.color;
 
-            fade.a -= Time.deltaTime * 0.5f;
+            fade.a -= Time.deltaTime;
             
             if (fade.a <= 0)
             {

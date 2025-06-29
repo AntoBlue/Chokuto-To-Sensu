@@ -15,14 +15,14 @@ MonoBehaviour:
   rotationTime: 0.2
   sightDegrees: 90
   sightRadius: 10
-  damageRadius: 5
+  damageRadius: 3
   depthTestWall: 1
   wallCheckRotation: -25
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  depthTestFloor: 1.6
-  depthTestGround: 2
+  depthTestFloor: 3
+  depthTestGround: 4
   groundFloorLayer:
     serializedVersion: 2
     m_Bits: 8
