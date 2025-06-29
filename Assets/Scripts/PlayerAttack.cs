@@ -123,30 +123,10 @@ public class PlayerAttack : MonoBehaviour
             bullet.GetComponent<HasOwner>().Owner = gameObject;
             bullet.transform.position = projectileSpawnPoint.position;
             bullet.SetActive(true);
-            //bullet.GetComponent<PlayerProjectile>().Activate(gameObject, facingRight ? 1 : -1);
-            //Vector3 shootDirection = facingRight ? Vector3.right : Vector3.left;
-            
-            //Vector3 shootDirection = transform.forward;
-            //shootDirection.y = 0;
-            //shootDirection.Normalize();
-            //float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
-            //bullet.GetComponent<Rigidbody>().linearVelocity = shootDirection * speed;
-
             
             bool isFacingRight = characterMovement.IsFacingRight;
             bullet.GetComponent<PlayerProjectile>().Activate(isFacingRight ? 1 : -1);
-            Vector3 shootDirection = isFacingRight ? Vector3.right : Vector3.left;
-            float speed = HasUpgradeProjectile ? UpgradeProjectileSpeed : ProjectileSpeed;
-
-            // Calculate final velocity without factors
-            Vector3 finalVelocity = shootDirection * speed;
-
-            // Add the factor to the player velocity to apply it on bullet 
-            Vector3 playerVelocity = GetComponent<Rigidbody>().linearVelocity;
-            finalVelocity.y += playerVelocity.y * verticalInertiaFactor;
-
-            //velocity on bullet
-            bullet.GetComponent<Rigidbody>().linearVelocity = finalVelocity;
+            
             cooldown = true;
             Invoke(nameof(EndCooldown), distanceAttackCooldown);
         }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3684483461483578664}
   - component: {fileID: -3496331229028509602}
   - component: {fileID: -2107341255597169429}
+  - component: {fileID: 7632348389005304233}
   m_Layer: 6
   m_Name: Projectile
   m_TagString: Projectile
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 3
-  _speed: 65
+  _speed: 30
   damage: 10
   rotationSpeed: 2
   Player: {fileID: 6935803791173978440, guid: 2ed474e1733539c478102d1f9040b3a5, type: 3}
@@ -178,3 +179,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 8ceced44a9006d84caf8e9b647143dd3, type: 3}
+--- !u!114 &7632348389005304233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425634403186359270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50d185ae5a54054914642ab2aa66a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 0}

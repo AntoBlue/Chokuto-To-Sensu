@@ -67,10 +67,5 @@ public class PlayerProjectile : MonoBehaviour
         //rotation animation
         rb.MovePosition(transform.position + direction * (_speed * Time.deltaTime));
         transform.Rotate(rotationSpeed, 0, 0 * Time.deltaTime);
-
-        if(!hasOwner.Owner.activeSelf == false)
-        { 
-            Deactivate();
-        }
     }
 }
