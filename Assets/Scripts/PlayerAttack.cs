@@ -16,8 +16,6 @@ public class PlayerAttack : MonoBehaviour
 
     private float ProjectileSpeed;
     private float UpgradeProjectileSpeed;
-    [SerializeField] [Range(0f, 1f)] private float verticalInertiaFactor = 0.4f;
-
 
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private Transform statueSpawnPoint;

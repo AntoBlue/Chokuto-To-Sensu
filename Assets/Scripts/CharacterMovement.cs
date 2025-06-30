@@ -100,8 +100,6 @@ public class CharacterMovement : MonoBehaviour
             //Debug.Log($"isGrounded");
         }
         
-        Debug.Log($"Center: {centerHit} Left: {leftHit} Right: {rightHit}");
-        
         
         Debug.DrawRay(originLeft, Vector3.down * groundCheckDistance, leftHit ? Color.green : Color.yellow);
         Debug.DrawRay(originRight, Vector3.down * groundCheckDistance, rightHit ? Color.blue : Color.yellow);
