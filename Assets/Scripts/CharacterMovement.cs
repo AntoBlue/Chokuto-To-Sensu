@@ -260,7 +260,11 @@ public class CharacterMovement : MonoBehaviour
             {
                 hasJumped = true;
             }
-            
+
+            if ((coyoteTimer > 0f && (int)jumpMode > 1 && !hasJumped))
+            {
+                jumpsRemaining++;//fast fix
+            }
         }
         
         // horizontal movement
