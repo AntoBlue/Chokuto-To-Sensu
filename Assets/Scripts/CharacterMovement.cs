@@ -47,6 +47,7 @@ public class CharacterMovement : MonoBehaviour
     //Coyote time
     [SerializeField] private float coyoteTime = 0.15f; 
     private float coyoteTimer = 0f;
+    private bool hasJumped = false;
     
     //double jump less strong
     [SerializeField] private float airJumpForceMultiplier = 0.8f;
@@ -74,7 +75,11 @@ public class CharacterMovement : MonoBehaviour
     private float fallingTimer;
     private bool isFalling = false;
 
-
+    private bool HasAlreadyJumped()
+    {
+        return jumpsRemaining < (int)jumpMode - 1;
+    }
+    
     public void setDoubleJump()
     {
         jumpMode = JumpMode.DoubleJump;
@@ -227,16 +232,17 @@ public class CharacterMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             jumpBufferCounter = 0f; // reset dopo il salto
         }*/
+        
 
         // Countdown del buffer
         if (jumpBufferCounter > 0f)
             jumpBufferCounter -= Time.fixedDeltaTime;
 
-
+        
         // Chek if jump
         //bool canJump = coyoteTimer > 0f || jumpsRemaining > 0;
         //bool canJump = (isGrounded || coyoteTimer > 0f) && (int)jumpMode > 0 || jumpsRemaining > 0;
-        bool canJump = isGrounded || jumpsRemaining > 0 || (coyoteTimer > 0f && (int)jumpMode > 1);
+        bool canJump = isGrounded || jumpsRemaining > 0 || (coyoteTimer > 0f && (int)jumpMode > 0 && !hasJumped);
 
         if (jumpBufferCounter > 0f && canJump)
         {
@@ -248,7 +254,13 @@ public class CharacterMovement : MonoBehaviour
             {
                 jumpsRemaining--;
                 jumpsRemaining = Mathf.Max(0, jumpsRemaining);
+                
             }
+            else
+            {
+                hasJumped = true;
+            }
+            
         }
         
         // horizontal movement
@@ -262,13 +274,12 @@ public class CharacterMovement : MonoBehaviour
 
         if (isChangingDirection)
         {
-            // Applica rallentamento durante cambio direzione
-            // tra 0 e 1, più basso = più lento
+            // slowed movement at flip
             velocity.x = Mathf.Lerp(rb.linearVelocity.x, horizontalInput * currentSpeed, decelerationFactor);
         }
         else
         {
-            // Movimento normale
+            // regular movement
             velocity.x = horizontalInput * currentSpeed;
         }
         previousHorizontalInput = horizontalInput;
@@ -283,6 +294,7 @@ public class CharacterMovement : MonoBehaviour
         {
             coyoteTimer = coyoteTime;
             jumpsRemaining = (int)jumpMode - 1;
+            hasJumped = false;
         }
         else if (!isGrounded)
         {
